@@ -1,0 +1,140 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+command=/usr/lib/i3blocks/$BLOCK_NAME
+separator_block_width=20
+markup=none
+
+
+# Display any packages to install
+[packages]
+command=echo "📦 $(yay -Qu | wc -l)"
+separator=true
+interval=1800
+signal=3
+
+## Weather
+[weather]
+command=~/.config/i3blocks/i3weather
+interval=900
+
+# Network Speed
+#
+# Displays the current network speed
+#[network_speed]
+#interval=900
+#command=~/.config/i3blocks/i3speedtest
+
+## Wifi connectivity level
+#[wifi]
+#command=echo "📡 $(~/.config/i3blocks/i3wifi wlp0s20f3)"
+#interval=5
+
+
+# Displays details about the torrents in transmission
+#[torrent]
+#command=~/.config/i3blocks/i3torrents
+#interval=once
+#signal=2
+
+# Memory usage
+#
+# The type defaults to "mem" if the instance is not specified.
+[memory]
+separator=false
+interval=1
+command=echo "MEM: $(~/.config/i3blocks/i3memory)"
+
+# Disk usage
+#
+# The directory defaults to $HOME if the instance is not specified.
+# The script may be called with a optional argument to set the alert
+# (defaults to 10 for 10%).
+[disk]
+interval=30
+command=echo "HOME: $(~/.config/i3blocks/i3disk)"
+
+
+# CPU usage
+#
+# The script may be called with -w and -c switches to specify thresholds,
+# see the script for details.
+[cpu_usage]
+command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
+interval=1
+separator=false
+
+[temp]
+command=echo "T: $(~/.config/i3blocks/i3temp)"
+interval=1
+seperator=true
+
+#[uptime]
+#command=echo "UPT: $(~/.config/i3blocks/i3uptime)"
+#separator=true
+#interval=60
+
+# Volume indicator
+#
+# Displays both the master and the headphone volume
+[volume]
+command=~/.config/i3blocks/i3volume
+interval=1
+signal=1
+
+# Backlight Level
+[light]
+command=echo "☀️️ $(light -G)%"
+interval=1
+signal=4
+
+# Battery indicator
+#
+# The battery instance defaults to 0.
+[battery]
+command=~/.config/i3blocks/i3battery
+interval=1
+
+# Date Time
+[time]
+command=date '+ %V   %d-%m-%Y   %H:%M:%S  '
+interval=1
+
+# Key indicators
+#
+# Add the following bindings to i3 config file:
+#
+# bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+# bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+#[keyindicator]
+#instance=CAPS
+#interval=once
+#signal=11
+
+#[keyindicator]
+#instance=NUM
+#interval=once
+#signal=11

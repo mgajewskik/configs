@@ -1,0 +1,51 @@
+#!/bin/sh
+# i3block for displaying the current master and headphone volume
+
+master=$(amixer get Master | grep "Front Left:" | awk '{print $4 " " $6}' | sed 's/\[//g;s/\]//g')
+master_value=$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+capture=$(amixer get Capture | grep "Front Left:" | awk '{print $4 " " $6}' | sed 's/\[//g;s/\]//g')
+capture_value=$(amixer get Capture | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
+
+#headphone=$(amixer get Headphone | grep Right: | awk '{print $5 " " $7}' | sed 's/\[//g;s/\]//g')
+#speaker=$(amixer get Speaker | grep Right: | awk '{print $5 " " $7}' | sed 's/\[//g;s/\]//g')
+#echo $speaker
+
+printf "🔊 "
+
+if [ "$(echo $master | awk '{print $2}')" == "on" ]; then
+    echo -n "$(echo $master_value)"
+else
+    echo -n "off"
+fi
+
+printf "  "
+
+if [ "$(echo $capture | awk '{print $2}')" == "on" ]; then
+    echo -n "$(echo $capture_value)"
+else
+    echo -n "off"
+fi
+
+#if [ "$(echo $master | awk '{print $2}')" == "on" ]; then
+    #echo -n "$(echo $master | awk '{print $1}')"
+#else
+    #echo -n "mute"
+#fi
+
+#printf " 🎧 "
+
+#if [ "$(echo $headphone | awk '{print $2}')" == "on" ]; then
+    #echo -n "$(echo $headphone | awk '{print $1}')"
+#else
+    #echo -n "mute"
+#fi
+
+#printf " 📻 "
+
+#if [ "$(echo $speaker | awk '{print $2}')" == "on" ]; then
+    #echo -n "$(echo $speaker | awk '{print $1}')"
+#else
+    #echo -n "mute"
+#fi
+
+printf "\n"

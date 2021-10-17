@@ -1,0 +1,125 @@
+## Starship command prompt configuration file. Colour choice and over-use of emoji
+## is to help blend in with Ubuntu MATE default theme, Ambiant-Mate.
+
+## disable starship from forcing a new line to be taken. Solved the empty line
+## at start of terminal
+add_newline = false
+
+#format = """
+#$username$hostname$directory$python$golang$git_branch$git_status$cmd_duration$character
+#"""
+
+[line_break]
+disabled = true
+
+# Replace the "❯" symbol in the prompt with "➟"
+[character]      # The name of the module we are configuring is "character"
+#use_symbol_for_status = true
+#symbol = "  ➟"     # The "symbol" segment is being set to "➜"
+#symbol = "[λ](bold green)"     # The "symbol" segment is being set to "➜"
+#success_symbol = "[➜ ](bold green)"     # The "symbol" segment is being set to "➜"
+success_symbol = "[➜ ](bold #92E920)"     # The "symbol" segment is being set to "➜"
+error_symbol = "[✗ ](bold red) "
+#style_success = "bold #00A652"
+#style_failure = "bold #df382c"
+
+[status]
+disabled = true
+format = '[\[$status - $common_meaning\]](green)'
+
+[username]
+style_user = "bold dimmed blue"
+show_always = false
+
+# shows the hostname on new lines
+[hostname]
+ssh_only = true
+format = "💻️ $hostname($style) "
+#trim_at = ".companyname.com"
+trim_at = "-"
+disabled = false
+#style = "bold italic #87A752"
+style = "bold #87A752"
+
+[cmd_duration]
+min_time = 1000
+#format = "⏲️ [$duration]($style)"
+format = "🕙 [$duration]($style)"
+style = "bold italic #87A752"
+
+[directory]
+truncation_length = 10
+truncate_to_repo = true # truncates directory to root folder if in github repo
+format = "[$path]($style) [$read_only]($read_only_style)"
+style = "bold #89CFF0"
+
+[env_var]
+variable = "0"
+
+[git_branch]
+format = " [$symbol$branch]($style) "
+symbol = " "
+style = "bold yellow"
+
+[git_commit]
+commit_hash_length = 8
+style = "bold white"
+
+#[git_state]
+#format = '[\($state( $progress_current of $progress_total)\)]($style) '
+
+#[git_status]
+#conflicted = "⚔️ "
+#ahead = "🏎️ 💨 ×${count}"
+#behind = "🐢 ×${count}"
+#diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
+#untracked = "🛤️  ×${count}"
+#stashed = "📦 "
+#modified = "📝 ×${count}"
+#staged = "+ ×${count}"
+#renamed = "📛 ×${count}"
+#deleted = "🗑️  ×${count}"
+#style = "bright-white"
+#format = "$all_status$ahead_behind"
+
+[git_status]
+untracked = ""
+modified = '*'
+staged = '[+ ×${count}](green)'
+ahead = "⇡×${count}"
+diverged = "⇕×⇡${ahead_count}⇣${behind_count}"
+behind = "⇣×${count}"
+#format = '([\[$conflicted$deleted$renamed$modified$staged$behind\]]($style) )'
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[package]
+disabled = true
+
+[python]
+symbol = " "
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+#format = "[$symbol$version]($style) "
+style = "bold green"
+
+[golang]
+symbol = "ﳑ "
+format = "via [$symbol$version](bold cyan) "
+
+[terraform]
+#format = "[ 🏎 $version$workspace]($style) "
+format = "[T:$version$workspace]($style) "
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold blue"
+symbol = "🅰 "
+[aws.region_aliases]
+ap-southeast-2 = "au"
+us-east-1 = "va"
+
+#[time]
+#time_format = "%T"
+#format = "🕙 $time($style) "
+#style = "bright-white"
+#disabled = false
+

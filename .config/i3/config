@@ -1,0 +1,318 @@
+# #---Basic setup---# #
+smart_gaps on
+smart_borders on
+
+set $mod Mod4
+set $alt Mod1
+set $exec exec --no-startup-id
+set $exec_always exec_always --no-startup-id
+set $term exec --no-startup-id alacritty
+set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/Wallpapers/firewatch_6.jpg && notify-send 'wallpaper reset'
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+
+# #---Gaps---# #
+for_window [class="^.*"] border pixel 2
+gaps inner 0
+gaps outer 0
+
+
+# #---Autostart---# #
+$exec_always $wallpaper_reset
+$exec_always systemctl --user start greenclip.service
+$exec_always "sudo /home/mgajewskik/bin/set-thermals.sh && notify-send 'Thermals set'"
+#$exec_always picom --config ~/.config/picom.conf
+
+$exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1
+$exec xinput set-prop "Synaptics TM3418-002" "libinput Accel Speed" 0.5
+$exec xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Accel Speed" 1
+$exec xinput set-prop "Synaptics TM3418-002" "libinput Natural Scrolling Enabled" 1
+$exec xinput set-prop "Synaptics TM3418-002" "libinput Tapping Enabled" 1
+$exec /usr/bin/setxkbmap -option "ctrl:nocaps"
+$exec setxkbmap pl
+$exec xset -b
+
+$exec dunst
+$exec udiskie --tray
+$exec nm-applet
+$exec blueman-applet
+$exec megasync
+$exec pcloud
+$exec gpclient
+$exec dropbox
+
+
+# #---Special Keybindings---# #
+bindsym Print exec flameshot gui
+
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec "brightnessctl -d 'intel_backlight' set +10%; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "brightnessctl -d 'intel_backlight' set 10%-; notify-send 'brightness down'"
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status && notify-send 'volume 10% up'
+bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status && notify-send 'volume 10% down'
+bindsym XF86AudioMute $exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status && notify-send 'volume mute'
+bindsym XF86AudioMicMute $exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status && notify-send 'microphone mute'
+
+
+# #---Bindings---# #
+bindsym $mod+Return 		         $term
+bindsym $mod+Tab 			         $exec rofi -show combi
+bindsym $mod+c 			             $exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+bindsym $mod+Shift+r restart
+bindsym $mod+q			            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+Shift+q		        [con_id="__focused__" instance="^(?!dropdown_).*$"] $exec kill -9 `xdotool getwindowfocus getwindowpid`
+
+bindsym $mod+n                      $exec dunstctl set-paused toggle
+bindsym $mod+w                      $exec pavucontrol
+bindsym $mod+e 			            $exec nautilus
+bindsym $mod+p 			            $exec bitwarden-desktop
+bindsym $mod+x 			            $exec obsidian
+
+# h
+bindsym $mod+h			            focus left
+bindsym $mod+Shift+h		        move left
+bindsym $mod+Ctrl+h		            move workspace to output left
+
+# j
+bindsym $mod+j			            focus down
+bindsym $mod+Shift+j		        move down
+bindsym $mod+Ctrl+j		            move workspace to output down
+
+# k
+bindsym $mod+k			            focus up
+bindsym $mod+Shift+k		        move up
+bindsym $mod+Ctrl+k		            move workspace to output up
+
+# l
+bindsym $mod+l			            focus right
+bindsym $mod+Shift+l		        move right
+bindsym $mod+Ctrl+l		            move workspace to output right
+
+
+# split in horizontal orientation
+bindsym $mod+i split h
+
+# split in vertical orientation
+bindsym $mod+o split v
+
+# change container layout (stacked, tabbed, toggle split)
+#bindsym $mod+s layout stacking
+bindsym $mod+a layout tabbed
+bindsym $mod+d layout toggle split
+
+bindsym $mod+Shift+s move scratchpad
+bindsym $mod+s scratchpad show
+#bindsym mod4+s [title="^Sup ::"] scratchpad show
+
+# toggle fullscreen
+bindsym $mod+f			            fullscreen toggle
+# toggle tiling / floating
+bindsym $mod+Shift+f 	            floating toggle
+#bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+#bindsym $mod+space focus mode_toggle
+
+
+# #---Workspaces---# #
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+
+# Assign Workspaces:
+#assign [class="Brave"] $ws1
+#assign [class="Chromium"] $ws2
+#assign [class="discord"] $ws8
+#for_window [class="Spotify"] move to workspace $ws9
+#assign [class="obs"] $ws10
+
+## Assing autofloat
+# check window title and class with xprop
+for_window [window_role="pop-up"] floating enable
+for_window [instance="file_progress"] floating enable
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [class="Lightdm-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Skype"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="MEGAsync"] floating enable border pixel 1
+
+ # switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+
+bindsym $alt+1 workspace number $ws11
+bindsym $alt+2 workspace number $ws12
+bindsym $alt+3 workspace number $ws13
+bindsym $alt+4 workspace number $ws14
+bindsym $alt+5 workspace number $ws15
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+
+bindsym $alt+Shift+1 move container to workspace number $ws11
+bindsym $alt+Shift+2 move container to workspace number $ws12
+bindsym $alt+Shift+3 move container to workspace number $ws13
+bindsym $alt+Shift+4 move container to workspace number $ws14
+bindsym $alt+Shift+5 move container to workspace number $ws15
+
+
+# #---Chained Commands---# #
+# resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym l resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym j resize shrink height 5 px or 5 ppt
+        bindsym h resize grow width 5 px or 5 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Right resize shrink width 10 px or 10 ppt
+        bindsym Up resize grow height 10 px or 10 ppt
+        bindsym Down resize shrink height 10 px or 10 ppt
+        bindsym Left resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+b mode "$mode_blue"
+set $mode_blue (d)own, (u)p, (r)estart
+mode "$mode_blue" {
+    bindsym u $exec blugon --setcurrent="+600", mode "default"
+    bindsym d $exec blugon --setcurrent="-600", mode "default"
+    bindsym r $exec systemctl --user restart blugon.service, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Set shut down, restart and locking features
+bindsym $mod+Escape mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l $exec i3exit lock, mode "default"
+    bindsym s $exec i3exit suspend, mode "default"
+    bindsym u $exec i3exit switch_user, mode "default"
+    bindsym e $exec i3exit logout, mode "default"
+    bindsym h $exec i3exit hibernate, mode "default"
+    bindsym r $exec i3exit reboot, mode "default"
+    bindsym Shift+s $exec i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+## Manual management of external displays
+bindsym $mod+m mode "$mode_display"
+set $mode_display Choose monitor connection: (s)ingle, (i)ntegrated, (h)ybrid-dell, (n)vidia-dell, (p)rojector, (w)allpaper
+mode "$mode_display" {
+    #bindsym s $exec xrandr --auto --output eDP-1-1 --primary && notify-send 'Single monitor configured', mode "default"
+    bindsym s $exec xrandr --auto --output eDP-1 --primary && notify-send 'Single monitor configured' && $wallpaper_reset, mode "default"
+    bindsym i $exec xrandr && xrandr --auto --output DP-1-2 --primary --mode 3440x1440 --above eDP-1 && notify-send 'Dell output for integrated configured' && $wallpaper_reset, mode "default"
+    bindsym h $exec xrandr --auto --output DP-1-1 --primary --mode 3440x1440 --above eDP-1 && notify-send 'Dell output for hybrid configured' && $wallpaper_reset, mode "default"
+    bindsym n $exec xrandr --auto --output DP-1 --primary --mode 3440x1440 --above eDP-1-1 && notify-send 'Dell output for nvidia configured' && $wallpaper_reset, mode "default"
+    bindsym p $exec xrandr --auto --output HDMI-1-1 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
+    #bindsym p $exec xrandr --auto --output DP-0 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'DP projector configured' && $wallpaper_reset, mode "default"
+    bindsym w $exec $wallpaper_reset
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+## Manual management of graphic modes
+bindsym $mod+g mode "$mode_graphics"
+set $mode_graphics Choose graphics: (i)ntegrated, (h)ybrid, (n)vidia
+mode "$mode_graphics" {
+    bindsym i $exec optimus-manager --switch integrated --no-confirm, mode "default"
+    bindsym h $exec optimus-manager --switch hybrid --no-confirm, mode "default"
+    bindsym n $exec optimus-manager --switch nvidia --no-confirm, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+	i3bar_command i3bar
+    status_command i3blocks
+	position top
+
+## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+    tray_output primary
+    tray_output eDP-1-1
+    #xrandr --output DP-1 --primary
+
+	bindsym button4 nop
+	bindsym button5 nop
+    font pango:Fira Code Nerd Font 11
+	strip_workspace_numbers yes
+
+    colors {
+        #background #222D31
+        background  #383c4a
+        statusline  #F9FAF9
+        separator   #4b5162
+
+#                      border  backgr. text
+        #focused_workspace  #F9FAF9 #16a085 #292F34
+        focused_workspace   #383c4a #5294e2 #383c4a
+        active_workspace   #595B5B #353836 #FDF6E3
+        inactive_workspace #595B5B #222D31 #EEE8D5
+        binding_mode       #16a085 #2C2C2C #F9FAF9
+        urgent_workspace   #16a085 #FDF6E3 #E5201D
+    }
+}
+
+
+# Window borders
+client.focused          #5294e2 #285577 #ffffff #2e9ef4   #5294e2
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #4b5162
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+client.background       #ffffff
+
+
+# leftover, when executed earlier it gets overwritten
+$exec /usr/bin/setxkbmap -option "ctrl:nocaps"
