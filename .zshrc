@@ -184,8 +184,10 @@ alias s76=system76-power
 alias om=optimus-manager
 alias weather='curl wttr.in'
 alias clp="greenclip print | sed '/^$/d' | fzf -e | xargs -r -d'\n' -I '{}' greenclip print '{}'"
-alias yay_clean="yay -Rsn $(yay -Qdtq)"
+alias cleanup="yay -Rsn $(yay -Qdtq)"
 alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9999999'
+alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
+alias muteoff="brightnessctl -d 'platform::mute' set 0"
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -197,7 +199,6 @@ alias tkss='tmux kill-session -t'
 alias vpn='cd $HOME/MEGA/brytlyt/openvpn && sudo openvpn --config mgajewskik.brytlyt.com.ovpn --auth-user-pass'
 alias localaws='docker run -d -e "SERVICES=s3,dynamodb" -p 4566-4599:4566-4599 localstack/localstack:0.12.6'
 alias completeaws="complete -C '/usr/bin/aws_completer' aws"
-alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 
 #alias poetry=$HOME/.poetry/bin/poetry
 

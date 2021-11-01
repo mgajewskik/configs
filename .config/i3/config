@@ -45,6 +45,10 @@ $exec dropbox
 
 
 # #---Special Keybindings---# #
+
+set $mute_on brightnessctl -d 'platform::mute' set 0
+set $mute_off brightnessctl -d 'platform::mute' set 1
+
 bindsym Print exec flameshot gui
 
 # Screen brightness controls
@@ -241,15 +245,18 @@ mode "$mode_system" {
 
 ## Manual management of external displays
 bindsym $mod+m mode "$mode_display"
-set $mode_display Choose monitor connection: (s)ingle, (i)ntegrated, (h)ybrid-dell, (n)vidia-dell, (p)rojector, (w)allpaper
+set $mode_display Choose monitor connection: (s)ingle, (i)ntegrated, (h)ybrid-dell, (n)vidia-dell, (p)rojector, (w)allpaper, ThinkVision-(r)ight, ThinkVision-(l)eft, (a)ll
 mode "$mode_display" {
     #bindsym s $exec xrandr --auto --output eDP-1-1 --primary && notify-send 'Single monitor configured', mode "default"
     bindsym s $exec xrandr --auto --output eDP-1 --primary && notify-send 'Single monitor configured' && $wallpaper_reset, mode "default"
     bindsym i $exec xrandr && xrandr --auto --output DP-1-2 --primary --mode 3440x1440 --above eDP-1 && notify-send 'Dell output for integrated configured' && $wallpaper_reset, mode "default"
     bindsym h $exec xrandr --auto --output DP-1-1 --primary --mode 3440x1440 --above eDP-1 && notify-send 'Dell output for hybrid configured' && $wallpaper_reset, mode "default"
     bindsym n $exec xrandr --auto --output DP-1 --primary --mode 3440x1440 --above eDP-1-1 && notify-send 'Dell output for nvidia configured' && $wallpaper_reset, mode "default"
-    bindsym p $exec xrandr --auto --output HDMI-1-1 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
+    bindsym p $exec xrandr --auto --output DP-1 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
     #bindsym p $exec xrandr --auto --output DP-0 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'DP projector configured' && $wallpaper_reset, mode "default"
+    bindsym r $exec xrandr --auto --output eDP-1 --primary --left-of DP-1-2 && notify-send 'ThinkVision configured on the right side' && $wallpaper_reset, mode "default"
+    bindsym l $exec xrandr --auto --output eDP-1 --primary --right-of DP-1-2 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
+    bindsym a $exec xrandr --output DP-1-2 --primary --auto --above eDP-1 --output DP-1-1 --auto --right-of eDP-1 && notify-send 'ThinkVision and Dell configured in integrated mode' && $wallpaper_reset, mode "default"
     bindsym w $exec $wallpaper_reset
 
     # back to normal: Enter or Escape

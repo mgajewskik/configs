@@ -6,7 +6,7 @@ set reverse!
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
-set icons
+/*set icons*/
 set ignorecase true
 set hidden true
 set drawbox true
