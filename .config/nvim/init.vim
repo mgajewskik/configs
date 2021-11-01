@@ -71,7 +71,8 @@ autocmd FileType * lua require'colorizer'.setup()
 " List of plugins to install with Plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'nvim-lua/completion-nvim'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'glepnir/lspsaga.nvim'
@@ -103,7 +104,7 @@ Plug 'p00f/nvim-ts-rainbow'
 Plug 'kosayoda/nvim-lightbulb'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'hashivim/vim-terraform'
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+"Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'ptzz/lf.vim'
 Plug 'voldikss/vim-floaterm'
 
@@ -120,6 +121,7 @@ set noshowmode
 colorscheme gruvbox8
 "set background=dark
 
+let g:coq_settings = { 'auto_start': v:true }
 lua require('lsp')
 lua require('treesitter')
 lua require('init')
@@ -140,8 +142,6 @@ autocmd BufRead,BufNewFile *.csv set filetype=csv_pipe
 autocmd Filetype gitcommit setlocal spell textwidth=72
 "autocmd! bufwritepost init.vim source % " automatic vimrc file reload
 autocmd FileType json syntax match Comment +\/\/.\+$+
-autocmd BufEnter * lua require'completion'.on_attach()
-autocmd BufEnter * CompletionToggle
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 "vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 "autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync()

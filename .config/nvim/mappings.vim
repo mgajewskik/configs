@@ -66,6 +66,8 @@ nnoremap <Leader>- :vertical resize -16<CR>
 " select in visual mode and move whole block with J and K
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+" search for visual selection
+vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 " remove highlight of the search
 nnoremap <leader>/ :noh<CR>
 " copy / paste to the system clipboard

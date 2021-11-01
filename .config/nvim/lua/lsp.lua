@@ -1,11 +1,11 @@
 local nvim_lsp = require('lspconfig')
+local coq = require('coq')
 local on_attach = function(_, bufnr)
-  require('completion').on_attach() local opts = { noremap=true, silent=true }
   print("LSP started.");
 end
 
 
-nvim_lsp.pyright.setup {
+nvim_lsp.pyright.setup(coq.lsp_ensure_capabilities({
   cmd = { "pyright-langserver", "--stdio" };
   filetypes = { "python" };
   settings = {
@@ -24,10 +24,11 @@ nvim_lsp.pyright.setup {
       },
     },
   },
-}
+  on_attach = on_attach,
+}))
 
 
-nvim_lsp.gopls.setup {
+nvim_lsp.gopls.setup(coq.lsp_ensure_capabilities({
   cmd = { "gopls", "serve" };
   filetypes = { "go", "gomod" };
   root_dir = nvim_lsp.util.root_pattern('go.mod', '.git');
@@ -40,23 +41,23 @@ nvim_lsp.gopls.setup {
     },
   },
   on_attach = on_attach,
-}
+}))
 
 
-nvim_lsp.terraformls.setup {
+nvim_lsp.terraformls.setup(coq.lsp_ensure_capabilities({
   cmd = { "terraform-ls", "serve" };
   filetypes = { "terraform", "tf", "tfvars" };
   root_dir = nvim_lsp.util.root_pattern('.git');
   on_attach = on_attach,
-}
+}))
 
 
-nvim_lsp.groovyls.setup {
+nvim_lsp.groovyls.setup(coq.lsp_ensure_capabilities({
   cmd = { "java", "-jar", "/home/mgajewskik/repos/cloned/groovy-language-server/build/libs/groovy-language-server-all.jar" };
   filetypes = { "groovy" };
   root_dir = nvim_lsp.util.root_pattern('.git');
   on_attach = on_attach,
-}
+}))
 
 
 --local saga = require 'lspsaga'
