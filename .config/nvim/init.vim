@@ -107,6 +107,7 @@ Plug 'hashivim/vim-terraform'
 "Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'ptzz/lf.vim'
 Plug 'voldikss/vim-floaterm'
+Plug 'ellisonleao/glow.nvim'
 
 call plug#end()
 
