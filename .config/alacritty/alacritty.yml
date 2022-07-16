@@ -13,6 +13,7 @@ window:
     columns: 100
     lines: 50
   dynamic_padding: false
+  opacity: 1
 
 
 # shell:
@@ -80,9 +81,6 @@ colors:
     # cyan:    '#34E2E2'
     # white:   '#EEEEEC'
 
-
-background_opacity: 1
-
 ## Consolas
 #font:
   #normal:
@@ -98,25 +96,40 @@ background_opacity: 1
     #family: "Consolas"
     #style: Bold Italic
 
-# FiraCode Nerd Font
+## FiraCode Nerd Font
+#font:
+  #normal:
+    #family: Fira Code Nerd Font
+    ##family: Fura Code Nerd Font
+    ##family: Sauce Code Pro Nerd Font
+    #style: Retina
+  #bold:
+    #family: Fira Code Nerd Font
+    #style: Bold
+  #italic:
+    #family: Fira Code Nerd Font
+    #style: Italic
+  #bold_italic:
+    #family: Fira Code Nerd Font
+    #style: Bold Italic
+
 font:
   normal:
-    family: Fira Code Nerd Font
-    #family: Fura Code Nerd Font
-    #family: Sauce Code Pro Nerd Font
-    style: Retina
+    family: JetBrains Mono Nerd Font
+    style: Regular
   bold:
-    family: Fira Code Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Bold
   italic:
-    family: Fira Code Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Italic
   bold_italic:
-    family: Fira Code Nerd Font
+    family: JetBrains Mono Nerd Font
     style: Bold Italic
 
   # Point size
-  size: 10
+  size: 11
+
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.

@@ -14,7 +14,7 @@ floating_modifier $mod
 
 
 # #---Gaps---# #
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 3
 gaps inner 0
 gaps outer 0
 
@@ -22,26 +22,31 @@ gaps outer 0
 # #---Autostart---# #
 $exec_always $wallpaper_reset
 $exec_always systemctl --user start greenclip.service
-$exec_always "sudo /home/mgajewskik/bin/set-thermals.sh && notify-send 'Thermals set'"
+#$exec_always "sudo /home/mgajewskik/bin/set-thermals.sh && notify-send 'Thermals set'"
 #$exec_always picom --config ~/.config/picom.conf
 
 $exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1
-$exec xinput set-prop "Synaptics TM3418-002" "libinput Accel Speed" 0.5
+$exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.1
+$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Accel Speed" 0.3
+$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Natural Scrolling Enabled" 1
+$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Tapping Enabled" 1
 $exec xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Accel Speed" 1
-$exec xinput set-prop "Synaptics TM3418-002" "libinput Natural Scrolling Enabled" 1
-$exec xinput set-prop "Synaptics TM3418-002" "libinput Tapping Enabled" 1
-$exec /usr/bin/setxkbmap -option "ctrl:nocaps"
-$exec setxkbmap pl
-$exec xset -b
+
+#$exec_always /usr/bin/setxkbmap -option "ctrl:nocaps"
+#$exec_always setxkbmap pl
+$exec_always setxkbmap pl -option "ctrl:nocaps"
+#  to set a typematic delay to 200ms and a typematic rate to 30Hz
+$exec xset r rate 200 50
 
 $exec dunst
 $exec udiskie --tray
 $exec nm-applet
 $exec blueman-applet
-$exec megasync
+# $exec megasync
 $exec pcloud
-$exec gpclient
+# $exec gpclient
 $exec dropbox
+$exec fusuma
 
 
 # #---Special Keybindings---# #
@@ -65,7 +70,8 @@ bindsym XF86AudioMicMute $exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && 
 
 # #---Bindings---# #
 bindsym $mod+Return 		         $term
-bindsym $mod+Tab 			         $exec rofi -show combi
+#bindsym $mod+Tab 			         $exec rofi -show combi
+bindsym $mod+Tab 			         $exec rofi -show drun
 bindsym $mod+c 			             $exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod+Shift+r restart
 bindsym $mod+q			            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
@@ -144,6 +150,35 @@ set $ws15 "15"
 #assign [class="discord"] $ws8
 #for_window [class="Spotify"] move to workspace $ws9
 #assign [class="obs"] $ws10
+
+# # Assign Workspaces:
+# # check window title and class with xprop
+# assign [class="Slack"] $ws11
+# # for_window [class="Slack"] move to workspace $ws11 layout tabbed
+# for_window [class="Slack"] move to workspace $ws11
+# assign [class="Slack"] $ws11
+# # for_window [class="Slack"] move to workspace $ws11 layout tabbed
+# for_window [class="Slack"] move to workspace $ws11
+# assign [class="discord"] $ws11
+# # for_window [class="discord"] move to workspace $ws11 layout tabbed
+# for_window [class="discord"] move to workspace $ws11
+# assign [class="Ferdi"] $ws11
+# # for_window [class="Ferdi"] move to workspace $ws11 layout tabbed
+# for_window [class="Ferdi"] move to workspace $ws11
+# assign [class="Signal Beta"] $ws11
+# # for_window [class="Signal Beta"] move to workspace $ws11 layout tabbed
+# for_window [class="Signal Beta"] move to workspace $ws11
+# 
+# assign [class="obsidian"] $ws12
+# # for_window [class="obsidian"] move to workspace $ws12 layout tabbed
+# for_window [class="obsidian"] move to workspace $ws12
+# # assign [class="notion-app-enhanced"] $ws12
+# # for_window [class="notion-app-enhanced"] move to workspace $ws12 layout tabbed
+# # for_window [class="notion-app-enhanced"] move to workspace $ws12
+# 
+# assign [class="Spotify"] $ws15
+# for_window [class="Spotify"] move to workspace $ws15
+
 
 ## Assing autofloat
 # check window title and class with xprop
@@ -246,17 +281,15 @@ mode "$mode_system" {
 
 ## Manual management of external displays
 bindsym $mod+m mode "$mode_display"
-set $mode_display Choose monitor connection: (s)ingle, (i)ntegrated, (h)ybrid-dell, (n)vidia-dell, (p)rojector, (w)allpaper, ThinkVision-(r)ight, ThinkVision-(l)eft, (a)ll, (t)otal
+set $mode_display Choose monitor connection: (s)ingle, (d)ell, (p)rojector, (w)allpaper, ThinkVision-(r)ight, ThinkVision-(l)eft, (a)ll, (t)otal
 mode "$mode_display" {
     #bindsym s $exec xrandr --auto --output eDP-1-1 --primary && notify-send 'Single monitor configured', mode "default"
     bindsym s $exec xrandr --auto --output eDP-1 --primary && notify-send 'Single monitor configured' && $wallpaper_reset, mode "default"
-    bindsym i $exec xrandr && xrandr --auto --output DP-1-2 --primary --mode 3440x1440 --above eDP-1 && notify-send 'Dell output for integrated configured' && $wallpaper_reset, mode "default"
-    bindsym h $exec xrandr --auto --output DP-1-1 --primary --mode 3440x1440 --above eDP-1 && notify-send 'Dell output for hybrid configured' && $wallpaper_reset, mode "default"
-    bindsym n $exec xrandr --auto --output DP-1 --primary --mode 3440x1440 --above eDP-1-1 && notify-send 'Dell output for nvidia configured' && $wallpaper_reset, mode "default"
+    bindsym d $exec xrandr --auto --output DP-3 --primary --auto --above eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
     bindsym p $exec xrandr --auto --output DP-1 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
     #bindsym p $exec xrandr --auto --output DP-0 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'DP projector configured' && $wallpaper_reset, mode "default"
-    bindsym r $exec xrandr --auto --output eDP-1 --primary --left-of DP-1-2 && notify-send 'ThinkVision configured on the right side' && $wallpaper_reset, mode "default"
-    bindsym l $exec xrandr --auto --output eDP-1 --primary --right-of DP-1-2 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
+    bindsym r $exec xrandr --auto --output eDP-1 --primary --left-of DP-3 && notify-send 'ThinkVision configured on the right side' && $wallpaper_reset, mode "default"
+    bindsym l $exec xrandr --auto --output eDP-1 --primary --right-of DP-3 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
     bindsym a $exec xrandr --output DP-1-2 --primary --auto --above eDP-1 --output DP-1-1 --auto --right-of eDP-1 && notify-send 'ThinkVision and Dell configured in integrated mode' && $wallpaper_reset, mode "default"
     bindsym t $exec xrandr --output DP-1 --primary --auto --above eDP-1-1 --output DP-0 --auto --right-of eDP-1-1 && notify-send 'ThinkVision and Dell configured in nvidia mode' && $wallpaper_reset, mode "default"
     bindsym w $exec $wallpaper_reset
@@ -294,7 +327,7 @@ bar {
 
 	bindsym button4 nop
 	bindsym button5 nop
-    font pango:Fira Code Nerd Font 11
+    font pango: JetBrains Mono Nerd Font 12
 	strip_workspace_numbers yes
 
     colors {
@@ -324,4 +357,5 @@ client.background       #ffffff
 
 
 # leftover, when executed earlier it gets overwritten
-$exec /usr/bin/setxkbmap -option "ctrl:nocaps"
+#$exec_always /usr/bin/setxkbmap -option "ctrl:nocaps"
+$exec_always xmodmap ~/.Xmodmap

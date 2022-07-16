@@ -105,6 +105,14 @@ style = "bold green"
 symbol = "ﳑ "
 format = "via [$symbol$version](bold cyan) "
 
+[ruby]
+detect_variables = []
+disabled = true
+
+[nodejs]
+detect_extensions = ["js", "mjs", "cjs", "ts"]
+disabled = true
+
 [terraform]
 #format = "[ 🏎 $version$workspace]($style) "
 format = "[T:$version$workspace]($style) "
@@ -113,6 +121,8 @@ format = "[T:$version$workspace]($style) "
 format = 'on [$symbol($profile )(\($region\) )]($style)'
 style = "bold blue"
 symbol = "🅰 "
+disabled = true
+
 [aws.region_aliases]
 ap-southeast-2 = "au"
 us-east-1 = "va"

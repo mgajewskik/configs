@@ -188,6 +188,8 @@ alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9
 alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
 alias k="kubectl"
+alias tf="terraform"
+alias clockify=clockify-cli
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -200,6 +202,7 @@ alias vpn='cd $HOME/MEGA/brytlyt/openvpn && sudo openvpn --config mgajewskik.bry
 alias localaws='docker run -d -e "SERVICES=s3,dynamodb" -p 4566-4599:4566-4599 localstack/localstack:0.12.6'
 alias completeaws="complete -C '/usr/bin/aws_completer' aws"
 alias sduterraform="$HOME/sdu/terraform"
+alias sdutf="$HOME/sdu/terraform"
 
 #alias poetry=$HOME/.poetry/bin/poetry
 
@@ -212,40 +215,104 @@ alias dre='docker exec -it'
 docker-ip () { docker inspect "$@" | grep "IPAddress\": \"1" | grep -o "[0-9\.]*"| uniq | head -1; }
 logs () { docker logs -f --tail 100  "$@" ; }
 b () { docker exec -e COLUMNS="`tput cols`" -e LINES="`tput lines`"  -it "$@" bash; }
-drsh () { docker exec -e COLUMNS="`tput cols`" -e LINES="`tput lines`"  -it "$@" bash; }
 
+drsh () { docker exec -e COLUMNS="`tput cols`" -e LINES="`tput lines`"  -it "$@" bash; }
+drec () { docker run --rm -it --entrypoint bash "$@"; }
+
+# Functions
 # remove images matching pattern
 drirm () {
-  docker image rm $(docker image ls -f "reference=$1*" -q) --force
+  images=$(docker image ls -f "reference=$1*" -q)
+  if [[ -z "$images" ]]; then
+    echo "drirm: ❌ No images matching: \"$1*\"; Aborting."
+  else
+    count=$(echo $images | sed '/^\s*$/d' | wc -l | xargs)
+    echo "drirm: ℹ️  Found: $count images to be removed."
+    docker image rm $(docker image ls -f "reference=$1*" -q) --force
+    # docker image rm $images --force
+    echo "drirm: ✅ Removed: $count images."
+  fi
 }
-
+# remove networks matching pattern
+drnrm () {
+  networks=$(docker network ls -f "name=$1*" -q)
+  if [[ -z "$networks" ]]; then
+    echo "drnrm: ❌ No networks matching: \"$1*\"; Aborting."
+  else
+    count=$(echo $networks | sed '/^\s*$/d' | wc -l | xargs)
+    echo "drnrm: ℹ️  Found: $count networks to be removed."
+    docker network rm $(docker network ls -f "name=$1*" -q)
+    # docker network rm $networks
+    echo "drnrm: ✅ Removed: $count networks."
+  fi
+}
 # remove containers matching pattern
 drcrm () {
-  docker container rm $(docker ps -aqf "name=$1*" -q) --force
+  containers=$(docker ps -aqf "name=$1*" -q)
+  if [[ -z "$containers" ]]; then
+    echo "drcrm: ❌ No containers matching: \"$1*\"; Aborting."
+  else
+    count=$(echo $containers | sed '/^\s*$/d' | wc -l | xargs)
+    echo "drcrm: ℹ️  Found: $count containers to be removed."
+    docker container rm $(docker ps -aqf "name=$1*" -q) --force
+    # docker container rm $containers --force
+    echo "drcrm: ✅ Removed: $count containers."
+  fi
 }
-
 # remove volumes matching pattern
 drvrm () {
-  docker volume rm $(docker volume ls -f "name=$1*" -q) --force
+  volumes=$(docker volume ls -f "name=$1*" -q)
+  if [[ -z "$volumes" ]]; then
+    echo "drvrm: ❌ No volumes matching: \"$1*\"; Aborting."
+  else
+    count=$(echo $volumes | sed '/^\s*$/d' | wc -l | xargs)
+    echo "drvrm: ℹ️  Found: $count volumes to be removed."
+    docker volume rm $(docker volume ls -f "name=$1*" -q) --force
+    # docker volume rm $volumes --force
+    echo "drvrm: ✅ Removed: $count volumes."
+  fi
 }
-
 # nuke images, containers and volumes matching pattern
 drnuke () {
+  drnrm $1;
   drirm $1;
   drcrm $1;
   drvrm $1;
 }
 
-# remove volumes matching pattern
-drvrm () {
-  volumes=$(docker volume ls -f "name=$1*" -q)
-  count=$(echo $volumes | sed '/^\s*$/d' | wc -l | xargs)
-  if [ "$count" -gt 0 ]; then
-    echo "Removing $count volumes matching pattern: '$1'"
-    docker volume rm $volumes --force
+########################
+# Hub Flow Validator   #
+########################
+
+hfv() {
+  feature_branch_regexp="^feature\/[A-Z]{2}-[0-9]{6}$"
+  semver2_branch_regexp="^(hotfix|release)\/(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
+  branch=$(git branch --show-current | sed 's/ *$//g')
+
+  if [[ "$branch" =~ $semver2_branch_regexp ]] || [[ "$branch" =~ $feature_branch_regexp ]]
+  then
+    echo "✅ Correct branch: \"$branch\""
   else
-    echo "No volumes matching pattern: '$1'. Aborting."
+    echo "❌ Invalid branch: \"$branch\""
+    echo "Aborting"
+    return 1
   fi
+
+  commit_regexp="^[A-Z]{2}-[0-9]{6} - (ADD|DEL|UPD|FIX|DOC|RFC|PRF|TST) .*$"
+  while IFS= read -r commit; do
+    # remove commit hash prefix
+    commit_message=$(echo $commit | sed -e 's/\+ [a-z0-9]* //')
+    if [[ $commit_message =~ $commit_regexp ]]
+    then
+      echo "✅ Correct commit: \"$commit_message\""
+    else
+      echo "❌ Invalid commit: \"$commit_message\" message pattern"
+      echo "Aborting"
+      return 1
+    fi
+  done < <( git cherry -v stg )
+
+  echo "✅ All good!"
 }
 
 #####################
@@ -286,7 +353,7 @@ export FZF_DEFAULT_OPTS="
 --bind 'ctrl-s:select-all'
 --bind 'ctrl-e:execute(nvim {} < /dev/tty > /dev/tty 2>&1)' > selected
 --bind 'ctrl-v:execute(code {+})'"
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git/*,.tox/*,venv/*,.venv/*,.pyenv/*,*.pyi,*.pyc,__pycache__/*,.cache/*}" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden -g "!{.git/*,.tox/*,venv/*,.venv/*,.pyenv/*,*.pyi,*.pyc,__pycache__/*,.cache/*}" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 #####################
@@ -327,3 +394,6 @@ autoload -Uz compinit && compinit
 compinit
 
 eval "$(complete -C '/usr/bin/aws_completer' aws)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
