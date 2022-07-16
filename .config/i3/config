@@ -7,7 +7,8 @@ set $alt Mod1
 set $exec exec --no-startup-id
 set $exec_always exec_always --no-startup-id
 set $term exec --no-startup-id alacritty
-set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/Wallpapers/firewatch_6.jpg && notify-send 'wallpaper reset'
+# set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/Wallpapers/firewatch_6.jpg && notify-send 'wallpaper reset'
+set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/wallpapers/solid-color-image.jpeg && notify-send 'wallpaper reset'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

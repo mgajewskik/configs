@@ -1,6 +1,6 @@
 set shell zsh
 set shellopts '-euy'
-set sortby time
+set sortby name
 set info time
 set reverse!
 set shellopts '-eu'

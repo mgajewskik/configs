@@ -189,7 +189,6 @@ alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
 alias k="kubectl"
 alias tf="terraform"
-alias clockify=clockify-cli
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -313,6 +312,16 @@ hfv() {
   done < <( git cherry -v stg )
 
   echo "✅ All good!"
+}
+
+#####################
+# Toggl CLI         #
+#####################
+alias tg=toggl
+
+tgs() {
+    project_name=$2
+    toggl start $1 --project-id $(toggl projects | awk -v var=$project_name '$2 == var { print $1 }')
 }
 
 #####################

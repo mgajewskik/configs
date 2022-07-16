@@ -28,6 +28,10 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=20
 markup=none
 
+[pomo]
+command=pomo status
+separator=true
+interval=1
 
 # Display any packages to install
 [packages]
