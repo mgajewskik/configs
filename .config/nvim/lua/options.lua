@@ -1,4 +1,9 @@
+local utils = require("utils")
 local o = vim.opt
+local wo = vim.wo
+local fn = vim.fn
+
+vim.cmd("set inccommand=split")
 
 --o.mouse             = ''        -- disable the mouse
 o.exrc              = false     -- ignore '~/.exrc'
@@ -24,7 +29,7 @@ vim.cmd[[set path=.,,,$PWD/**]]
 -- unnamed     = use the * register (cmd-s paste in our term)
 -- unnamedplus = use the + register (cmd-v paste in our term)
 -- o.clipboard         = 'unnamedplus'
-
+--
 o.showmode          = true      -- show current mode (insert, etc) under the cmdline
 o.showcmd           = true      -- show current command under the cmd line
 o.cmdheight         = 1         -- cmdline height
@@ -65,8 +70,14 @@ o.listchars = {
 }
 o.showbreak = '↪ '
 
+-- -- enable or disable listchars
+-- -- o.list = true
+-- -- which list chars to schow
+-- -- M.listchars = "eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣"
+-- o.listchars = "eol:¬,tab:>·,trail:~,extends:>,precedes:<"
+
 -- show menu even for one item do not auto select/insert
-o.completeopt       = { 'noinsert' , 'menuone' , 'noselect' }
+o.completeopt       = { 'menu', 'noinsert' , 'menuone' , 'noselect' }
 o.wildmenu          = true
 o.wildmode          = 'longest:full,full'
 o.wildoptions       = 'pum'     -- Show completion items using the pop-up-menu (pum)
@@ -124,7 +135,6 @@ o.ignorecase        = true      -- ignore case on search
 o.smartcase         = true      -- case sensitive when search includes uppercase
 o.showmatch         = true      -- highlight matching [{()}]
 o.inccommand        = 'nosplit' -- show search and replace in real time
-o.autoread          = true      -- reread a file if it's changed outside of vim
 o.wrapscan          = true      -- begin search from top of the file when nothing is found
 vim.o.cpoptions     = vim.o.cpoptions .. 'x' -- stay on search item when <esc>
 
@@ -154,10 +164,33 @@ o.shada             = [[!,'100,<0,s100,h]]
 o.sessionoptions    = 'blank,buffers,curdir,folds,help,tabpages,winsize'
 o.diffopt           = 'internal,filler,algorithm:histogram,indent-heuristic'
 
---[[
--- Install neovim-nightly on mac:
-❯ brew tap jason0x43/homebrew-neovim-nightly
-❯ brew install --cask neovim-nightly
+o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- block in normal and beam cursor in insert mode
+o.timeoutlen = 400 -- time to wait for a mapped sequence to complete (in milliseconds)
+o.ttimeoutlen = 0 -- Time in milliseconds to wait for a key code sequence to complete
+o.undodir = fn.stdpath("data") .. "/undodir" -- set undo directory
+o.history = 500 -- Use the 'history' option to set the number of lines from command mode that are remembered.
+o.conceallevel = 0 -- so that `` is visible in markdown files
+o.showtabline = 1 -- always show tabs
+wo.foldcolumn = "1"
+wo.foldcolumn = "1"
+o.shortmess = o.shortmess + "c" -- prevent "pattern not found" messages
+-- wo.colorcolumn = "99999"
+o.lazyredraw = true -- do not redraw screen while running macros
+-- use rg instead of grep
+o.grepprg = "rg --hidden --vimgrep --smart-case --"
+o.wildignorecase = true -- When set case is ignored when completing file names and directories
+o.wildignore = [[
+.git,.hg,.svn
+*.aux,*.out,*.toc
+*.o,*.obj,*.exe,*.dll,*.manifest,*.rbc,*.class
+*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
+*.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg
+*.mp3,*.oga,*.ogg,*.wav,*.flac
+*.eot,*.otf,*.ttf,*.woff
+*.doc,*.pdf,*.cbr,*.cbz
+*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
+*.swp,.lock,.DS_Store,._*
+*/tmp/*,*.so,*.swp,*.zip,**/node_modules/**,**/target/**,**.terraform/**"
 ]]
 
 -- MacOS clipboard
@@ -236,21 +269,3 @@ vim.g.markdown_fenced_languages = {
   'yaml',
   'json',
 }
-
--- Map leader to <space>
---vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent=true})
-vim.g.mapleader      = ' '
-vim.g.maplocalleader = ' '
-
--- We do this to prevent the loading of the system fzf.vim plugin. This is
--- present at least on Arch/Manjaro/Void
-vim.api.nvim_command('set rtp-=/usr/share/vim/vimfiles')
-
-require 'plugins'
-require 'autocmd'
-require 'keymaps'
-
--- set colorscheme to gruvbox
-vim.g.colorscheme_terminal_italics = true
-vim.o.background = "dark" -- or "light" for light mode
-pcall(vim.cmd, [[colorscheme gruvbox]])
