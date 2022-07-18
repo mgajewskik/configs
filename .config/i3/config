@@ -27,10 +27,12 @@ $exec_always systemctl --user start greenclip.service
 #$exec_always picom --config ~/.config/picom.conf
 
 $exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1
-$exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.1
-$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Accel Speed" 0.3
+$exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.6
+$exec xinput set-prop 'TPPS/2 Elan TrackPoint' "libinput Scrolling Pixel Distance" 10
+$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Accel Speed" 0.8
 $exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Natural Scrolling Enabled" 1
 $exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Tapping Enabled" 1
+$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Scrolling Pixel Distance" 10
 $exec xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Accel Speed" 1
 
 #$exec_always /usr/bin/setxkbmap -option "ctrl:nocaps"
@@ -48,6 +50,7 @@ $exec pcloud
 # $exec gpclient
 $exec dropbox
 $exec fusuma
+# $exec caffeine
 
 
 # #---Special Keybindings---# #

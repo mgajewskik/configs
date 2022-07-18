@@ -1,17 +1,20 @@
 require("project_nvim").setup({
-  patterns = {
-    ".git",
-    -- "package.json",
-    ".terraform",
-    "go.mod",
-    "requirements.yml",
-    "pyrightconfig.json",
-    "pyproject.toml",
-  },
-  -- detection_methods = { "lsp", "pattern" },
-  detection_methods = { "pattern" },
+	patterns = {
+		".git",
+		-- "package.json",
+		-- ".terraform",
+		"go.mod",
+		-- "requirements.yml",
+		-- "pyrightconfig.json",
+		"pyproject.toml",
+	},
+	-- detection_methods = { "lsp", "pattern" },
+	detection_methods = { "pattern" },
 })
 
+local remap = require("utils").remap
+local default_options = { silent = true }
+remap("n", "<leader>sp", ":Telescope projects<CR>", default_options)
 
 -- {
 --   -- Manual mode doesn't automatically change your root directory, so you have
