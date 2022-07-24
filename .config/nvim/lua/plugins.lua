@@ -114,8 +114,8 @@ packer.startup(function(use)
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
-			"f3fora/cmp-spell",
-			"hrsh7th/cmp-calc",
+			-- "f3fora/cmp-spell",
+			-- "hrsh7th/cmp-calc",
 			-- TODO remove this if causing performance issues
 			"lukas-reineke/cmp-rg",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
@@ -128,6 +128,23 @@ packer.startup(function(use)
 		"L3MON4D3/LuaSnip",
 		requires = "saadparwaiz1/cmp_luasnip",
 		config = get_config("luasnip"),
+	})
+
+	-- Needed to setup copilot with ":Copilot setup"
+	-- needs to have NodeJS version 16 apparently and not 18, setup with nvm
+	-- use({ "github/copilot.vim" })
+	use({
+		"zbirenbaum/copilot.lua",
+		event = { "VimEnter" },
+		config = function()
+			vim.defer_fn(function()
+				require("config.copilot")
+			end, 100)
+		end,
+	})
+	use({
+		"zbirenbaum/copilot-cmp",
+		module = "copilot_cmp",
 	})
 
 	use({
@@ -248,6 +265,12 @@ packer.startup(function(use)
 	--   config = get_config("bufferline"),
 	-- })
 
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = get_config("todo"),
+	})
+
 	use({ "ahmedkhalf/project.nvim", config = get_config("project") })
 
 	-- TODO to remove this later
@@ -274,5 +297,13 @@ packer.startup(function(use)
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
+	})
+
+	-- easy alignment with gl=
+	use({ "tommcdo/vim-lion" })
+
+	use({
+		"karb94/neoscroll.nvim",
+		config = get_config("neoscroll"),
 	})
 end)

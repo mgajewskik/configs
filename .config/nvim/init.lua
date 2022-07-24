@@ -24,6 +24,7 @@ require("autocmd")
 vim.g.colorscheme_terminal_italics = true
 vim.o.background = "dark" -- or "light" for light mode
 
+-- Kanagawa colorscheme config
 local overrides = {
 	Search = { fg = "#0F1F28", bg = "#FF9E3B" },
 	-- Visual = { bg = "#717C7C" }
@@ -31,3 +32,13 @@ local overrides = {
 }
 require("kanagawa").setup({ overrides = overrides })
 pcall(vim.cmd, [[colorscheme kanagawa]])
+
+-- -- Tokyonight colorscheme config
+-- -- Example config in Lua
+-- vim.g.tokyonight_style = "night"
+-- vim.g.tokyonight_italic_functions = true
+-- vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+--
+-- -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+-- vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
+-- vim.cmd([[colorscheme tokyonight]])

@@ -496,7 +496,7 @@ map_fzf("n", "<leader>sQ", "loclist")
 map_fzf("n", "<leader>sM", "man_pages")
 
 -- Nvim & Dots
--- map_fzf('n', '<leader>ss', "edit_neovim")
+map_fzf("n", "<leader>sn", "edit_neovim")
 -- map_fzf('n', '<leader>sf', "edit_sdu")
 -- map_fzf('n', '<leader>ez', "edit_zsh")
 --map_fzf('n', '<leader>ep', "installed_plugins")
@@ -522,7 +522,7 @@ map_fzf("n", "<leader>sD", "lsp_workspace_diagnostics", { file_icons = false })
 -- Git
 map_fzf("n", "<leader>sb", "git_branches")
 map_fzf("n", "<leader>sc", "git_commits")
-map_fzf("n", "<leader>st", "git_bcommits")
+-- map_fzf("n", "<leader>st", "git_bcommits")
 map_fzf("n", "<leader>st", "git_tags")
 
 -- map_fzf('n', '<leader>ss', "git_status", {
@@ -541,7 +541,7 @@ map_fzf("n", "<leader>st", "git_tags")
 --})
 
 -- Fzf-lua methods
-map_fzf("n", "<leader>f?", "builtin")
+-- map_fzf("n", "<leader>f?", "builtin")
 map_fzf("n", "<leader>sm", "marks")
 map_fzf("n", "<leader>sx", "commands")
 map_fzf("n", "<leader>s:", "command_history")

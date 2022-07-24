@@ -34,7 +34,7 @@ o.showmode = true -- show current mode (insert, etc) under the cmdline
 o.showcmd = true -- show current command under the cmd line
 o.cmdheight = 1 -- cmdline height
 o.cmdwinheight = math.floor(vim.o.lines / 2) -- 'q:' window height
-o.laststatus = 3 -- 2 = always show status line (filename, etc)
+o.laststatus = 2 -- 2 = always show status line (filename, etc)
 o.scrolloff = 3 -- min number of lines to keep between cursor and screen edge
 o.sidescrolloff = 5 -- min number of cols to keep between cursor and screen edge
 o.textwidth = 78 -- max inserted text width for paste operations

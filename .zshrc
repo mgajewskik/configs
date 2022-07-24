@@ -5,7 +5,7 @@
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
     command mkdir -p $HOME/.zinit
-    command git clone https://github.com/zdharma/zinit $HOME/.zinit/bin && \
+    command git clone https://github.com/zdharma-continuum/zinit.git $HOME/.zinit/bin && \
         print -P "%F{33}▓▒░ %F{34}Installation successful.%F" || \
         print -P "%F{160}▓▒░ The clone has failed.%F"
 fi
@@ -64,7 +64,7 @@ zinit ice wait"1" lucid
 zinit light Aloxaf/fzf-tab
 # SYNTAX HIGHLIGHTING
 zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay"
-zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 # EXA
 # # TODO TO INSTALL
 #zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
@@ -189,6 +189,7 @@ alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
 alias k="kubectl"
 alias tf="terraform"
+# alias src="export $(cat .env | xargs)"
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -403,6 +404,9 @@ autoload -Uz compinit && compinit
 compinit
 
 eval "$(complete -C '/usr/bin/aws_completer' aws)"
+
+# NodeJS version manager
+source /usr/share/nvm/init-nvm.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

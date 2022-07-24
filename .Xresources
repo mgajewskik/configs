@@ -14,45 +14,79 @@ Xft.lcdfilter: lcddefault
 !XTerm*reverseVideo:      on
 !XTerm*selectToClipboard: true
 
-*background:                      #222D31
-*foreground:                      #d8d8d8
 *fading:                          8
 *fadeColor:                       black
 *cursorColor:                     #1ABB9B
 *pointerColorBackground:          #2B2C2B
 *pointerColorForeground:          #16A085
 
-!! black dark/light
-*color0:                          #222D31
-*color8:                          #585858
+! kanagawa .Xresources file
 
-!! red dark/light
-*color1:                          #ab4642
-*color9:                          #ab4642
+*background: #1F1F28
+*foreground: #DCD7BA
 
-!! green dark/light
-*color2:                          #7E807E
-*color10:                         #8D8F8D
+*color0: #090618
+*color8: #727169
 
-!! yellow dark/light
-*color3:                          #f7ca88
-*color11:                         #f7ca88
+*color1: #C34043
+*color9: #E82424
 
-!! blue dark/light
-*color4:                          #7cafc2
-*color12:                         #7cafc2
+*color2: #76946A
+*color10: #98BB6C
 
-!! magenta dark/light
-*color5:                          #ba8baf
-*color13:                         #ba8baf
+! *color3: #FFA066
+*color3: #C0A36E
+*color11: #E6C384
 
-!! cyan dark/light
-*color6:                          #1ABB9B
-*color14:                         #1ABB9B
+*color4: #7E9CD8
+*color12: #7FB4CA
 
-!! white dark/light
-*color7:                          #d8d8d8
-*color15:                         #f8f8f8
+*color5: #957FB8
+*color13: #938AA9
+
+*color6: #6A9589
+*color14: #7AA89F
+
+*color7: #C8C093
+*color15: #DCD7BA
+
+
+! ! Previous theme
+!
+! *background:                      #222D31
+! *foreground:                      #d8d8d8
+!
+! !! black dark/light
+! *color0:                          #222D31
+! *color8:                          #585858
+!
+! !! red dark/light
+! *color1:                          #ab4642
+! *color9:                          #ab4642
+!
+! !! green dark/light
+! *color2:                          #7E807E
+! *color10:                         #8D8F8D
+!
+! !! yellow dark/light
+! *color3:                          #f7ca88
+! *color11:                         #f7ca88
+!
+! !! blue dark/light
+! *color4:                          #7cafc2
+! *color12:                         #7cafc2
+!
+! !! magenta dark/light
+! *color5:                          #ba8baf
+! *color13:                         #ba8baf
+!
+! !! cyan dark/light
+! *color6:                          #1ABB9B
+! *color14:                         #1ABB9B
+!
+! !! white dark/light
+! *color7:                          #d8d8d8
+! *color15:                         #f8f8f8
 
 Xcursor.theme: xcursor-breeze
 Xcursor.size:                     0
