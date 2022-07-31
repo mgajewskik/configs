@@ -8,7 +8,8 @@ set $exec exec --no-startup-id
 set $exec_always exec_always --no-startup-id
 set $term exec --no-startup-id alacritty
 # set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/Wallpapers/firewatch_6.jpg && notify-send 'wallpaper reset'
-set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/wallpapers/solid-color-image.jpeg && notify-send 'wallpaper reset'
+# set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/wallpapers/solid-color-image.jpeg && notify-send 'wallpaper reset'
+set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/wallpapers/solid-color-image-black.jpeg && notify-send 'wallpaper reset'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -335,8 +336,9 @@ bar {
 	strip_workspace_numbers yes
 
     colors {
-        #background #222D31
-        background  #383c4a
+        # background #222D31
+        # background  #383c4a
+        background  #1F1F28	
         statusline  #F9FAF9
         separator   #4b5162
 

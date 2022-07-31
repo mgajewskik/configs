@@ -100,6 +100,8 @@ symbol = " "
 format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 #format = "[$symbol$version]($style) "
 style = "bold green"
+# detect_extensions = ["py"]
+detect_files = ["*.py", "*.pyc", "requirements.txt", "pyproject.toml"]
 
 [golang]
 symbol = "ﳑ "

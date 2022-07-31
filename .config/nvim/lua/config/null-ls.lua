@@ -3,19 +3,29 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 nls.setup({
   sources = {
     nls.builtins.formatting.stylua,
-    nls.builtins.diagnostics.eslint,
-    nls.builtins.formatting.prettier.with({
-      extra_args = { "--single-quote", "false" },
+    nls.builtins.diagnostics.actionlint,
+    nls.builtins.diagnostics.cfn_lint,
+    nls.builtins.diagnostics.yamllint,
+    nls.builtins.diagnostics.flake8,
+    -- nls.builtins.formatting.prettier.with({
+    -- 	extra_args = { "--single-quote", "false" },
+    -- }),
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+    nls.builtins.formatting.prettierd.with({
+      filetypes = {
+        "json",
+        "yaml",
+        "jsonc",
+      },
     }),
+    -- nls.builtins.formatting.fixjson,
+    nls.builtins.formatting.shfmt,
     nls.builtins.formatting.terraform_fmt,
     nls.builtins.formatting.black,
+    nls.builtins.formatting.isort,
     nls.builtins.formatting.goimports,
     nls.builtins.formatting.gofumpt,
-    nls.builtins.formatting.latexindent.with({
-      extra_args = { "-g", "/dev/null" }, -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
-    }),
     nls.builtins.code_actions.shellcheck,
-    nls.builtins.diagnostics.vale,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then

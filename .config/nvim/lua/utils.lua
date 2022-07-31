@@ -131,6 +131,7 @@ function M.custom_lsp_attach(client, bufnr)
 	local opts = { noremap = true, silent = true }
 
 	map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	map(bufnr, "n", "gD", "<cmd>vsplit<CR> <cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	-- map(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 	-- map(bufnr, 'n', '<leader>k',  '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 	map(bufnr, "n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
