@@ -163,12 +163,12 @@ fzf_lua.setup({
     },
     multiprocess = true,
     debug = false,
-    cmd = "rg --files --column --line-number --no-heading --color=always --smart-case --no-ignore --hidden -g '!{**/.zinit/*,go/pkg/*,**/.npm/*,**/.rvm/*,**/.node-gyp/*,**/.git/*,**/.tox/*,**/venv/*,**/.venv/*,.pyenv/*,*.pyi,*.pyc,**/__pycache__/*,**/.pytest_cache/*,.cache/*}' 2> /dev/null",
+    cmd = "rg --files --column --line-number --no-heading --color=always --smart-case --no-ignore --hidden -g '!{**/.zinit/*,go/pkg/*,**/.npm/*,**/.rvm/*,**/.node-gyp/*,**/.git/*,**/.tox/*,**/venv/*,**/.venv/*,.pyenv/*,*.pyi,*.pyc,**/__pycache__/*,**/.pytest_cache/*,.cache/*,**/.terraform/*}' 2> /dev/null",
   },
   grep = {
     prompt = "Rg❯ ",
     input_prompt = "Grep For❯ ",
-    rg_opts = "--column --line-number --no-heading --color=always --smart-case --no-ignore --hidden -g '!{**/.zinit/*,go/pkg/*,**/.npm/*,**/.rvm/*,**/.node-gyp/*,**/.git/*,**/.tox/*,**/venv/*,**/.venv/*,.pyenv/*,*.pyi,*.pyc,**/__pycache__/*,**/.pytest_cache/*,.cache/*}' 2> /dev/null",
+    rg_opts = "--column --line-number --no-heading --color=always --smart-case --no-ignore --hidden -g '!{**/.zinit/*,go/pkg/*,**/.npm/*,**/.rvm/*,**/.node-gyp/*,**/.git/*,**/.tox/*,**/venv/*,**/.venv/*,.pyenv/*,*.pyi,*.pyc,**/__pycache__/*,**/.pytest_cache/*,.cache/*,**/.terraform/*}' 2> /dev/null",
     -- 'true' enables file and git icons in 'live_grep'
     -- degrades performance in large datasets, YMMV
     experimental = true,

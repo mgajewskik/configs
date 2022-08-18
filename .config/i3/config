@@ -17,8 +17,8 @@ floating_modifier $mod
 
 # #---Gaps---# #
 for_window [class="^.*"] border pixel 3
-gaps inner 0
-gaps outer 0
+gaps inner 3
+gaps outer 3
 
 
 # #---Autostart---# #
@@ -30,17 +30,20 @@ $exec_always systemctl --user start greenclip.service
 $exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1
 $exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.6
 $exec xinput set-prop 'TPPS/2 Elan TrackPoint' "libinput Scrolling Pixel Distance" 10
-$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Accel Speed" 0.8
+$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Accel Speed" 1
 $exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Natural Scrolling Enabled" 1
 $exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Tapping Enabled" 1
 $exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Scrolling Pixel Distance" 10
 $exec xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Accel Speed" 1
+$exec xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Scrolling Pixel Distance" 10
+$exec xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Accel Speed" 1
+$exec xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Scrolling Pixel Distance" 10
 
 #$exec_always /usr/bin/setxkbmap -option "ctrl:nocaps"
 #$exec_always setxkbmap pl
 $exec_always setxkbmap pl -option "ctrl:nocaps"
-#  to set a typematic delay to 200ms and a typematic rate to 30Hz
-$exec xset r rate 200 50
+#  to set a typematic DELAY to 200ms and a typematic RATE to 50Hz
+$exec xset r rate 200 70
 
 $exec dunst
 $exec udiskie --tray
@@ -62,8 +65,8 @@ set $mute_off brightnessctl -d 'platform::mute' set 1
 bindsym Print exec flameshot gui
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec "brightnessctl -d 'intel_backlight' set +10%; notify-send 'brightness up'"
-bindsym XF86MonBrightnessDown exec "brightnessctl -d 'intel_backlight' set 10%-; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec "brightnessctl -d 'intel_backlight' set +5%; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "brightnessctl -d 'intel_backlight' set 5%-; notify-send 'brightness down'"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -84,9 +87,12 @@ bindsym $mod+Shift+q		        [con_id="__focused__" instance="^(?!dropdown_).*$"
 
 bindsym $mod+n                      $exec dunstctl set-paused toggle
 bindsym $mod+w                      $exec pavucontrol
-bindsym $mod+e 			            $exec nautilus
-bindsym $mod+p 			            $exec bitwarden-desktop
-bindsym $mod+x 			            $exec obsidian
+
+bindsym $alt+w 			            $exec brave
+bindsym $alt+e 			            $exec nautilus
+bindsym $alt+p 			            $exec bitwarden-desktop
+bindsym $alt+o 			            $exec obsidian
+bindsym $alt+l 			            $exec alacritty -e lf
 
 # h
 bindsym $mod+h			            focus left

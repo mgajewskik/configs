@@ -8,7 +8,7 @@ set ifs "\n"
 set scrolloff 10
 /*set icons*/
 set ignorecase true
-set hidden true
+/* set hidden false */
 set drawbox true
 
 map <enter> shell

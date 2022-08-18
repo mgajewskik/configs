@@ -399,14 +399,12 @@ export PATH="$HOME/.poetry/bin:$PATH"
 eval "$(starship init zsh)"
 
 # Necessary for AWS autocompletion
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-compinit
-
-eval "$(complete -C '/usr/bin/aws_completer' aws)"
+# autoload bashcompinit && bashcompinit
+# autoload -Uz compinit && compinit
+# compinit
+#
+# eval "$(complete -C '/usr/bin/aws_completer' aws)"
+# eval "$(bw completion --shell zsh); compdef _bw bw;"
 
 # NodeJS version manager
-source /usr/share/nvm/init-nvm.sh
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# source /usr/share/nvm/init-nvm.sh
