@@ -24,26 +24,7 @@ gaps outer 3
 # #---Autostart---# #
 $exec_always $wallpaper_reset
 $exec_always systemctl --user start greenclip.service
-#$exec_always "sudo /home/mgajewskik/bin/set-thermals.sh && notify-send 'Thermals set'"
 #$exec_always picom --config ~/.config/picom.conf
-
-$exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1
-$exec xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.6
-$exec xinput set-prop 'TPPS/2 Elan TrackPoint' "libinput Scrolling Pixel Distance" 10
-$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Accel Speed" 1
-$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Natural Scrolling Enabled" 1
-$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Tapping Enabled" 1
-$exec xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Scrolling Pixel Distance" 10
-$exec xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Accel Speed" 1
-$exec xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Scrolling Pixel Distance" 10
-$exec xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Accel Speed" 1
-$exec xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Scrolling Pixel Distance" 10
-
-#$exec_always /usr/bin/setxkbmap -option "ctrl:nocaps"
-#$exec_always setxkbmap pl
-$exec_always setxkbmap pl -option "ctrl:nocaps"
-#  to set a typematic DELAY to 200ms and a typematic RATE to 50Hz
-$exec xset r rate 200 70
 
 $exec dunst
 $exec udiskie --tray
@@ -78,8 +59,8 @@ bindsym XF86AudioMicMute $exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && 
 
 # #---Bindings---# #
 bindsym $mod+Return 		         $term
-#bindsym $mod+Tab 			         $exec rofi -show combi
-bindsym $mod+Tab 			         $exec rofi -show drun
+bindsym $mod+Tab 			         $exec rofi -show combi
+# bindsym $mod+Tab 			         $exec rofi -show drun
 bindsym $mod+c 			             $exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod+Shift+r restart
 bindsym $mod+q			            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
@@ -297,6 +278,8 @@ mode "$mode_display" {
     #bindsym s $exec xrandr --auto --output eDP-1-1 --primary && notify-send 'Single monitor configured', mode "default"
     bindsym s $exec xrandr --auto --output eDP-1 --primary && notify-send 'Single monitor configured' && $wallpaper_reset, mode "default"
     bindsym d $exec xrandr --auto --output DP-3 --primary --auto --above eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
+    bindsym o $exec xrandr --auto --output DP-3 --primary --output eDP-1 --off && notify-send 'Only Dell monitor configured ThinkPad turned off' && $wallpaper_reset, mode "default"
+    bindsym f $exec xrandr --auto --output DP-3 --primary --auto --left-of eDP-1 && notify-send 'Dell monitor configured on the left side of laptop' && $wallpaper_reset, mode "default"
     bindsym p $exec xrandr --auto --output DP-1 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
     #bindsym p $exec xrandr --auto --output DP-0 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'DP projector configured' && $wallpaper_reset, mode "default"
     bindsym r $exec xrandr --auto --output eDP-1 --primary --left-of DP-3 && notify-send 'ThinkVision configured on the right side' && $wallpaper_reset, mode "default"
@@ -368,6 +351,6 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 
-# leftover, when executed earlier it gets overwritten
-#$exec_always /usr/bin/setxkbmap -option "ctrl:nocaps"
-$exec_always xmodmap ~/.Xmodmap
+# #---User Scripts---# #
+$exec_always "~/set-devices.sh && notify-send 'Devices settings set'"
+#$exec_always "sudo /home/mgajewskik/bin/set-thermals.sh && notify-send 'Thermals set'"
