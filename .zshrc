@@ -184,6 +184,7 @@ alias om=optimus-manager
 alias weather='curl wttr.in'
 alias clp="greenclip print | sed '/^$/d' | fzf -e | xargs -r -d'\n' -I '{}' greenclip print '{}'"
 alias cleanup="yay -Rsn $(yay -Qdtq)"
+alias pkginstall="yay -S $(awk '{print $1}' ~/packages.info)"
 alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9999999'
 alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"

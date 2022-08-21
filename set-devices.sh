@@ -24,3 +24,4 @@ xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Scrolling Pixel Di
 xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Accel Speed" 1
 xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Scrolling Pixel Distance" 10
 echo "Mouse settings applied"
+notify-send "Devices settings set"

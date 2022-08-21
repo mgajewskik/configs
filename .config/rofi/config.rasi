@@ -4,7 +4,8 @@ configuration {
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
-    font: "FiraCode Nerd Font 12";
+    /* font: "FiraCode Nerd Font 12"; */
+    font: "JetBrains Mono Nerd Font 12";
 /*	bw: 1;*/
 /*	location: 0;*/
 /*	padding: 5;*/
@@ -17,7 +18,8 @@ configuration {
 /*	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";*/
 /*	run-command: "{cmd}";*/
     run-list-command: "";
-    run-shell-command: "{terminal} -e {cmd}; read -n 1 -s";
+    /* run-shell-command: "alacritty --hold {cmd}; read -n 1 -s"; */
+    run-shell-command: "alacritty --hold -e zsh -ic {cmd} && read";
 /*	window-command: "wmctrl -i -R {window}";*/
 /*	window-match-fields: "all";*/
 /*	icon-theme: ;*/
@@ -37,7 +39,7 @@ configuration {
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-    combi-modi: "run,drun";
+    combi-modi: "window,drun,run";
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
