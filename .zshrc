@@ -191,6 +191,7 @@ alias muteoff="brightnessctl -d 'platform::mute' set 0"
 alias k="kubectl"
 alias tf="terraform"
 # alias src="export $(cat .env | xargs)"
+alias nvim=/usr/local/bin/nvim
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
