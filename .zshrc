@@ -172,19 +172,18 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias pskill="ps aux  |  grep -i csp_build  |  awk '{print $2}'  |  xargs sudo kill -9"
 alias myip="curl http://ipecho.net/plain; echo"
 alias ls="exa --git --icons --group-directories-first --time-style=long-iso --group --color-scale"
-alias vim=nvim
-alias vi=nvim
 alias myconfig='/usr/bin/git --git-dir=$HOME/.myconfig/ --work-tree=$HOME'
 alias -- -='cd -'
 alias cht="cht.sh"
 
 alias srconfig='source ~/.zshrc'
 alias senv='which pip; source venv/bin/activate; which pip'
+alias eenv='eval $(cat .env)'
 alias om=optimus-manager
 alias weather='curl wttr.in'
 alias clp="greenclip print | sed '/^$/d' | fzf -e | xargs -r -d'\n' -I '{}' greenclip print '{}'"
 alias cleanup="yay -Rsn $(yay -Qdtq)"
-alias pkginstall="yay -S $(awk '{print $1}' ~/packages.info)"
+alias pkginstall="yay -S $(awk '{print $1}' ~/packages.info) --needed"
 alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9999999'
 alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
@@ -192,6 +191,7 @@ alias k="kubectl"
 alias tf="terraform"
 # alias src="export $(cat .env | xargs)"
 alias nvim=/usr/local/bin/nvim
+alias snvim=/usr/bin/nvim
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'

@@ -163,6 +163,12 @@ telescope.setup({
 				["conf"] = "~/.config/nvim/",
 			},
 		},
+		media_files = {
+			-- filetypes whitelist
+			-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+			filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
+			find_cmd = "rg", -- find command (defaults to `fd`)
+		},
 	},
 
 	-- extensions = {
@@ -370,6 +376,7 @@ telescope.load_extension("file_browser")
 telescope.load_extension("packer")
 telescope.load_extension("ui-select")
 telescope.load_extension("fzy_native")
+telescope.load_extension("media_files")
 
 -- local M = {}
 --

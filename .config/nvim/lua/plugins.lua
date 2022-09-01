@@ -218,15 +218,22 @@ packer.startup(function(use)
 
   use({ "hashivim/vim-terraform", config = "require('config.terraform')" })
 
-  -- -- DAP
-  -- --use { 'mfussenegger/nvim-dap',
-  --     --config = "require('plugins.nvim-dap')",
-  --     --keys = {'<F5>', '<F9>' }
-  -- --}
-  -- --use { 'leoluz/nvim-dap-go',
-  --     --config = "require('dap-go').setup()",
-  --     --after = { 'nvim-dap' }
-  -- --}
+  -- DAP
+  -- Python requires debugpy to be installed in the virtualenv
+  -- use({ "mfussenegger/nvim-dap", config = "require('plugins.nvim-dap')", keys = { "<F5>", "<F9>" } })
+  -- use({ "leoluz/nvim-dap-go", config = "require('dap-go').setup()", after = { "nvim-dap" } })
+  use({
+    "mfussenegger/nvim-dap",
+    requires = {
+      "mfussenegger/nvim-dap-python",
+      "leoluz/nvim-dap-go",
+      "rcarriga/nvim-dap-ui",
+      "theHamsta/nvim-dap-virtual-text",
+    },
+    config = function()
+      require("config.dap").setup()
+    end,
+  })
 
   -- -- Colorizer
   -- -- use { 'norcalli/nvim-colorizer.lua',
@@ -256,6 +263,7 @@ packer.startup(function(use)
   use({ "nvim-telescope/telescope-packer.nvim" })
   use({ "nvim-telescope/telescope-ui-select.nvim" })
   use({ "nvim-telescope/telescope-fzy-native.nvim" })
+  use({ "nvim-telescope/telescope-media-files.nvim" })
 
   use({
     "renerocksai/telekasten.nvim",
