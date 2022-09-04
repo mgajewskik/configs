@@ -74,11 +74,9 @@ bindsym $mod+Shift+q		        [con_id="__focused__" instance="^(?!dropdown_).*$"
 bindsym $mod+n                      $exec dunstctl set-paused toggle && notify-send 'notifications toggle'
 bindsym $mod+w                      $exec pavucontrol
 
-bindsym $alt+a                      $exec "~/set-devices.sh && notify-send 'Devices settings set'"
 bindsym $alt+w 			            $exec brave-browser
 bindsym $alt+e 			            $exec nautilus
 bindsym $alt+p 			            $exec bitwarden
-bindsym $alt+f 			            $exec ferdium
 bindsym $alt+o 			            $exec obsidian
 bindsym $alt+f 			            $exec ferdium
 bindsym $alt+l 			            $exec alacritty -e lf
