@@ -14,6 +14,9 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit installer's chunk
 
+# doing this because of ERROR: ld.so: object 'libgtk3-nocsd.so.0' from LD_PRELOAD cannot be preloaded
+unset LD_PRELOAD
+
 
 #####################
 # PLUGINS           #
@@ -410,3 +413,4 @@ eval "$(starship init zsh)"
 
 # NodeJS version manager
 # source /usr/share/nvm/init-nvm.sh
+# doing this because of ERROR: ld.so: object 'libgtk3-nocsd.so.0' from LD_PRELOAD cannot be preloaded

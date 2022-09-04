@@ -2,6 +2,8 @@
 # ~/.bashrc
 #
 
+export PATH="$PATH:$HOME/scripts"
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 

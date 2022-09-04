@@ -1,6 +1,6 @@
 # #---Basic setup---# #
-smart_gaps on
-smart_borders on
+# smart_gaps on
+# smart_borders on
 
 set $mod Mod4
 set $alt Mod1
@@ -17,14 +17,16 @@ floating_modifier $mod
 
 # #---Gaps---# #
 for_window [class="^.*"] border pixel 3
-gaps inner 3
-gaps outer 3
+hide_edge_borders smart
+# gaps inner 3
+# gaps outer 3
 
 
 # #---Autostart---# #
 $exec_always $wallpaper_reset
-$exec_always systemctl --user start greenclip.service
+# $exec_always systemctl --user start greenclip.service
 #$exec_always picom --config ~/.config/picom.conf
+$exec_always greenclip daemon
 
 $exec dunst
 $exec udiskie --tray
@@ -46,8 +48,8 @@ set $mute_off brightnessctl -d 'platform::mute' set 1
 bindsym Print exec flameshot gui
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec "brightnessctl -d 'intel_backlight' set +5%; notify-send 'brightness up'"
-bindsym XF86MonBrightnessDown exec "brightnessctl -d 'intel_backlight' set 5%-; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec "brightnessctl -d 'amdgpu_bl0' set +5%; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "brightnessctl -d 'amdgpu_bl0' set 5%-; notify-send 'brightness down'"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -57,8 +59,9 @@ bindsym XF86AudioMute $exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refres
 bindsym XF86AudioMicMute $exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status && notify-send 'microphone mute'
 
 
-# #---Bindings---# #
-bindsym $mod+Return 		         $term
+#---Bindings---# #
+bindsym $mod+Shift+Return 		         $term
+bindsym $mod+Return 		         $exec alacritty -e zsh
 # Shift + Tab will execute any string as a shell command
 # bindsym $mod+Tab 			         $exec PATH=~/scripts:$PATH rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
 bindsym $mod+Tab 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
@@ -71,9 +74,11 @@ bindsym $mod+Shift+q		        [con_id="__focused__" instance="^(?!dropdown_).*$"
 bindsym $mod+n                      $exec dunstctl set-paused toggle && notify-send 'notifications toggle'
 bindsym $mod+w                      $exec pavucontrol
 
-bindsym $alt+w 			            $exec brave
+bindsym $alt+a                      $exec "~/set-devices.sh && notify-send 'Devices settings set'"
+bindsym $alt+w 			            $exec brave-browser
 bindsym $alt+e 			            $exec nautilus
-bindsym $alt+p 			            $exec bitwarden-desktop
+bindsym $alt+p 			            $exec bitwarden
+bindsym $alt+f 			            $exec ferdium
 bindsym $alt+o 			            $exec obsidian
 bindsym $alt+f 			            $exec ferdium
 bindsym $alt+l 			            $exec alacritty -e lf
@@ -318,6 +323,7 @@ mode "$mode_display" {
     #bindsym s $exec xrandr --auto --output eDP-1-1 --primary && notify-send 'Single monitor configured', mode "default"
     bindsym s $exec xrandr --auto --output eDP-1 --primary && notify-send 'Single monitor configured' && $wallpaper_reset, mode "default"
     bindsym e $exec xrandr --auto --output HDMI-0 --primary --auto --left-of eDP-1-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
+    bindsym u $exec xrandr --auto --output DisplayPort-4 --primary --auto --right-of eDP && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
     bindsym d $exec xrandr --auto --output DP-3 --primary --auto --above eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
     bindsym o $exec xrandr --auto --output DP-3 --primary --output eDP-1 --off && notify-send 'Only Dell monitor configured ThinkPad turned off' && $wallpaper_reset, mode "default"
     bindsym f $exec xrandr --auto --output DP-3 --primary --auto --left-of eDP-1 && notify-send 'Dell monitor configured on the left side of laptop' && $wallpaper_reset, mode "default"
