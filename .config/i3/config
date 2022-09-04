@@ -75,7 +75,10 @@ bindsym $alt+w 			            $exec brave
 bindsym $alt+e 			            $exec nautilus
 bindsym $alt+p 			            $exec bitwarden-desktop
 bindsym $alt+o 			            $exec obsidian
+bindsym $alt+f 			            $exec ferdium
 bindsym $alt+l 			            $exec alacritty -e lf
+
+bindsym $alt+a 			            $exec "~/set-devices.sh && notify-send 'Devices settings set'"
 
 # h
 bindsym $mod+h			            focus left
@@ -344,6 +347,17 @@ mode "$mode_graphics" {
     bindsym Escape mode "default"
 }
 
+## Manual moving of all windows between monitors
+bindsym $alt+d mode "$mode_windows"
+set $mode_windows Move windows: (d)ell, (s)mall
+mode "$mode_windows" {
+    bindsym d $exec "~/scripts/i3move dell && notify-send 'Moved all windows to Dell'", mode "default"
+    bindsym s $exec "~/scripts/i3move small && notify-send 'Moved all windows to smaller screen'", mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
