@@ -15,9 +15,41 @@ vim.g.maplocalleader = " "
 -- present at least on Arch/Manjaro/Void
 vim.api.nvim_command("set rtp-=/usr/share/vim/vimfiles")
 
-require("plugins")
-require("keymaps")
 require("options")
+
+require("config.mini")
+require("config.fugitive")
+require("config.gitsigns")
+require("config.diffview")
+require("config.neogit")
+require("config.toggleterm")
+require("config.lf")
+require("config.undotree")
+require("config.lualine")
+
+require("config.fzf")
+require("config.telescope")
+require("config.telekasten")
+
+require("config.lsp")
+require("config.mason")
+require("config.null-ls")
+require("config.symbols")
+
+require("config.cmp")
+require("config.copilot")
+require("config.treesitter")
+require("config.nvim-bqf")
+require("config.todo")
+require("config.project")
+require("config.which-key")
+require("config.notify")
+
+require("config.terraform")
+require("config.go")
+-- require("config.dap")
+
+require("keymaps")
 require("autocmd")
 
 -- set colorscheme to gruvbox
