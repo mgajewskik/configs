@@ -28,9 +28,9 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'TimUntersberger/neogit'
 Plug 'akinsho/toggleterm.nvim'
+Plug 'ptzz/lf.vim'
 "lf requires floaterm
 Plug 'voldikss/vim-floaterm'
-Plug 'ptzz/lf.vim'
 Plug 'mbbill/undotree'
 Plug 'ggandor/lightspeed.nvim'
 "required by lualine
@@ -89,7 +89,6 @@ Plug 'rhysd/conflict-marker.vim'
 Plug 'Djancyp/cheat-sheet'
 "easy alignment with gl=
 Plug 'tommcdo/vim-lion'
-Plug 'shuntaka9576/preview-swagger.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'hashivim/vim-terraform'

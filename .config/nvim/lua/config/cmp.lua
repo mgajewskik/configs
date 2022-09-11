@@ -16,7 +16,7 @@ cmp.setup({
 				rg = "RG",
 				nvim_lsp = "LSP",
 				path = "PATH",
-				luasnip = "SNIP",
+				-- luasnip = "SNIP",
 				calc = "CALC",
 				spell = "SPELL",
 				copilot = " COP",
@@ -31,11 +31,11 @@ cmp.setup({
 			end,
 		}),
 	},
-	snippet = {
-		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
-		end,
-	},
+	-- snippet = {
+	-- 	expand = function(args)
+	-- 		require("luasnip").lsp_expand(args.body)
+	-- 	end,
+	-- },
 	mapping = {
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-u>"] = cmp.mapping.scroll_docs(4),
@@ -64,7 +64,7 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "buffer", keyword_length = 5 },
-		{ name = "luasnip" },
+		-- { name = "luasnip" },
 		-- { name = "calc" },
 		-- { name = "spell", keyword_length = 5 },
 		{ name = "rg", keyword_length = 5 },

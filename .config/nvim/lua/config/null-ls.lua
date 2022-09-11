@@ -35,7 +35,8 @@ nls.setup({
 		nls.builtins.formatting.isort,
 		nls.builtins.formatting.goimports,
 		nls.builtins.formatting.gofumpt,
-		nls.builtins.formatting.codespell,
+		-- changes some strings that need to be like they are
+		-- nls.builtins.formatting.codespell,
 		nls.builtins.formatting.eslint_d,
 	},
 	on_attach = function(client, bufnr)
