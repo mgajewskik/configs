@@ -192,7 +192,7 @@ alias k="kubectl"
 alias tf="terraform"
 # alias src="export $(cat .env | xargs)"
 alias nvim=/usr/local/bin/nvim
-alias snvim=/usr/bin/nvim
+alias unvim=/usr/bin/nvim
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -326,6 +326,42 @@ alias tg=toggl
 tgs() {
     project_name=$2
     toggl start $1 --project-id $(toggl projects | awk -v var=$project_name '$2 == var { print $1 }')
+}
+
+#####################
+# Pomodoro timer    #
+#####################
+
+#I know you're just pulling my leg, but sure.
+
+# The script is a function definition. The first 3 lines inside the function
+# read the positional arguments passed when calling pomo. The value of the first
+# argument ($1) gets assigned to arg1. The rest of the arguments ($*) gets
+# assigned to args.
+#
+# The next three lines process the captured arguments, validates them, and
+# assigns them to appropriate variables. The ${var:?err} syntax is a bash
+# feature which means "give me the value of var if it's assigned, else fail with
+# error err". The $((expr)) syntax calculates the expr mathematical expression
+# and converts minutes to seconds by multiplying the value with 60.
+#
+# Then the last 3 lines run a while loop which sleeps for $sec seconds, then
+# prints the value of $msg, then it will display the notification and
+# continue looping.
+
+function pomo() {
+    arg1=$1
+    shift
+    args="$*"
+
+    min=${arg1:?Example: pomo 15 Take a break}
+    sec=$((min * 60))
+    msg="${args:?Example: pomo 15 Take a break}"
+
+    date1=`date +%s`; while true; do
+        # echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";
+        date '+%H:%M' && sleep "${sec:?}" && notify-send -u critical -t 0 -a pomo "${msg:?}"
+    done
 }
 
 #####################
