@@ -1,20 +1,54 @@
 local aucmd = vim.api.nvim_create_autocmd
 
 local function augroup(name, fnc)
-  fnc(vim.api.nvim_create_augroup(name, { clear = true }))
+	fnc(vim.api.nvim_create_augroup(name, { clear = true }))
 end
 
-augroup('HighlightYankedText', function(g)
-  -- highlight yanked text and copy to system clipboard
-  -- TextYankPost is also called on deletion, limit to
-  -- yanks via v:operator
-  aucmd("TextYankPost", {
-    group = g,
-    pattern = '*',
-    command = "if has('clipboard') && v:operator=='y' && len(@0)>0 | "
-      .. "let @+=@0 | endif | "
-      .. "lua vim.highlight.on_yank{higroup='IncSearch', timeout=2000}"
-  })
+augroup("HighlightYankedText", function(g)
+	-- highlight yanked text and copy to system clipboard
+	-- TextYankPost is also called on deletion, limit to
+	-- yanks via v:operator
+	aucmd("TextYankPost", {
+		group = g,
+		pattern = "*",
+		command = "if has('clipboard') && v:operator=='y' && len(@0)>0 | "
+			.. "let @+=@0 | endif | "
+			.. "lua vim.highlight.on_yank{higroup='IncSearch', timeout=2000}",
+	})
+end)
+
+-- auto-delete fugitive buffers
+augroup("Fugitive", function(g)
+	aucmd("BufReadPost,", {
+		group = g,
+		pattern = "fugitive://*",
+		command = "set bufhidden=delete",
+	})
+end)
+
+augroup("NewlineNoAutoComments", function(g)
+	aucmd("BufEnter", {
+		group = g,
+		pattern = "*",
+		command = "setlocal formatoptions-=o",
+	})
+end)
+
+-- vim.api.nvim_create_augroup("Markdown", {
+-- 	{ "BufRead,BufNewFile", "*.md", "setlocal textwidth=80" },
+-- })
+--
+-- vim.api.nvim_create_augroup("GitCommit", {
+-- 	{ "Filetype", "gitcommit", "setlocal spell textwidth=72" },
+-- })
+
+--- Remove all trailing whitespace on save
+augroup("TrimWhiteSpaceGrp", function(g)
+	aucmd("BufWritePre", {
+		group = g,
+		pattern = "*",
+		command = [[:%s/\s\+$//e]],
+	})
 end)
 
 -- -- update statusline highlights
@@ -37,13 +71,6 @@ end)
 --   })
 -- end)
 --
--- augroup('NewlineNoAutoComments', function(g)
---   aucmd("BufEnter", {
---     group = g,
---     pattern = '*',
---     command = "setlocal formatoptions-=o"
---   })
--- end)
 --
 -- augroup('TermOptions', function(g)
 --   aucmd("TermOpen",
@@ -102,14 +129,6 @@ end)
 --   })
 -- end)
 --
--- -- auto-delete fugitive buffers
--- augroup('Fugitive', function(g)
---   aucmd("BufReadPost,", {
---     group = g,
---     pattern = 'fugitive://*',
---     command = 'set bufhidden=delete'
---   })
--- end)
 --
 -- augroup('Solidity', function(g)
 --   aucmd("BufRead,BufNewFile", {
@@ -229,13 +248,6 @@ end)
 --   { 'BufRead,BufNewFile', '*.sol', 'set filetype=solidity' }
 -- })
 --
--- au.group('Markdown', {
---   { 'BufRead,BufNewFile', '*.md', 'setlocal textwidth=80' }
--- })
---
--- au.group('GitCommit', {
---   { 'Filetype', 'gitcommit', 'setlocal spell textwidth=72' }
--- })
 --
 -- -- Display help|man in vertical splits
 -- au.group('Help', function(g)
@@ -284,12 +296,6 @@ end)
 --
 -- local api = vim.api
 --
--- --- Remove all trailing whitespace on save
--- local TrimWhiteSpaceGrp = api.nvim_create_augroup("TrimWhiteSpaceGrp", { clear = true })
--- api.nvim_create_autocmd("BufWritePre", {
---   command = [[:%s/\s\+$//e]],
---   group = TrimWhiteSpaceGrp,
--- })
 --
 -- -- don't auto comment new line
 -- api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })

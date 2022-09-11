@@ -34,21 +34,17 @@ local servers = {
 	"jsonls",
 	"pyright",
 	"sumneko_lua",
-	"texlab",
-	"tsserver",
+	-- "texlab",
 	"yamlls",
 	"gopls",
+	"golangci_lint_ls",
 	"terraformls",
-	-- "groovyls", -- gives file exists error which means error while loading file
-	"tflint",
 	"diagnosticls",
-	-- "textlab",
-	-- "grammarly",
 	"marksman",
-	"remark_ls",
 	-- "jedi_language_server",
 	-- "pylsp",
-	"tflint",
+	"vimls",
+	"tsserver",
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers

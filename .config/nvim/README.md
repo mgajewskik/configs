@@ -21,7 +21,7 @@ Date:   Thu Feb 24 08:47:46 2022 -0800
 yaf - yank a function
 yac - yank around comment
 
-S" - add parantheses around visual selection
+S" - add parentheses around visual selection
 cs"' - to change " to '
 ds" - remove " around text
 ysiw" - add " around world

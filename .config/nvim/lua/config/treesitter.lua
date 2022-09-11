@@ -12,7 +12,6 @@ require("nvim-treesitter.configs").setup({
 		"javascript",
 		"typescript",
 		"json",
-		"kotlin",
 		"latex",
 		"ledger",
 		"lua",
@@ -22,11 +21,12 @@ require("nvim-treesitter.configs").setup({
 		"toml",
 		"yaml",
 		"rego",
+		"vim",
 	}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 	--     ignore_install = {}, -- List of parsers to ignore installing
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		disable = { "vim" }, -- list of language that will be disabled
+		-- disable = { "vim" }, -- list of language that will be disabled
 	},
 	incremental_selection = {
 		enable = true,
