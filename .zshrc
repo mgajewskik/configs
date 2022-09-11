@@ -138,7 +138,7 @@ setopt vi
 
 # Automatic ls when changing directory
 # removed --classify
-chpwd() exa --git --icons --group-directories-first --time-style=long-iso --group --color-scale
+chpwd() exa --icons --group-directories-first --time-style=long-iso --group --color-scale
 #####################
 # ENV VARIABLE      #
 #####################
@@ -174,7 +174,7 @@ alias ..="cd .."
 alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias pskill="ps aux  |  grep -i csp_build  |  awk '{print $2}'  |  xargs sudo kill -9"
 alias myip="curl http://ipecho.net/plain; echo"
-alias ls="exa --git --icons --group-directories-first --time-style=long-iso --group --color-scale"
+alias ls="exa --icons --group-directories-first --time-style=long-iso --group --color-scale"
 alias myconfig='/usr/bin/git --git-dir=$HOME/.myconfig/ --work-tree=$HOME'
 alias -- -='cd -'
 alias cht="cht.sh"
@@ -185,8 +185,6 @@ alias eenv='eval $(cat .env)'
 alias om=optimus-manager
 alias weather='curl wttr.in'
 alias clp="greenclip print | sed '/^$/d' | fzf -e | xargs -r -d'\n' -I '{}' greenclip print '{}'"
-alias cleanup="yay -Rsn $(yay -Qdtq)"
-alias pkginstall="yay -S $(awk '{print $1}' ~/packages.info) --needed"
 alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9999999'
 alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
