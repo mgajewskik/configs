@@ -71,6 +71,6 @@ augroup("QuickClose", function(g)
     aucmd("Filetype", {
         group = g,
         pattern = "help,startuptime,qf,lspinfo,fugitive,null-ls-info",
-        command = "[[nnoremap <buffer><silent> q :close<CR>]]",
+        command = "nnoremap <buffer><silent> q :close<CR>",
     })
 end)

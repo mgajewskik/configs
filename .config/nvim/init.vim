@@ -68,8 +68,8 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
 "needs to have NodeJS version 16 apparently and not 18, setup with nvm
 Plug 'github/copilot.vim'
-Plug 'zbirenbaum/copilot.lua'
-Plug 'zbirenbaum/copilot-cmp'
+" Plug 'zbirenbaum/copilot.lua'
+" Plug 'zbirenbaum/copilot-cmp'
 
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
