@@ -26,7 +26,7 @@ require("nvim-treesitter.configs").setup({
 	--     ignore_install = {}, -- List of parsers to ignore installing
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		-- disable = { "vim" }, -- list of language that will be disabled
+		disable = { "vim" }, -- list of language that will be disabled
 	},
 	incremental_selection = {
 		enable = true,

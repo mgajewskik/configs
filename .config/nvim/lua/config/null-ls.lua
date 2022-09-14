@@ -30,7 +30,8 @@ nls.setup({
 		nls.builtins.formatting.stylua,
 		nls.builtins.formatting.shfmt,
 		nls.builtins.formatting.shellharden,
-		nls.builtins.formatting.terraform_fmt,
+		-- this formatting is so slow
+		-- nls.builtins.formatting.terraform_fmt,
 		nls.builtins.formatting.black,
 		nls.builtins.formatting.isort,
 		nls.builtins.formatting.goimports,

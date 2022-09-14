@@ -178,7 +178,7 @@ alias -- -='cd -'
 alias cht="cht.sh"
 
 alias srconfig='source ~/.zshrc'
-alias senv='which pip; source venv/bin/activate; which pip'
+# alias senv='which pip; source venv/bin/activate; which pip'
 alias eenv='eval $(cat .env)'
 alias om=optimus-manager
 alias weather='curl wttr.in'

@@ -40,7 +40,7 @@ require("config.cmp")
 require("config.copilot")
 require("config.treesitter")
 require("config.nvim-bqf")
-require("config.todo")
+-- require("config.todo")
 require("config.project")
 require("config.which-key")
 require("config.notify")
@@ -58,9 +58,9 @@ vim.o.background = "dark" -- or "light" for light mode
 
 -- Kanagawa colorscheme config
 local overrides = {
-	Search = { fg = "#0F1F28", bg = "#FF9E3B" },
-	-- Visual = { bg = "#717C7C" }
-	Visual = { bg = "#54546D" },
+    Search = { fg = "#0F1F28", bg = "#FF9E3B" },
+    -- Visual = { bg = "#717C7C" }
+    Visual = { bg = "#54546D" },
 }
 require("kanagawa").setup({ overrides = overrides })
 pcall(vim.cmd, [[colorscheme kanagawa]])
