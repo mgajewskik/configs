@@ -77,7 +77,7 @@ Plug 'RRethy/nvim-treesitter-endwise'
 Plug 'windwp/nvim-ts-autotag'
 
 "requires junegunn/fzf
-Plug 'kevinhwang91/nvim-bqf'
+" Plug 'kevinhwang91/nvim-bqf'
 Plug 'RRethy/vim-illuminate'
 Plug 'SmiteshP/nvim-navic'
 " Plug 'folke/todo-comments.nvim'
