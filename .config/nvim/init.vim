@@ -33,7 +33,7 @@ Plug 'ptzz/lf.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'mbbill/undotree'
 Plug 'ggandor/lightspeed.nvim'
-"required by lualine
+"required by lualine, and nvim-tree
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
 
@@ -82,14 +82,16 @@ Plug 'RRethy/vim-illuminate'
 Plug 'SmiteshP/nvim-navic'
 " Plug 'folke/todo-comments.nvim'
 Plug 'ahmedkhalf/project.nvim'
-Plug 'folke/which-key.nvim'
+" Plug 'folke/which-key.nvim'
 Plug 'rcarriga/nvim-notify'
-Plug 'rhysd/conflict-marker.vim'
+" Plug 'rhysd/conflict-marker.vim'
 "to use :CheatSH
 Plug 'Djancyp/cheat-sheet'
 "easy alignment with gl=
 Plug 'tommcdo/vim-lion'
+" :ColorizerToggle
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'hashivim/vim-terraform'
 Plug 'ray-x/go.nvim'
