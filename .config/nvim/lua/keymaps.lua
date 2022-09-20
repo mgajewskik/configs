@@ -131,8 +131,8 @@ remap("n", "[B", ":bfirst<CR>", { noremap = true })
 remap("n", "]B", ":blast<CR>", { noremap = true })
 -- Quickfix list mappings
 remap("n", "<leader>q", "<cmd>lua require'utils'.toggle_qf('q')<CR>", { noremap = true })
-remap("n", "<C-k>", ":cp<CR>", { noremap = true })
-remap("n", "<C-j>", ":cn<CR>", { noremap = true })
+-- remap("n", "<C-k>", ":cp<CR>", { noremap = true })
+-- remap("n", "<C-j>", ":cn<CR>", { noremap = true })
 remap("n", "[q", ":cprevious<CR>", { noremap = true })
 remap("n", "]q", ":cnext<CR>", { noremap = true })
 remap("n", "[Q", ":cfirst<CR>", { noremap = true })
@@ -144,17 +144,18 @@ remap("n", "]l", ":lnext<CR>", { noremap = true })
 remap("n", "[L", ":lfirst<CR>", { noremap = true })
 remap("n", "]L", ":llast<CR>", { noremap = true })
 
+-- Not using those as I manage my clipboard with greenclip
 -- <leader>v|<leader>s act as <cmd-v>|<cmd-s>
 -- <leader>p|P paste from yank register (0)
 -- <leader>y|Y yank into clipboard/OSCyank
-remap({ "n", "v" }, "<leader>v", '"+p', { noremap = true })
-remap({ "n", "v" }, "<leader>V", '"+P', { noremap = true })
+-- remap({ "n", "v" }, "<leader>v", '"+p', { noremap = true })
+-- remap({ "n", "v" }, "<leader>V", '"+P', { noremap = true })
 -- remap({'n', 'v'}, '<leader>s', '"*p',   { noremap = true })
 -- remap({'n', 'v'}, '<leader>S', '"*P',   { noremap = true })
-remap({ "n", "v" }, "<leader>p", '"0p', { noremap = true })
-remap({ "n", "v" }, "<leader>P", '"0P', { noremap = true })
-remap({ "n", "v" }, "<leader>y", '"+y', { noremap = true })
-remap({ "n", "v" }, "y", '"+y', { noremap = true })
+-- remap({ "n", "v" }, "<leader>p", '"0p', { noremap = true })
+-- remap({ "n", "v" }, "<leader>P", '"0P', { noremap = true })
+-- remap({ "n", "v" }, "<leader>y", '"+y', { noremap = true })
+-- remap({ "n", "v" }, "y", '"+y', { noremap = true })
 -- remap({'n', 'v'}, '<leader>Y', ':OSCYank<CR>', { noremap = true })
 
 -- Overloads for 'd|c' that don't pollute the unnamed registers
@@ -198,20 +199,20 @@ end --]]
 -- any jump over 5 modifies the jumplist
 -- so we can use <C-o> <C-i> to jump back and forth
 for _, c in ipairs({ "j", "k" }) do
-	remap(
-		"n",
-		c,
-		([[(v:count > 5 ? "m'" . v:count : "") . '%s']]):format(c),
-		{ noremap = true, expr = true, silent = true }
-	)
+    remap(
+        "n",
+        c,
+        ([[(v:count > 5 ? "m'" . v:count : "") . '%s']]):format(c),
+        { noremap = true, expr = true, silent = true }
+    )
 end
 
 -- move along visual lines, not numbered ones
 -- without interferring with {count}<down|up>
 for _, m in ipairs({ "n", "v" }) do
-	for _, c in ipairs({ "<up>", "<down>" }) do
-		remap(m, c, ([[v:count == 0 ? 'g%s' : '%s']]):format(c, c), { noremap = true, expr = true, silent = true })
-	end
+    for _, c in ipairs({ "<up>", "<down>" }) do
+        remap(m, c, ([[v:count == 0 ? 'g%s' : '%s']]):format(c, c), { noremap = true, expr = true, silent = true })
+    end
 end
 
 -- Search and Replace
@@ -232,10 +233,10 @@ remap("n", "<leader>/", "<Esc>:nohlsearch<CR>", { noremap = true, silent = true 
 
 -- Toggle colored column at 81
 remap(
-	"n",
-	"<leader>|",
-	':execute "set colorcolumn=" . (&colorcolumn == "" ? "81" : "")<CR>',
-	{ noremap = true, silent = true }
+    "n",
+    "<leader>|",
+    ':execute "set colorcolumn=" . (&colorcolumn == "" ? "81" : "")<CR>',
+    { noremap = true, silent = true }
 )
 
 -- Change current working dir (:pwd) to curent file's folder

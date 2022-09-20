@@ -6,5 +6,5 @@ vim.g.lf_replace_netrw = 1
 
 local remap = require("utils").remap
 
-remap("n", "<leader>e", ":Lf<CR>", { noremap = true })
+-- remap("n", "<leader>e", ":Lf<CR>", { noremap = true })
 remap("n", "<C-e>", ":Lf<CR>", { noremap = true })
