@@ -67,33 +67,33 @@ interval=900
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.
-[memory]
-separator=false
-interval=1
-command=echo "MEM: $(~/.config/i3blocks/i3memory)"
+# [memory]
+# separator=false
+# interval=1
+# command=echo "MEM: $(~/.config/i3blocks/i3memory)"
 
 # Disk usage
 #
 # The directory defaults to $HOME if the instance is not specified.
 # The script may be called with a optional argument to set the alert
 # (defaults to 10 for 10%).
-[disk]
-interval=30
-command=echo "HOME: $(~/.config/i3blocks/i3disk)"
+# [disk]
+# interval=30
+# command=echo "HOME: $(~/.config/i3blocks/i3disk)"
 
 
 # CPU usage
 #
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
-[cpu_usage]
-command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
-interval=1
-separator=false
+# [cpu_usage]
+# command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
+# interval=1
+# separator=false
 
-[temp]
-command=echo "T: $(~/.config/i3blocks/i3temp)"
-interval=1
+# [temp]
+# command=echo "T: $(~/.config/i3blocks/i3temp)"
+# interval=1
 # seperator=true
 
 #[uptime]
@@ -104,10 +104,10 @@ interval=1
 # Volume indicator
 #
 # Displays both the master and the headphone volume
-[volume]
-command=~/.config/i3blocks/i3volume
-interval=1
-signal=1
+# [volume]
+# command=~/.config/i3blocks/i3volume
+# interval=1
+# signal=1
 
 # Backlight Level
 [light]
