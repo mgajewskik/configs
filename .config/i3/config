@@ -59,6 +59,7 @@ bindsym XF86AudioMicMute $exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && 
 
 # #---Bindings---# #
 bindsym $mod+Return 		         $term
+bindsym $mod+Shift+Return 		     $exec xterm -e bash
 # Shift + Tab will execute any string as a shell command
 # bindsym $mod+Tab 			         $exec PATH=~/scripts:$PATH rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
 bindsym $mod+Tab 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
@@ -180,14 +181,14 @@ set $ws10 "10"
 # assign [class="Signal Beta"] $ws11
 # # for_window [class="Signal Beta"] move to workspace $ws11 layout tabbed
 # for_window [class="Signal Beta"] move to workspace $ws11
-# 
+#
 # assign [class="obsidian"] $ws12
 # # for_window [class="obsidian"] move to workspace $ws12 layout tabbed
 # for_window [class="obsidian"] move to workspace $ws12
 # # assign [class="notion-app-enhanced"] $ws12
 # # for_window [class="notion-app-enhanced"] move to workspace $ws12 layout tabbed
 # # for_window [class="notion-app-enhanced"] move to workspace $ws12
-# 
+#
 # assign [class="Spotify"] $ws15
 # for_window [class="Spotify"] move to workspace $ws15
 
@@ -379,7 +380,7 @@ bar {
     colors {
         # background #222D31
         # background  #383c4a
-        background  #1F1F28	
+        background  #1F1F28
         statusline  #F9FAF9
         separator   #4b5162
 

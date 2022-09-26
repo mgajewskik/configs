@@ -28,10 +28,10 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=20
 markup=none
 
-[pomo]
-command=pomo status
-separator=true
-interval=1
+# [pomo]
+# command=pomo status
+# separator=true
+# interval=1
 
 # Display any packages to install
 [packages]
@@ -41,9 +41,9 @@ interval=1800
 signal=3
 
 ## Weather
-[weather]
-command=~/.config/i3blocks/i3weather
-interval=900
+# [weather]
+# command=~/.config/i3blocks/i3weather
+# interval=900
 
 # Network Speed
 #
@@ -67,34 +67,34 @@ interval=900
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.
-[memory]
-separator=false
-interval=1
-command=echo "MEM: $(~/.config/i3blocks/i3memory)"
+# [memory]
+# separator=false
+# interval=1
+# command=echo "MEM: $(~/.config/i3blocks/i3memory)"
 
 # Disk usage
 #
 # The directory defaults to $HOME if the instance is not specified.
 # The script may be called with a optional argument to set the alert
 # (defaults to 10 for 10%).
-[disk]
-interval=30
-command=echo "HOME: $(~/.config/i3blocks/i3disk)"
+# [disk]
+# interval=30
+# command=echo "HOME: $(~/.config/i3blocks/i3disk)"
 
 
 # CPU usage
 #
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
-[cpu_usage]
-command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
-interval=1
-separator=false
-
-[temp]
-command=echo "T: $(~/.config/i3blocks/i3temp)"
-interval=1
-seperator=true
+# [cpu_usage]
+# command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
+# interval=1
+# separator=false
+#
+# [temp]
+# command=echo "T: $(~/.config/i3blocks/i3temp)"
+# interval=1
+# seperator=true
 
 #[uptime]
 #command=echo "UPT: $(~/.config/i3blocks/i3uptime)"
