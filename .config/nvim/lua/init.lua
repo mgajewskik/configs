@@ -25,6 +25,7 @@ require("config.neogit")
 require("config.toggleterm")
 require("config.lf")
 require("config.undotree")
+require("leap").set_default_keymaps()
 require("config.lualine")
 
 require("config.fzf")

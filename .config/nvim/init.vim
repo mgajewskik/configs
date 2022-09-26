@@ -21,6 +21,7 @@ Plug 'lewis6991/impatient.nvim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'echasnovski/mini.nvim'
 Plug 'tpope/vim-surround'
+" repeat with . doesn't seem to work
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'nvim-lua/plenary.nvim'
@@ -32,7 +33,8 @@ Plug 'ptzz/lf.vim'
 "lf requires floaterm
 Plug 'voldikss/vim-floaterm'
 Plug 'mbbill/undotree'
-Plug 'ggandor/lightspeed.nvim'
+" Plug 'ggandor/lightspeed.nvim'
+Plug 'ggandor/leap.nvim'
 "required by lualine, and nvim-tree
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'

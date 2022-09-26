@@ -8,10 +8,10 @@ nls.setup({
 		nls.builtins.diagnostics.cfn_lint,
 		nls.builtins.diagnostics.yamllint,
 		nls.builtins.diagnostics.flake8,
-		nls.builtins.diagnostics.mypy,
-		nls.builtins.diagnostics.pylint,
+		-- turning off as throwing too many errors
+		-- nls.builtins.diagnostics.mypy,
+		-- nls.builtins.diagnostics.pylint,
 		nls.builtins.diagnostics.pyproject_flake8,
-		nls.builtins.diagnostics.alex,
 		-- nls.builtins.diagnostics.checkmake,
 		nls.builtins.diagnostics.codespell,
 		-- nls.builtins.diagnostics.eslint_d,
