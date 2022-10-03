@@ -41,9 +41,9 @@ markup=none
 # signal=3
 
 ## Weather
-[weather]
-command=~/.config/i3blocks/i3weather
-interval=900
+# [weather]
+# command=~/.config/i3blocks/i3weather
+# interval=900
 
 # Network Speed
 #
