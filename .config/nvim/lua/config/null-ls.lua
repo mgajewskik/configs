@@ -7,7 +7,11 @@ nls.setup({
 		nls.builtins.diagnostics.actionlint,
 		nls.builtins.diagnostics.cfn_lint,
 		nls.builtins.diagnostics.yamllint,
-		nls.builtins.diagnostics.flake8,
+		nls.builtins.diagnostics.flake8.with({
+			extra_args = {
+				"--max-line-length=120",
+			},
+		}),
 		-- turning off as throwing too many errors
 		-- nls.builtins.diagnostics.mypy,
 		-- nls.builtins.diagnostics.pylint,
