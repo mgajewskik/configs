@@ -1,0 +1,36 @@
+swipe:
+  3:
+    left:
+      command: "xdotool key alt+Left"
+    right:
+      command: "xdotool key alt+Right"
+    up:
+      command: "xdotool key ctrl+t"
+      keypress:
+      LEFTSHIFT:
+        command: "xdotool key --clearmodifiers ctrl+shift+t" # Open last closed tab
+    down:
+      command: "xdotool key ctrl+w" # Close tab
+
+  4:
+    left:
+      command: exec i3 focus left
+    right:
+      command: exec i3 focus right
+    up:
+      command: exec i3 fullscreen toggle
+    down:
+      command: exec i3 floating toggle
+pinch:
+  in:
+    command: "xdotool key ctrl+plus"
+  out:
+    command: "xdotool key ctrl+minus"
+
+threshold:
+  swipe: 0.4
+  pinch: 0.4
+
+interval:
+  swipe: 0.8
+  pinch: 0.1
