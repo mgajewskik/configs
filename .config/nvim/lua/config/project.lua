@@ -11,8 +11,8 @@ require("project_nvim").setup({
 		-- "pyrightconfig.json",
 		"pyproject.toml",
 	},
-	-- detection_methods = { "lsp", "pattern" },
-	detection_methods = { "pattern" },
+	detection_methods = { "lsp", "pattern" },
+	-- detection_methods = { "pattern" },
 })
 
 local remap = require("utils").remap

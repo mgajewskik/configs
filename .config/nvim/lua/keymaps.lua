@@ -97,10 +97,10 @@ remap("n", "<leader>tt", ":tabnew<CR>:terminal<CR>i", { noremap = true })
 -- remap('n', '<leader>=',       '<C-w>=',               { noremap = true, silent = true })
 
 -- Pane navigation
-remap("n", "<leader>h", ":wincmd h<CR>", { noremap = true })
-remap("n", "<leader>j", ":wincmd j<CR>", { noremap = true })
-remap("n", "<leader>k", ":wincmd k<CR>", { noremap = true })
-remap("n", "<leader>l", ":wincmd l<CR>", { noremap = true })
+-- remap("n", "<leader>h", ":wincmd h<CR>", { noremap = true })
+-- remap("n", "<leader>j", ":wincmd j<CR>", { noremap = true })
+-- remap("n", "<leader>k", ":wincmd k<CR>", { noremap = true })
+-- remap("n", "<leader>l", ":wincmd l<CR>", { noremap = true })
 
 -- Tab navigation
 remap("n", "<leader>1", "1gt", { noremap = true })
@@ -164,10 +164,10 @@ remap("n", "d", '"_d', { noremap = true })
 remap("n", "<leader>d", "d", { noremap = true })
 remap("v", "d", '"_d', { noremap = true })
 remap("v", "<leader>d", "d", { noremap = true })
--- remap('n', '<leader>D',  '"_D',     { noremap = true })
--- remap('n', '<leader>c',  '"_c',     { noremap = true })
--- remap('n', '<leader>C',  '"_C',     { noremap = true })
--- remap('v', '<leader>c',  '"_c',     { noremap = true })
+remap("n", "<leader>D", '"_D', { noremap = true })
+remap("n", "<leader>c", '"_c', { noremap = true })
+remap("n", "<leader>C", '"_C', { noremap = true })
+remap("v", "<leader>c", '"_c', { noremap = true })
 
 -- Map `Y` to copy to end of line
 -- conistent with the behaviour of `C` and `D`

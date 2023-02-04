@@ -4,6 +4,15 @@ local function augroup(name, fnc)
     fnc(vim.api.nvim_create_augroup(name, { clear = true }))
 end
 
+-- not working as expected
+-- augroup("DefaultFiletype", function(g)
+--     aucmd("BufEnter,", {
+--         group = g,
+--         pattern = "* if &filetype == ''",
+--         command = "set filetype=sh",
+--     })
+-- end)
+
 augroup("HighlightYankedText", function(g)
     -- highlight yanked text and copy to system clipboard
     -- TextYankPost is also called on deletion, limit to

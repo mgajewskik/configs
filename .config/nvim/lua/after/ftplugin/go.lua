@@ -3,8 +3,8 @@ vo.tabstop = 4
 vo.shiftwidth = 4
 vo.softtabstop = 4
 
-vim.wo.spell       = false
-vim.bo.expandtab   = true
+vim.wo.spell = false
+vim.bo.expandtab = true
 
 -- local wk = require("which-key")
 -- local default_options = { silent = true }

@@ -6,8 +6,14 @@ echo "Language set to PL"
 echo "Ctrl set to CapsLock"
 
 # to set a typematic DELAY to 200ms and a typematic RATE to 50Hz
-xset r rate 200 70
+xset r rate 200 100
 echo "MORE SPEED!!!!!!!!!!!!!!!!!!!!!!!!!!1111"
+
+# disable key repeat for hjkl
+# xset -r 43
+# xset -r 44
+# xset -r 45
+# xset -r 46
 
 xmodmap ~/.Xmodmap
 echo "Source ~/.Xmodmap"

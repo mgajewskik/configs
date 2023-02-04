@@ -176,10 +176,28 @@ telescope.setup({
 			filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
 			find_cmd = "rg", -- find command (defaults to `fd`)
 		},
+
+		project = {
+			base_dirs = {},
+		},
 	},
 })
 
-telescope.load_extension("projects")
+-- Default mappings (insert mode):
+-- Key	Description
+-- <c-d>	delete currently selected project
+-- <c-v>	rename currently selected project
+-- <c-a>	create a project*
+-- <c-s>	search inside files within your project
+-- <c-b>	browse inside files within your project
+-- <c-l>	change to the selected project's directory without opening it
+-- <c-r>	find a recently opened file within your project
+-- <c-f>	find a file within your project (same as <CR>)
+
+-- -- internal project integration
+telescope.load_extension("project")
+-- external project extension
+-- telescope.load_extension("projects")
 telescope.load_extension("fzf")
 telescope.load_extension("media_files")
 
@@ -188,4 +206,4 @@ local default_options = { silent = true }
 map("n", "<leader>st", ":Telescope<CR>", default_options)
 
 -- map("n", "<leader>f", ":Telescope git_files<CR>", default_options)
--- map("n", "<C-r>", ":Telescope projects<CR>", default_options)
+map("n", "<leader>sp", ":Telescope project<CR>", default_options)

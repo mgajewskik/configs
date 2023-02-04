@@ -34,7 +34,8 @@ show_always = false
 # shows the hostname on new lines
 [hostname]
 ssh_only = true
-format = "💻️ $hostname($style) "
+# format = "💻️ $hostname($style) "
+format = " $hostname($style) "
 #trim_at = ".companyname.com"
 trim_at = "-"
 disabled = false
@@ -44,7 +45,7 @@ style = "bold #87A752"
 [cmd_duration]
 min_time = 1000
 #format = "⏲️ [$duration]($style)"
-format = "🕙 [$duration]($style)"
+format = "祥[$duration]($style)"
 style = "bold italic #87A752"
 
 [directory]

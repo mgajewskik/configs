@@ -21,7 +21,7 @@ local function get_python_path(workspace)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.foldingRange = {
 	dynamicRegistration = false,
 	lineFoldingOnly = true,
@@ -36,10 +36,13 @@ local servers = {
 	"sumneko_lua",
 	-- "texlab",
 	"yamlls",
-	"gopls",
-	"golangci_lint_ls",
+	-- moved lsp to go config
+	-- "gopls",
+	-- "golangci_lint_ls",
 	"terraformls",
-	"diagnosticls",
+	-- not needed if null-ls is used, doesn't refresh on save like null-ls
+	-- "diagnosticls",
+	-- complains on nvim entry
 	"marksman",
 	-- "jedi_language_server",
 	-- "pylsp",
@@ -60,6 +63,12 @@ for _, lsp in ipairs(servers) do
 		end,
 		capabilities = capabilities,
 		settings = {
+			bash = {
+				filetypes = { "sh", "zsh" },
+				format = {
+					enable = false,
+				},
+			},
 			json = {
 				format = { enabled = false },
 				schemas = {

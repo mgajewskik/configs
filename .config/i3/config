@@ -7,9 +7,9 @@ set $alt Mod1
 set $exec exec --no-startup-id
 set $exec_always exec_always --no-startup-id
 set $term exec --no-startup-id alacritty
-# set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/Wallpapers/firewatch_6.jpg && notify-send 'wallpaper reset'
+set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/wallpapers/firewatch_6.jpg && notify-send 'wallpaper reset'
 # set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/wallpapers/solid-color-image.jpeg && notify-send 'wallpaper reset'
-set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/wallpapers/solid-color-image-black.jpeg && notify-send 'wallpaper reset'
+# set $wallpaper_reset feh --bg-fill --no-fehbg ~/pictures/wallpapers/solid-color-image-black.jpeg && notify-send 'wallpaper reset'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -24,16 +24,16 @@ gaps outer 3
 # #---Autostart---# #
 $exec_always $wallpaper_reset
 $exec_always systemctl --user start greenclip.service
-#$exec_always picom --config ~/.config/picom.conf
+$exec_always picom --config ~/.config/picom.conf
 
 $exec dunst
 $exec udiskie --tray
 $exec nm-applet
 $exec blueman-applet
 # $exec megasync
-$exec pcloud
+# $exec pcloud
 # $exec gpclient
-# $exec dropbox
+$exec dropbox
 $exec fusuma
 # $exec caffeine
 
@@ -64,7 +64,9 @@ bindsym $mod+Shift+t       		     $exec alacritty -e bash
 bindsym $mod+Shift+Return 		     $exec xterm -e bash
 # Shift + Tab will execute any string as a shell command
 # bindsym $mod+Tab 			         $exec PATH=~/scripts:$PATH rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
-bindsym $mod+Tab 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
+# bindsym $mod+Tab 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
+bindsym $mod+space 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
+bindsym $alt+Tab 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
 # bindsym $mod+Tab 			         $exec rofi -show drun
 bindsym $mod+c 			             $exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 bindsym $mod+Shift+r restart
@@ -75,13 +77,18 @@ bindsym $mod+n                      $exec dunstctl set-paused toggle && notify-s
 bindsym $mod+w                      $exec pavucontrol
 
 bindsym $alt+w 			            $exec brave
-bindsym $alt+e 			            $exec nautilus
+# bindsym $alt+e 			            $exec nautilus
+# bindsym $alt+e 			            $exec thunar
+bindsym $alt+e 			            $exec nemo
 bindsym $alt+p 			            $exec bitwarden-desktop
 bindsym $alt+o 			            $exec obsidian
 bindsym $alt+f 			            $exec ferdium
 bindsym $alt+l 			            $exec alacritty -e lf
 
 bindsym $alt+a 			            $exec "~/set-devices.sh && notify-send 'Devices settings set'"
+
+# HACK need to change to right if using external monitor on the right side
+bindsym $mod+Tab                    focus left
 
 # h
 bindsym $mod+h			            focus left
@@ -324,10 +331,11 @@ mode "$mode_display" {
     bindsym d $exec xrandr --auto --output DP-3 --primary --auto --above eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
     bindsym o $exec xrandr --auto --output DP-3 --primary --output eDP-1 --off && notify-send 'Only Dell monitor configured ThinkPad turned off' && $wallpaper_reset, mode "default"
     bindsym f $exec xrandr --auto --output DP-3 --primary --auto --left-of eDP-1 && notify-send 'Dell monitor configured on the left side of laptop' && $wallpaper_reset, mode "default"
-    bindsym p $exec xrandr --auto --output DP-1 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
+    bindsym p $exec xrandr --auto --output DP-3 --mode 1920x1080 --same-as eDP-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
     #bindsym p $exec xrandr --auto --output DP-0 --mode 1920x1080 --same-as eDP-1-1 && notify-send 'DP projector configured' && $wallpaper_reset, mode "default"
     bindsym r $exec xrandr --auto --output eDP-1 --primary --left-of DP-3 && notify-send 'ThinkVision configured on the right side' && $wallpaper_reset, mode "default"
     bindsym l $exec xrandr --auto --output eDP-1 --primary --right-of DP-3 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
+    bindsym u $exec xrandr --auto --output eDP-1 --primary --below DP-3 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
     bindsym a $exec xrandr --output DP-1-2 --primary --auto --above eDP-1 --output DP-1-1 --auto --right-of eDP-1 && notify-send 'ThinkVision and Dell configured in integrated mode' && $wallpaper_reset, mode "default"
     bindsym t $exec xrandr --output DP-1 --primary --auto --above eDP-1-1 --output DP-0 --auto --right-of eDP-1-1 && notify-send 'ThinkVision and Dell configured in nvidia mode' && $wallpaper_reset, mode "default"
     bindsym w $exec $wallpaper_reset

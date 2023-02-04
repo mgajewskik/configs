@@ -162,7 +162,7 @@ o.swapfile = false -- no swap file
 ]]
 o.shada = [[!,'100,<0,s100,h]]
 o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize"
-o.diffopt = "internal,filler,algorithm:histogram,indent-heuristic"
+o.diffopt = "internal,filler,algorithm:histogram,indent-heuristic,vertical"
 
 o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- block in normal and beam cursor in insert mode
 o.timeoutlen = 400 -- time to wait for a mapped sequence to complete (in milliseconds)

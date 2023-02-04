@@ -165,3 +165,5 @@ require("mini.pairs").setup({
 		["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^%a\\].", register = { cr = false } },
 	},
 })
+
+require("mini.ai").setup()

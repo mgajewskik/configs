@@ -504,13 +504,15 @@ map_fzf("n", "<leader>sn", "edit_neovim")
 
 -- LSP
 map_fzf("n", "gr", "lsp_references")
--- map_fzf('n', '<leader>ld', "lsp_definitions", { jump_to_single_result = false })
--- map_fzf('n', '<leader>lD', "lsp_declarations")
--- map_fzf('n', '<leader>ly', "lsp_typedefs")
--- map_fzf('n', '<leader>lm', "lsp_implementations")
--- map_fzf('n', '<leader>ls', "lsp_document_symbols")
--- map_fzf('n', '<leader>lS', "lsp_workspace_symbols")
-map_fzf("n", "<leader>sa", "lsp_code_actions", {
+map_fzf("n", "gm", "lsp_implementations")
+-- map_fzf("n", "<leader>ld", "lsp_definitions", { jump_to_single_result = false })
+-- map_fzf("n", "<leader>lD", "lsp_declarations")
+-- map_fzf("n", "<leader>ly", "lsp_typedefs")
+-- map_fzf("n", "<leader>si", "lsp_implementations")
+map_fzf("n", "<leader>ls", "lsp_document_symbols")
+-- when using straight from fzf pop up, it goes into the insert mode
+map_fzf("n", "<leader>lS", "lsp_workspace_symbols")
+map_fzf("n", "<leader>as", "lsp_code_actions", {
 	winopts = {
 		win_height = 0.30,
 		win_width = 0.70,

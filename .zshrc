@@ -98,12 +98,17 @@ zinit load 'wfxr/forgit'
 #zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
 #zinit light sharkdp/fd
 # ZSH MANYDOTS MAGIC
-zinit autoload'#manydots-magic' for knu/zsh-manydots-magic
+# zinit autoload'#manydots-magic' for knu/zsh-manydots-magic
 # GIT-FLOW
 zinit light petervanderdoes/git-flow-completion
 ## GIT-HUBFLOW
 #zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
 #zinit light mborsuk/hubflow
+# DIRENV auto load .envrc
+zinit from"gh-r" as"program" mv"direnv* -> direnv" \
+    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
+    pick"direnv" src="zhook.zsh" for \
+        direnv/direnv
 
 #####################
 # HISTORY           #
@@ -171,6 +176,7 @@ autoload colors && colors
 alias ..="cd .."
 alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias pskill="ps aux  |  grep -i csp_build  |  awk '{print $2}'  |  xargs sudo kill -9"
+alias ram="ps aux | awk '{print $2, $4, $11}' | sort -k2rn | head -n 20"
 alias myip="curl http://ipecho.net/plain; echo"
 alias ls="exa --git --icons --group-directories-first --time-style=long-iso --group --color-scale"
 alias myconfig='/usr/bin/git --git-dir=$HOME/.myconfig/ --work-tree=$HOME'
@@ -178,13 +184,13 @@ alias -- -='cd -'
 alias cht="cht.sh"
 
 alias srconfig='source ~/.zshrc'
-# alias senv='which pip; source venv/bin/activate; which pip'
+alias senv='which pip; source venv/bin/activate; which pip'
 alias eenv='eval $(cat .env)'
 alias om=optimus-manager
 alias weather='curl wttr.in'
 alias clp="greenclip print | sed '/^$/d' | fzf -e | xargs -r -d'\n' -I '{}' greenclip print '{}'"
 alias cleanup="yay -Rsn $(yay -Qdtq)"
-alias pkginstall="yay -S $(awk '{print $1}' ~/packages.info) --needed"
+# alias pkginstall="yay -S $(awk '{print $1}' ~/packages.info) --needed"
 alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9999999'
 alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
@@ -193,6 +199,8 @@ alias tf="terraform"
 # alias src="export $(cat .env | xargs)"
 alias nvim=/usr/local/bin/nvim
 alias snvim=/usr/bin/nvim
+alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
+alias run=./run
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'

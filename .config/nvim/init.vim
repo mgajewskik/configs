@@ -28,13 +28,15 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'TimUntersberger/neogit'
-Plug 'akinsho/toggleterm.nvim'
+" Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.1.0' }
+Plug 'akinsho/toggleterm.nvim',
 Plug 'ptzz/lf.vim'
 "lf requires floaterm
 Plug 'voldikss/vim-floaterm'
 Plug 'mbbill/undotree'
 " Plug 'ggandor/lightspeed.nvim'
 Plug 'ggandor/leap.nvim'
+Plug 'ggandor/flit.nvim'
 "required by lualine, and nvim-tree
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
@@ -45,13 +47,15 @@ Plug 'ibhagwan/fzf-lua'
 " required by telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-project.nvim'
 " required by telekasten
 Plug 'renerocksai/calendar-vim'
 Plug 'renerocksai/telekasten.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-media-files.nvim'
 
-Plug 'neovim/nvim-lspconfig'
+" Plug 'neovim/nvim-lspconfig', { 'tag': 'v0.1.3' }
+Plug 'neovim/nvim-lspconfig',
 "required by lspkind
 Plug 'famiu/bufdelete.nvim'
 Plug 'onsails/lspkind-nvim'
@@ -67,6 +71,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'lukas-reineke/cmp-rg'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'L3MON4D3/LuaSnip'
 
 "needs to have NodeJS version 16 apparently and not 18, setup with nvm
 Plug 'github/copilot.vim'
@@ -83,7 +88,9 @@ Plug 'windwp/nvim-ts-autotag'
 Plug 'RRethy/vim-illuminate'
 Plug 'SmiteshP/nvim-navic'
 " Plug 'folke/todo-comments.nvim'
-Plug 'ahmedkhalf/project.nvim'
+" Plug 'ahmedkhalf/project.nvim'
+" Plug 'theHamsta/nvim_rocks'
+" Plug 'charludo/projectmgr.nvim'
 " Plug 'folke/which-key.nvim'
 Plug 'rcarriga/nvim-notify'
 " Plug 'rhysd/conflict-marker.vim'
@@ -94,23 +101,31 @@ Plug 'tommcdo/vim-lion'
 " :ColorizerToggle
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-tree.lua'
+" centers single buffer in the middle of the screen
+" Plug 'smithbm2316/centerpad.nvim'
+" Plug 'LeonHeidelbach/trailblazer.nvim'
+Plug 'chentoast/marks.nvim'
 
 Plug 'hashivim/vim-terraform'
 Plug 'ray-x/go.nvim'
+Plug 'ray-x/guihua.lua'
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " -- DAP
 " -- Python requires debugpy to be installed in the virtualenv
-" Plug 'mfussenegger/nvim-dap'
-" Plug 'mfussenegger/nvim-dap-python'
-" Plug 'leoluz/nvim-dap-go'
-" Plug 'rcarriga/nvim-dap-ui'
-" Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap-python'
+Plug 'leoluz/nvim-dap-go'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
 
 call plug#end()
 
 "source $HOME/.config/nvim/mappings.vim
 "source $HOME/.config/nvim/commands.vim
 "source $HOME/.config/nvim/settings.vim
+
+" some things are easier to do in vimscript
+" autocmd BufEnter * if &filetype == "" | setlocal ft=sh | endif
 
 lua require('init')

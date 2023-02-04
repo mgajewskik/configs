@@ -28,14 +28,15 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=20
 markup=none
 
-# [pomo]
-# command=pomo status
-# separator=true
-# interval=1
+[pomo]
+command=pomo status
+separator=true
+interval=1
 
 # Display any packages to install
 [packages]
-command=echo "📦 $(yay -Qu | wc -l)"
+# command=echo "📦 $(yay -Qu | wc -l)"
+command=echo " $(yay -Qu | wc -l)"
 separator=true
 interval=1800
 signal=3
@@ -111,7 +112,8 @@ signal=1
 
 # Backlight Level
 [light]
-command=echo "☀️️ $(light -G)%"
+# command=echo "☀️️ $(light -G)%"
+command=echo "  $(light -G)%"
 interval=1
 signal=4
 
