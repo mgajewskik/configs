@@ -86,6 +86,7 @@ Plug 'windwp/nvim-ts-autotag'
 "requires junegunn/fzf
 " Plug 'kevinhwang91/nvim-bqf'
 Plug 'RRethy/vim-illuminate'
+" Plug 'tzachar/local-highlight.nvim'
 Plug 'SmiteshP/nvim-navic'
 " Plug 'folke/todo-comments.nvim'
 " Plug 'ahmedkhalf/project.nvim'
