@@ -55,17 +55,17 @@ o.linebreak = true -- do not break words on line wrap
 -- input special chars with the sequence <C-v-u> followed by the hex code
 o.list = false
 o.listchars = {
-	tab = "→ ",
-	eol = "↲",
-	nbsp = "␣",
-	lead = " ",
-	space = " ",
-	trail = "␣",
-	-- lead      = '␣'   ,
-	-- space     = '␣'   ,
-	-- trail     = '•'   ,
-	extends = "⟩",
-	precedes = "⟨",
+   tab = "→ ",
+   eol = "↲",
+   nbsp = "␣",
+   lead = " ",
+   space = " ",
+   trail = "␣",
+   -- lead      = '␣'   ,
+   -- space     = '␣'   ,
+   -- trail     = '•'   ,
+   extends = "⟩",
+   precedes = "⟨",
 }
 o.showbreak = "↪ "
 
@@ -106,15 +106,15 @@ vim.wo.spell = false
 -- we use autocmd to remove 'o' in '/lua/autocmd.lua'
 -- borrowed from tjdevries
 o.formatoptions = o.formatoptions
-	- "a" -- Auto formatting is BAD.
-	- "t" -- Don't auto format my code. I got linters for that.
-	+ "c" -- In general, I like it when comments respect textwidth
-	+ "q" -- Allow formatting comments w/ gq
-	- "o" -- O and o, don't continue comments
-	+ "r" -- But do continue when pressing enter.
-	+ "n" -- Indent past the formatlistpat, not underneath it.
-	+ "j" -- Auto-remove comments if possible.
-	- "2" -- I'm not in gradeschool anymore
+   - "a" -- Auto formatting is BAD.
+   - "t" -- Don't auto format my code. I got linters for that.
+   + "c" -- In general, I like it when comments respect textwidth
+   + "q" -- Allow formatting comments w/ gq
+   - "o" -- O and o, don't continue comments
+   + "r" -- But do continue when pressing enter.
+   + "n" -- Indent past the formatlistpat, not underneath it.
+   + "j" -- Auto-remove comments if possible.
+   - "2" -- I'm not in gradeschool anymore
 
 o.splitbelow = true -- ':new' ':split' below current
 o.splitright = true -- ':vnew' ':vsplit' right of current
@@ -195,9 +195,9 @@ o.wildignore = [[
 -- use ':grep' to send resulsts to quickfix
 -- use ':lgrep' to send resulsts to loclist
 if vim.fn.executable("rg") == 1 then
-	-- o.grepprg = "rg --hidden --vimgrep --smart-case --"
-	o.grepprg = "rg --vimgrep --no-heading --smart-case --hidden"
-	o.grepformat = "%f:%l:%c:%m"
+   -- o.grepprg = "rg --hidden --vimgrep --smart-case --"
+   o.grepprg = "rg --vimgrep --no-heading --smart-case --hidden"
+   o.grepformat = "%f:%l:%c:%m"
 end
 
 -- Disable providers we do not care a about
@@ -207,19 +207,19 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
 vim.g.markdown_fenced_languages = {
-	"vim",
-	"lua",
-	"cpp",
-	"sql",
-	"python",
-	"bash=sh",
-	"console=sh",
-	"javascript",
-	"typescript",
-	"js=javascript",
-	"ts=typescript",
-	"yaml",
-	"json",
+   "vim",
+   "lua",
+   "cpp",
+   "sql",
+   "python",
+   "bash=sh",
+   "console=sh",
+   "javascript",
+   "typescript",
+   "js=javascript",
+   "ts=typescript",
+   "yaml",
+   "json",
 }
 -- -- Lazy Nvim options
 -- -- This file is automatically loaded by plugins.config

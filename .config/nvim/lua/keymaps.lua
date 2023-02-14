@@ -125,12 +125,12 @@ map("n", "N", "Nzzzv", { noremap = true })
 -- any jump over 5 modifies the jumplist
 -- so we can use <C-o> <C-i> to jump back and forth
 for _, c in ipairs({ "j", "k" }) do
-	map(
-		"n",
-		c,
-		([[(v:count > 5 ? "m'" . v:count : "") . '%s']]):format(c),
-		{ noremap = true, expr = true, silent = true }
-	)
+   map(
+      "n",
+      c,
+      ([[(v:count > 5 ? "m'" . v:count : "") . '%s']]):format(c),
+      { noremap = true, expr = true, silent = true }
+   )
 end
 
 -- -- move along visual lines, not numbered ones
@@ -156,10 +156,10 @@ map("n", "<leader>/", "<Esc>:nohlsearch<CR>", { noremap = true, silent = true })
 
 -- Toggle colored column at 81
 map(
-	"n",
-	"<leader>|",
-	':execute "set colorcolumn=" . (&colorcolumn == "" ? "81" : "")<CR>',
-	{ noremap = true, silent = true }
+   "n",
+   "<leader>|",
+   ':execute "set colorcolumn=" . (&colorcolumn == "" ? "81" : "")<CR>',
+   { noremap = true, silent = true }
 )
 
 -- Map <leader>o & <leader>O to newline without insert mode
