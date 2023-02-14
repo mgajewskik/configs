@@ -1,10 +1,5 @@
+-- local utils = require("utils")
 local o = vim.opt
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.g.colorscheme_terminal_italics = true
-vim.o.background = "dark" -- or "light" for light mode
 
 o.inccommand = "split" -- preview incremental substitute
 --o.mouse             = ''        -- disable the mouse
@@ -22,6 +17,9 @@ o.encoding = "utf-8"
 o.fileencoding = "utf-8"
 o.backspace = { "eol", "start", "indent" }
 o.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
+
+-- recursive :find in current dir
+vim.cmd([[set path=.,,,$PWD/**]])
 
 -- DO NOT NEED ANY OF THIS, CRUTCH THAT POULLUTES REGISTERS
 -- vim clipboard copies to system clipboard
@@ -42,7 +40,7 @@ o.ruler = true -- show line,col at the cursor pos
 o.number = true -- show absolute line no. at the cursor pos
 o.relativenumber = true -- otherwise, show relative numbers in the ruler
 o.cursorline = true -- Show a line where the current cursor is
-o.signcolumn = "yes" -- Show sign column as first column
+o.signcolumn = "auto" -- Show sign column as first column
 vim.g.colorcolumn = 79 -- global var, mark column 81
 o.colorcolumn = tostring(vim.g.colorcolumn)
 o.wrap = true -- wrap long lines
@@ -55,17 +53,17 @@ o.linebreak = true -- do not break words on line wrap
 -- input special chars with the sequence <C-v-u> followed by the hex code
 o.list = false
 o.listchars = {
-	tab = "→ ",
-	eol = "↲",
-	nbsp = "␣",
-	lead = " ",
-	space = " ",
-	trail = "␣",
-	-- lead      = '␣'   ,
-	-- space     = '␣'   ,
-	-- trail     = '•'   ,
-	extends = "⟩",
-	precedes = "⟨",
+    tab = "→ ",
+    eol = "↲",
+    nbsp = "␣",
+    lead = " ",
+    space = " ",
+    trail = "␣",
+    -- lead      = '␣'   ,
+    -- space     = '␣'   ,
+    -- trail     = '•'   ,
+    extends = "⟩",
+    precedes = "⟨",
 }
 o.showbreak = "↪ "
 
@@ -93,7 +91,6 @@ o.shiftwidth = 4 -- Indent/outdent by two columns
 o.shiftround = true -- Always indent/outdent to nearest tabstop
 o.expandtab = true -- Convert all tabs that are typed into spaces
 o.smarttab = true -- Use shiftwidths at left margin, tabstops everywhere else
-vim.wo.spell = false
 
 -- c: auto-wrap comments using textwidth
 -- r: auto-insert the current comment leader after hitting <Enter>
@@ -106,15 +103,15 @@ vim.wo.spell = false
 -- we use autocmd to remove 'o' in '/lua/autocmd.lua'
 -- borrowed from tjdevries
 o.formatoptions = o.formatoptions
-	- "a" -- Auto formatting is BAD.
-	- "t" -- Don't auto format my code. I got linters for that.
-	+ "c" -- In general, I like it when comments respect textwidth
-	+ "q" -- Allow formatting comments w/ gq
-	- "o" -- O and o, don't continue comments
-	+ "r" -- But do continue when pressing enter.
-	+ "n" -- Indent past the formatlistpat, not underneath it.
-	+ "j" -- Auto-remove comments if possible.
-	- "2" -- I'm not in gradeschool anymore
+    - "a" -- Auto formatting is BAD.
+    - "t" -- Don't auto format my code. I got linters for that.
+    + "c" -- In general, I like it when comments respect textwidth
+    + "q" -- Allow formatting comments w/ gq
+    - "o" -- O and o, don't continue comments
+    + "r" -- But do continue when pressing enter.
+    + "n" -- Indent past the formatlistpat, not underneath it.
+    + "j" -- Auto-remove comments if possible.
+    - "2" -- I'm not in gradeschool anymore
 
 o.splitbelow = true -- ':new' ':split' below current
 o.splitright = true -- ':vnew' ':vsplit' right of current
@@ -192,12 +189,33 @@ o.wildignore = [[
 */tmp/*,*.so,*.swp,*.zip,**/node_modules/**,**/target/**,**.terraform/**"
 ]]
 
+-- -- MacOS clipboard
+-- if require("utils").is_darwin() then
+--     vim.g.clipboard = {
+--         name = "macOS-clipboard",
+--         copy = {
+--             ["+"] = "pbcopy",
+--             ["*"] = "pbcopy",
+--         },
+--         paste = {
+--             ["+"] = "pbpaste",
+--             ["*"] = "pbpaste",
+--         },
+--     }
+-- end
+--
+-- if require("utils").is_darwin() then
+--     vim.g.python3_host_prog = "/usr/local/bin/python3"
+-- else
+--     vim.g.python3_host_prog = "/usr/bin/python3"
+-- end
+
 -- use ':grep' to send resulsts to quickfix
 -- use ':lgrep' to send resulsts to loclist
 if vim.fn.executable("rg") == 1 then
-	-- o.grepprg = "rg --hidden --vimgrep --smart-case --"
-	o.grepprg = "rg --vimgrep --no-heading --smart-case --hidden"
-	o.grepformat = "%f:%l:%c:%m"
+    -- o.grepprg = "rg --hidden --vimgrep --smart-case --"
+    o.grepprg = "rg --vimgrep --no-heading --smart-case --hidden"
+    o.grepformat = "%f:%l:%c:%m"
 end
 
 -- Disable providers we do not care a about
@@ -206,20 +224,47 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
+-- Disable some in built plugins completely
+local disabled_built_ins = {
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    "fzf",
+    -- 'matchit',
+    --'matchparen',
+}
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
+
 vim.g.markdown_fenced_languages = {
-	"vim",
-	"lua",
-	"cpp",
-	"sql",
-	"python",
-	"bash=sh",
-	"console=sh",
-	"javascript",
-	"typescript",
-	"js=javascript",
-	"ts=typescript",
-	"yaml",
-	"json",
+    "vim",
+    "lua",
+    "cpp",
+    "sql",
+    "python",
+    "bash=sh",
+    "console=sh",
+    "javascript",
+    "typescript",
+    "js=javascript",
+    "ts=typescript",
+    "yaml",
+    "json",
 }
 -- -- Lazy Nvim options
 -- -- This file is automatically loaded by plugins.config
