@@ -367,7 +367,7 @@ export FZF_DEFAULT_OPTS="
 --preview-window=right:60%
 --preview-window=sharp
 --preview-window=cycle
---preview '([[ -f {} ]] && (bat --style=header,grid,numbers --color=always --theme=gruvbox --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--preview '([[ -f {} ]] && (bat --style=header,grid,numbers --color=always --theme=Coldark-Dark --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
 --prompt='λ -> '
 --pointer='|>'
 --marker='✓'
