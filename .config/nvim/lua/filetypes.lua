@@ -4,6 +4,8 @@ local function augroup(name, fnc)
    fnc(vim.api.nvim_create_augroup(name, { clear = true }))
 end
 
+-- https://neovim.io/doc/user/autocmd.html#autocmd-events
+
 -- augroup("Unknown", function(g)
 -- 	aucmd("FileType", {
 -- 		group = g,
@@ -65,14 +67,16 @@ augroup("Lua", function(g)
    })
 end)
 
+-- :verbose setlocal formatoptions? - check what is causing the markdown wrapping
 augroup("Markdown", function(g)
-   aucmd("FileType", {
+   aucmd({ "FileType", "BufEnter" }, {
       group = g,
-      pattern = { "markdown" },
+      pattern = { "markdown", "telekasten" },
       callback = function()
          vim.opt_local.wrap = true
          vim.opt_local.spell = true
          vim.opt_local.conceallevel = 0
+         vim.opt_local.formatoptions = "jcrqln"
       end,
    })
 end)
@@ -87,15 +91,6 @@ augroup("GitCommit", function(g)
       end,
    })
 end)
-
--- NOTE: Example how this maps to my shortcuts
--- vim.api.nvim_create_autocmd("FileType", {
--- 	group = vim.api.nvim_create_augroup("tfvars", { clear = true }),
--- 	pattern = { "terraform-vars" },
--- 	callback = function()
--- 		vim.bo.filetype = "hcl"
--- 	end,
--- })
 
 augroup("TStfvars", function(g)
    aucmd("FileType", {

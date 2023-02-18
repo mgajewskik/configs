@@ -89,11 +89,12 @@ return {
          -- "vijaymarupudi/nvim-fzf",
          "kyazdani42/nvim-web-devicons",
       },
+      lazy = false,
       keys = {
          { "<leader>ss", ":FzfLua<CR>", { noremap = true } },
          { "<C-p>", ":FzfLua files<CR>", { noremap = true } },
-         { "<leader>rf", ":FzfLua files cwd=$HOME<CR>", { noremap = true } },
-         { "<leader>sn", ":FzfLua files cwd=$HOME/.config/nvim<CR>", { noremap = true } },
+         { "<leader>rf", ":FzfLua files cwd=$HOME/<CR>", { noremap = true } },
+         { "<leader>sn", ":FzfLua files cwd=$HOME/.config/nvim/<CR>", { noremap = true } },
          { "<leader>f", ":FzfLua git_files<CR>", { noremap = true } },
          { "<leader>`", ":FzfLua buffers<CR>", { noremap = true } },
          { "<leader>\\\\", ":FzfLua grep_visual<CR>", { noremap = true } },
@@ -119,13 +120,15 @@ return {
       },
       opts = function()
          local actions = require("fzf-lua.actions")
+         local ripgrep_opts =
+            "--column --line-number --no-heading --color=always --smart-case --no-ignore --hidden --max-columns=512 --ignore-file $HOME/.gitignore_global"
+
          return {
             winopts = {
                height = 0.85,
                width = 0.95,
                row = 0.35,
                col = 0.55,
-               -- border = "single",
             },
             actions = {
                files = {
@@ -136,18 +139,31 @@ return {
                   ["ctrl-q"] = actions.file_sel_to_qf,
                },
             },
+            files = {
+               -- fd seems to work better than rg here
+               -- cmd = "rg --files --hidden",
+               -- rg_opts = ripgrep_opts,
+               -- fd_opts = "--color=auto --type f --hidden --follow --exclude .git",
+            },
+            grep = {
+               rg_opts = ripgrep_opts,
+            },
             lsp = {
                async_or_timeout = 3000,
             },
          }
       end,
       config = function(_, opts)
+         require("fzf-lua").setup("fzf-native")
          require("fzf-lua").setup(opts)
 
          local map = vim.keymap.set
          -- doesn't work with keya mapping
          map("n", "<leader>ws", ":FzfLua grep_cword<CR>", { noremap = true })
          -- map("v", "<leader>ws", ":FzfLua grep_visual<CR>", { noremap = true })
+
+         map("n", "<C-r>", ":lua require('utils').home_fzf()<CR>", { noremap = true })
+         map("n", "<leader>rr", ":lua require('utils').home_fzf('fd --type d -i -L')<CR>", { noremap = true })
       end,
    },
    {

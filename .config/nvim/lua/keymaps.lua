@@ -6,9 +6,9 @@ local expr_options = { expr = true, silent = true }
 map("n", "<leader>ll", "<cmd>:Lazy<cr>", { noremap = true })
 
 -- remap ESC key in insert mode only
-map("i", "jj", "<Esc>", { noremap = true })
-map("i", "jk", "<Esc>", { noremap = true })
-map("i", "kj", "<Esc>", { noremap = true })
+map("i", "jj", "<Esc>l", { noremap = true })
+map("i", "jk", "<Esc>l", { noremap = true })
+map("i", "kj", "<Esc>l", { noremap = true })
 
 -- 0 goes to first non-blank character
 map("n", "0", "^", { noremap = true })

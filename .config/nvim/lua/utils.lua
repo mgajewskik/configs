@@ -1,80 +1,99 @@
 local M = {}
 
+-- Search through home directories and explore without performance issues
+function M.home_fzf(cmd)
+   local fzf_lua = require("fzf-lua")
+   local opts = {}
+   opts.cwd = vim.fn.expand("$HOME")
+   opts.prompt = "~ cd $HOME/"
+   opts.fn_transform = function(x)
+      return fzf_lua.utils.ansi_codes.magenta(x)
+   end
+   opts.actions = {
+      ["default"] = function(selected)
+         fzf_lua.files({ cwd = vim.fn.expand("$HOME/" .. selected[1]) })
+      end,
+      ["ctrl-d"] = function(selected)
+         vim.cmd("cd " .. "$HOME/" .. selected[1])
+      end,
+      ["ctrl-s"] = function(selected)
+         fzf_lua.live_grep_glob({ cwd = vim.fn.expand("$HOME/" .. selected[1]) })
+      end,
+   }
+   -- fzf_lua.fzf_exec("fd --type d -H -i -L -E 'venv' -E '.venv' -E '.git'", opts)
+   fzf_lua.fzf_exec("fd --type d -i -L -E 'venv'", opts)
+   -- fzf_lua.fzf_live(cmd, opts)
+   -- fzf_lua.fzf_exec(cmd, opts)
+end
+
+function M.format()
+   local buf = vim.api.nvim_get_current_buf()
+   local ft = vim.bo[buf].filetype
+   local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
+
+   -- TODO can I add some filtering?
+   -- for i = 1, #{"json", "yaml", "sh"} do
+   --    if ft == {"json", "yaml", "sh"}[i] then
+   --       return
+   --    end
+   -- end
+
+   -- possibly not needing deep extend because no options given
+   vim.lsp.buf.format(vim.tbl_deep_extend("force", {
+      bufnr = buf,
+      filter = function(client)
+         if have_nls then
+            return client.name == "null-ls"
+         end
+         return client.name ~= "null-ls"
+      end,
+      -- TODO add formatting options here if necessary
+   }, {}))
+end
+
 function M.on_attach(on_attach)
    vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
          local buffer = args.buf
          local client = vim.lsp.get_client_by_id(args.data.client_id)
          on_attach(client, buffer)
+         -- fixes formatting with gq
+         -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
+         vim.bo[buffer].formatexpr = nil
       end,
    })
 end
 
-function M.custom_lsp_attach(client, bufnr)
-   if client.server_capabilities.documentSymbolProvider then
-      require("nvim-navic").attach(client, bufnr)
-   end
-
-   -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
+function M.format_on_attach(client, bufnr)
    if client.supports_method("textDocument/formatting") then
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-      local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
-      -- TODO refactor this
-      if filetype ~= "json" and filetype ~= "yaml" and filetype ~= "sh" then
-         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-         vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-               vim.lsp.buf.format({
-                  filter = function(client)
-                     return client.name == "null-ls"
-                  end,
-                  bufnr = bufnr,
-               })
-            end,
-         })
-      end
+      vim.api.nvim_create_autocmd("BufWritePre", {
+         group = vim.api.nvim_create_augroup("LspFormat." .. bufnr, {}),
+         buffer = bufnr,
+         callback = function()
+            M.format()
+         end,
+      })
    end
+end
 
-   local map = vim.api.nvim_buf_set_keymap
+function M.keymaps_on_attach(client, bufnr)
+   local map = vim.keymap.set
    local opts = { noremap = true, silent = true }
    local winopts = "{ float =  { border = 'rounded' } }"
 
-   -- this one works better than the default, because it jumps to lib definition in Go
-   map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-   map(bufnr, "n", "gD", "<cmd>vsplit<CR> <cmd>lua vim.lsp.buf.definition()<CR>", opts)
+   map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+   map("n", "gD", "<cmd>vsplit<CR> <cmd>lua vim.lsp.buf.definition()<CR>", opts)
    -- map(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-   map(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-   map(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-   map(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+   map("n", "<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+   map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+   map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
    -- map(bufnr, "n", "<leader>K", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
-   map(bufnr, "n", "[d", ("<cmd>lua vim.diagnostic.goto_prev(%s)<CR>"):format(winopts), opts)
-   map(bufnr, "n", "]d", ("<cmd>lua vim.diagnostic.goto_next(%s)<CR>"):format(winopts), opts)
+   map("n", "[d", ("<cmd>lua vim.diagnostic.goto_prev(%s)<CR>"):format(winopts), opts)
+   map("n", "]d", ("<cmd>lua vim.diagnostic.goto_next(%s)<CR>"):format(winopts), opts)
 
    -- Formatting
-   map(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
-   if client.server_capabilities.document_range_formatting then
-      -- TODO seems to not work?
-      map(bufnr, "v", "gf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-   else
-      map(bufnr, "v", "gf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
-   end
-
-   -- if client.resolved_capabilities.code_lens then
-   --   map(bufnr, "n", "<leader>lL", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
-   --   vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
-   -- end
-
-   -- Per buffer LSP indicators control
-   if vim.b.lsp_virtual_text_enabled == nil then
-      vim.b.lsp_virtual_text_enabled = true
-   end
-
-   if vim.b.lsp_virtual_text_mode == nil then
-      vim.b.lsp_virtual_text_mode = "SignsVirtualText"
-   end
+   map("n", "gf", "<cmd>lua require('utils').format()<CR>", opts)
 end
 
 M.sudo_write = function(tmpfile, filepath)

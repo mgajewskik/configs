@@ -5,7 +5,7 @@ return {
          "renerocksai/calendar-vim",
          "nvim-telescope/telescope.nvim",
       },
-      lazy = true,
+      lazy = false,
       keys = {
          { "<leader>zf", "<CMD>Telekasten find_notes<CR>", { noremap = true } },
          { "<leader>zs", "<CMD>Telekasten search_notes<CR>", { noremap = true } },

@@ -25,6 +25,7 @@ return {
          highlight = {
             enable = true, -- false will disable the whole extension
             -- disable = { "vim" }, -- list of language that will be disabled
+            additional_vim_regex_highlighting = { "markdown" },
          },
          ensure_installed = {
             "bash",
@@ -56,6 +57,7 @@ return {
             "gitignore",
             "regex",
             "sql",
+            "vim",
          }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
          incremental_selection = {
             enable = true,
