@@ -62,14 +62,9 @@ return {
          "hrsh7th/cmp-cmdline",
          "lukas-reineke/cmp-rg",
          "hrsh7th/cmp-nvim-lsp-signature-help",
+         "hrsh7th/cmp-nvim-lsp-document-symbol",
          "L3MON4D3/LuaSnip",
-         -- "saadparwaiz1/cmp_luasnip",
-         -- "hrsh7th/cmp-nvim-lua",
-         -- "hrsh7th/cmp-calc",
-         -- "hrsh7th/cmp-emoji",
-         -- "hrsh7th/cmp-spell",
-         -- "hrsh7th/cmp-look",
-         -- "hrsh7th/cmp-treesitter",
+         "hrsh7th/cmp-nvim-lua",
       },
       config = function()
          local cmp = require("cmp")
@@ -132,7 +127,8 @@ return {
                end, { "i", "s" }),
             },
             sources = {
-               { name = "copilot", group_index = 2 },
+               -- { name = "copilot", group_index = 2 },
+               { name = "nvim_lua" },
                { name = "path" },
                { name = "nvim_lsp" },
                { name = "nvim_lsp_signature_help" },
@@ -147,9 +143,11 @@ return {
          -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
          cmp.setup.cmdline("/", {
             mapping = cmp.mapping.preset.cmdline(),
-            sources = {
+            sources = cmp.config.sources({
+               { name = "nvim_lsp_document_symbol" },
+            }, {
                { name = "buffer" },
-            },
+            }),
          })
 
          -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).

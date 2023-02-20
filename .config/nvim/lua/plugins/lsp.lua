@@ -57,10 +57,6 @@ return {
          require("utils").on_attach(function(client, buffer)
             require("utils").format_on_attach(client, buffer)
             require("utils").keymaps_on_attach(client, buffer)
-
-            if client.server_capabilities.documentSymbolProvider then
-               require("nvim-navic").attach(client, buffer)
-            end
          end)
 
          -- diagnostics

@@ -18,26 +18,9 @@ return {
       },
    },
    {
-      "SmiteshP/nvim-navic",
-      lazy = true,
-      init = function()
-         vim.g.navic_silence = true
-      end,
-      opts = function()
-         return {
-            separator = " ",
-            depth_limit = 5,
-            icons = require("icons").icons.kinds,
-         }
-      end,
-   },
-   {
       "nvim-lualine/lualine.nvim",
       dependencies = {
          "kyazdani42/nvim-web-devicons",
-         "SmiteshP/nvim-navic",
-         -- navic requires nvim-lspconfig
-         -- "neovim/nvim-lspconfig",
       },
       opts = function()
          -- -- use gitsigns as source info
@@ -96,15 +79,6 @@ return {
                         modified = icons.git.added,
                         readonly = icons.kinds.ReadOnly,
                      },
-                  },
-                  -- { navic.get_location, cond = navic.is_available },
-                  {
-                     function()
-                        return require("nvim-navic").get_location()
-                     end,
-                     cond = function()
-                        return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-                     end,
                   },
                },
                lualine_x = {
