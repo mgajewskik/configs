@@ -22,8 +22,8 @@ return {
       config = function()
          local map = vim.keymap.set
 
-         map("n", "<leader>o", require("portal").jump_backward, { noremap = true })
-         map("n", "<leader>i", require("portal").jump_forward, { noremap = true })
+         map("n", "<leader>o", "<cmd>Portal jumplist backward<cr>", { noremap = true })
+         map("n", "<leader>i", "<cmd>Portal jumplist forward<cr>", { noremap = true })
       end,
    },
    {
@@ -60,6 +60,7 @@ return {
          respect_buf_cwd = true,
          view = {
             centralize_selection = true,
+            side = "right",
          },
       },
       -- <Tab> - preview
@@ -95,6 +96,8 @@ return {
          { "<C-p>", ":FzfLua files<CR>", { noremap = true } },
          { "<leader>rf", ":FzfLua files cwd=$HOME/<CR>", { noremap = true } },
          { "<leader>sn", ":FzfLua files cwd=$HOME/.config/nvim/<CR>", { noremap = true } },
+         { "<leader>si", ":FzfLua files cwd=$HOME/.config/<CR>", { noremap = true } },
+         { "<leader>so", ":FzfLua files cwd=$HOME/Dropbox/obsidian/<CR>", { noremap = true } },
          { "<leader>f", ":FzfLua git_files<CR>", { noremap = true } },
          { "<leader>`", ":FzfLua buffers<CR>", { noremap = true } },
          { "<leader>\\\\", ":FzfLua grep_visual<CR>", { noremap = true } },
@@ -143,7 +146,16 @@ return {
                -- fd seems to work better than rg here
                -- cmd = "rg --files --hidden",
                -- rg_opts = ripgrep_opts,
-               -- fd_opts = "--color=auto --type f --hidden --follow --exclude .git",
+               -- adding sorting by created date at the end
+               fd_opts = [[
+               --color=auto \
+               --type f \
+               --hidden \
+               --follow \
+               --exclude .git \
+               --exclude .node-gyp \
+               -X ls -t modified
+               ]],
             },
             grep = {
                rg_opts = ripgrep_opts,

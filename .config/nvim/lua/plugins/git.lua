@@ -8,7 +8,7 @@ return {
          { "<leader>gc", "<Esc>:Git commit<CR>", { noremap = true } },
          { "<leader>gv", "<Esc>:Gvdiffsplit!<CR>", { noremap = true } },
          { "<leader>gl", "<Esc>:Git log --graph --abbrev-commit --decorate<CR>", { noremap = true } },
-         { "<leader>sr", "<Esc>:Git rebase -i HEAD~10<CR>", { noremap = true } },
+         { "<leader>sr", "<Esc>:Git rebase -i HEAD~20<CR>", { noremap = true } },
          { "<leader>gh", "<Esc>:diffget //3<CR>", { noremap = true } },
          { "<leader>gf", "<Esc>:diffget //2<CR>", { noremap = true } },
       },

@@ -76,7 +76,7 @@ augroup("Markdown", function(g)
          vim.opt_local.wrap = true
          vim.opt_local.spell = true
          vim.opt_local.conceallevel = 0
-         vim.opt_local.formatoptions = "jcrqln"
+         vim.opt_local.formatoptions = "jcrqn"
       end,
    })
 end)
@@ -98,6 +98,21 @@ augroup("TStfvars", function(g)
       pattern = { "terraform-vars" },
       callback = function()
          vim.bo.filetype = "hcl"
+         vim.opt_local.tabstop = 2
+         vim.opt_local.shiftwidth = 2
+         vim.opt_local.softtabstop = 2
+      end,
+   })
+end)
+
+augroup("Terraform", function(g)
+   aucmd("FileType", {
+      group = g,
+      pattern = { "terraform" },
+      callback = function()
+         vim.opt_local.tabstop = 2
+         vim.opt_local.shiftwidth = 2
+         vim.opt_local.softtabstop = 2
       end,
    })
 end)

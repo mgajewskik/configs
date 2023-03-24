@@ -40,21 +40,24 @@ $exec fusuma
 
 # #---Special Keybindings---# #
 
-set $mute_on brightnessctl -d 'platform::mute' set 0
-set $mute_off brightnessctl -d 'platform::mute' set 1
-
 bindsym Print exec flameshot gui
 
-# Screen brightness controls
-bindsym XF86MonBrightnessUp exec "brightnessctl -d 'intel_backlight' set +5%; notify-send 'brightness up'"
-bindsym XF86MonBrightnessDown exec "brightnessctl -d 'intel_backlight' set 5%-; notify-send 'brightness down'"
-
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status && notify-send 'volume 10% up'
-bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status && notify-send 'volume 10% down'
-bindsym XF86AudioMute $exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status && notify-send 'volume mute'
-bindsym XF86AudioMicMute $exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status && notify-send 'microphone mute'
+bindsym XF86AudioMute $exec "pactl set-sink-mute @DEFAULT_SINK@ toggle; notify-send 'volume mute toggle'"
+bindsym XF86AudioLowerVolume $exec "pactl set-sink-volume @DEFAULT_SINK@ -10%; notify-send 'volume 10% down'"
+bindsym XF86AudioRaiseVolume $exec "pactl set-sink-volume @DEFAULT_SINK@ +10%; notify-send 'volume 10% up'"
+bindsym XF86AudioMicMute $exec "pactl set-source-mute @DEFAULT_SOURCE@ toggle; notify-send 'microphone mute toggle'"
+
+# Screen brightness controls
+bindsym XF86MonBrightnessDown $exec "brightnessctl -d 'intel_backlight' set 10%-; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp $exec "brightnessctl -d 'intel_backlight' set +10%; notify-send 'brightness up'"
+
+bindsym XF86Display $exec "~/scripts/toggle_screensaver.sh"
+# XF86WLAN
+# XF86Messenger
+# XF86Go
+# Cancel
+# XF86Favorites
 
 
 # #---Bindings---# #

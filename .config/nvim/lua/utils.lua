@@ -22,6 +22,8 @@ function M.home_fzf(cmd)
    }
    -- fzf_lua.fzf_exec("fd --type d -H -i -L -E 'venv' -E '.venv' -E '.git'", opts)
    fzf_lua.fzf_exec("fd --type d -i -L -E 'venv'", opts)
+   -- find all dirs and sort by creation date
+   -- fzf_lua.fzf_exec("fd --type d -i -L -E 'venv' -x stat -c '%W %n' | sort -nr | cut -d ' ' -f 2-", opts)
    -- fzf_lua.fzf_live(cmd, opts)
    -- fzf_lua.fzf_exec(cmd, opts)
 end
@@ -30,13 +32,6 @@ function M.format()
    local buf = vim.api.nvim_get_current_buf()
    local ft = vim.bo[buf].filetype
    local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
-
-   -- TODO can I add some filtering?
-   -- for i = 1, #{"json", "yaml", "sh"} do
-   --    if ft == {"json", "yaml", "sh"}[i] then
-   --       return
-   --    end
-   -- end
 
    -- possibly not needing deep extend because no options given
    vim.lsp.buf.format(vim.tbl_deep_extend("force", {
@@ -70,7 +65,14 @@ function M.format_on_attach(client, bufnr)
          group = vim.api.nvim_create_augroup("LspFormat." .. bufnr, {}),
          buffer = bufnr,
          callback = function()
-            M.format()
+            -- remove formatting on save for yaml and sh files
+            -- TODO think if this can be done better
+            local ft = vim.bo[bufnr].filetype
+            if ft == "yaml" or ft == "sh" then
+               return
+            else
+               M.format()
+            end
          end,
       })
    end

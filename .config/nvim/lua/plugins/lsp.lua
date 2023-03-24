@@ -142,7 +142,7 @@ return {
                -- nls.builtins.diagnostics.pyproject_flake8,
                -- nls.builtins.diagnostics.ruff,
                -- nls.builtins.diagnostics.checkmake,
-               nls.builtins.diagnostics.codespell,
+               -- nls.builtins.diagnostics.codespell,
                nls.builtins.diagnostics.gitlint,
                nls.builtins.diagnostics.commitlint,
                nls.builtins.diagnostics.golangci_lint,

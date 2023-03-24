@@ -199,6 +199,7 @@ alias tf="terraform"
 # alias src="export $(cat .env | xargs)"
 alias nvim=/usr/local/bin/nvim
 alias snvim=/usr/bin/nvim
+alias vi=/usr/local/bin/nnvim
 alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
 alias run=./run
 
