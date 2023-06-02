@@ -28,10 +28,10 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=20
 markup=none
 
-[pomo]
-command=pomo status
-separator=true
-interval=1
+# [pomo]
+# command=pomo status
+# separator=true
+# interval=1
 
 # Display any packages to install
 [packages]
@@ -87,15 +87,15 @@ signal=3
 #
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
-# [cpu_usage]
-# command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
-# interval=1
-# separator=false
-#
-# [temp]
-# command=echo "T: $(~/.config/i3blocks/i3temp)"
-# interval=1
-# seperator=true
+[cpu_usage]
+command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
+interval=1
+separator=false
+
+[temp]
+command=echo "T: $(~/.config/i3blocks/i3temp)"
+interval=1
+seperator=true
 
 #[uptime]
 #command=echo "UPT: $(~/.config/i3blocks/i3uptime)"

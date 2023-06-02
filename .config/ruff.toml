@@ -1,40 +1,77 @@
-# # Enable Pyflakes `E` and `F` codes by default.
-# select = ["E", "F"]
-# ignore = []
-#
+# https://beta.ruff.rs/docs/configuration/
+
+# selected rules families
+select = [
+  "F",   # pyflakes
+  "E",   # pycodestyle - errors
+  "W",   # pycodestyle - warnings
+  "B",   # bugbear - potential bugs
+  "D",   # pydocstyle - docstrings
+  "C4",  # comprehensions
+  "SIM", # simplify
+  # "N", # naming
+  "S", # bandit - security rules
+  "G",
+]
+
+# if some rule is too strict, disable it here
+ignore = [
+  "B006", # mutable data structures as default arguments
+  "B905", # zip() without explicit strict= parameter
+  "D205", # 1 blank line required between summary line and description
+  "D100", # missing docstring in public module
+  "D104", # missing docstring in public package
+  "D105", # missing docstring in magic method
+  "D107", # missing __init__ docstring
+  "D417", # missing argument descriptions in the docstring
+]
+
 # # Allow autofix for all enabled rules (when `--fix`) is provided.
 # fixable = ["A", "B", "C", "D", "E", "F", "I", "N"]
 # unfixable = []
 
+# turning this off as default covers all rules already
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+# fixable = [
+#   "A",
+#   "B",
+#   "D",
+#   "E",
+#   "F",
+#   "I", # imports
+#   "N", # naming
+# ]
+# unfixable = []
+
 # Exclude a variety of commonly ignored directories.
-exclude = [
-  ".bzr",
-  ".direnv",
-  ".eggs",
-  ".git",
-  ".hg",
-  ".mypy_cache",
-  ".nox",
-  ".pants.d",
-  ".ruff_cache",
-  ".svn",
-  ".tox",
-  ".venv",
-  "__pypackages__",
-  "_build",
-  "buck-out",
-  "build",
-  "dist",
-  "node_modules",
-  "venv",
-]
+# exclude = [
+#   ".bzr",
+#   ".direnv",
+#   ".eggs",
+#   ".git",
+#   ".hg",
+#   ".mypy_cache",
+#   ".nox",
+#   ".pants.d",
+#   ".ruff_cache",
+#   ".svn",
+#   ".tox",
+#   ".venv",
+#   "__pypackages__",
+#   "_build",
+#   "buck-out",
+#   "build",
+#   "dist",
+#   "node_modules",
+#   "venv",
+# ]
 per-file-ignores = {}
 
 # Same as Black.
 line-length = 120
 
-# # Allow unused variables when underscore-prefixed.
+# Allow unused variables when underscore-prefixed.
 # dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
-# Assume Python 3.10.
+# Assume Python 3.9
 target-version = "py39"

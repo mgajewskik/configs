@@ -68,4 +68,27 @@ return {
       -- d	Open diffview.nvim at hovered file
       -- D (TODO)	Open diff popup
    },
+   {
+      -- https://github.com/pwntester/octo.nvim
+      "pwntester/octo.nvim",
+      requires = {
+         "nvim-lua/plenary.nvim",
+         "nvim-telescope/telescope.nvim",
+         "kyazdani42/nvim-web-devicons",
+      },
+      lazy = true,
+      cmd = "Octo",
+      keys = {
+         -- other commands
+         -- Octo pr edit <PR number>
+         -- Octo review start/resume
+         -- <leader>ca/sa - add comment, suggestion
+         -- Octo review comments
+         -- Octo review submit
+         { "<leader>gp", ":Octo pr list<CR>", { noremap = true, silent = true } },
+      },
+      config = function()
+         require("octo").setup()
+      end,
+   },
 }

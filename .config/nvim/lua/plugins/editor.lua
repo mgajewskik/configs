@@ -67,8 +67,8 @@ return {
          require("mini.ai").setup()
       end,
    },
-   -- {
-   -- 	-- easy align with gl=
-   -- 	"tommcdo/vim-lion",
-   -- },
+   {
+      -- easy align with gl=
+      "tommcdo/vim-lion",
+   },
 }

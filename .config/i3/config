@@ -25,6 +25,7 @@ gaps outer 3
 $exec_always $wallpaper_reset
 $exec_always systemctl --user start greenclip.service
 $exec_always picom --config ~/.config/picom.conf
+$exec_always systemctl --user restart blugon.service
 
 $exec dunst
 $exec udiskie --tray
@@ -36,6 +37,7 @@ $exec blueman-applet
 $exec dropbox
 $exec fusuma
 # $exec caffeine
+$exec /home/mgajewskik/go/bin/x -protonTray
 
 
 # #---Special Keybindings---# #
@@ -81,12 +83,12 @@ bindsym $mod+w                      $exec pavucontrol
 
 bindsym $alt+w 			            $exec brave
 # bindsym $alt+e 			            $exec nautilus
-# bindsym $alt+e 			            $exec thunar
 bindsym $alt+e 			            $exec nemo
 bindsym $alt+p 			            $exec bitwarden-desktop
 bindsym $alt+o 			            $exec obsidian
 bindsym $alt+f 			            $exec ferdium
 bindsym $alt+l 			            $exec alacritty -e lf
+bindsym $alt+b 			            $exec beeper
 
 bindsym $alt+a 			            $exec "~/set-devices.sh && notify-send 'Devices settings set'"
 
@@ -330,8 +332,8 @@ set $mode_display Choose monitor connection: (s)ingle, (d)ell, (p)rojector, (w)a
 mode "$mode_display" {
     #bindsym s $exec xrandr --auto --output eDP-1-1 --primary && notify-send 'Single monitor configured', mode "default"
     bindsym s $exec xrandr --auto --output eDP-1 --primary && notify-send 'Single monitor configured' && $wallpaper_reset, mode "default"
-    bindsym e $exec xrandr --auto --output HDMI-0 --primary --auto --left-of eDP-1-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
-    bindsym d $exec xrandr --auto --output DP-3 --primary --auto --above eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
+    bindsym e $exec xrandr --auto --output HDMI-1 --auto --above eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
+    bindsym d $exec xrandr --auto --output DP-3 --primary --auto --left-of eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
     bindsym o $exec xrandr --auto --output DP-3 --primary --output eDP-1 --off && notify-send 'Only Dell monitor configured ThinkPad turned off' && $wallpaper_reset, mode "default"
     bindsym f $exec xrandr --auto --output DP-3 --primary --auto --left-of eDP-1 && notify-send 'Dell monitor configured on the left side of laptop' && $wallpaper_reset, mode "default"
     bindsym p $exec xrandr --auto --output DP-3 --mode 1920x1080 --same-as eDP-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"

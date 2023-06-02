@@ -13,12 +13,12 @@ add_newline = false
 disabled = true
 
 # Replace the "❯" symbol in the prompt with "➟"
-[character]      # The name of the module we are configuring is "character"
+[character] # The name of the module we are configuring is "character"
 #use_symbol_for_status = true
 #symbol = "  ➟"     # The "symbol" segment is being set to "➜"
 #symbol = "[λ](bold green)"     # The "symbol" segment is being set to "➜"
 #success_symbol = "[➜ ](bold green)"     # The "symbol" segment is being set to "➜"
-success_symbol = "[➜ ](bold #92E920)"     # The "symbol" segment is being set to "➜"
+success_symbol = "[➜ ](bold #92E920)" # The "symbol" segment is being set to "➜"
 error_symbol = "[✗ ](bold red) "
 #style_success = "bold #00A652"
 #style_failure = "bold #df382c"
@@ -50,7 +50,7 @@ style = "bold italic #87A752"
 
 [directory]
 truncation_length = 10
-truncate_to_repo = true # truncates directory to root folder if in github repo
+truncate_to_repo = true                                   # truncates directory to root folder if in github repo
 format = "[$path]($style) [$read_only]($read_only_style)"
 style = "bold #89CFF0"
 
@@ -121,18 +121,26 @@ disabled = true
 format = "[T:$version$workspace]($style) "
 
 [aws]
+disabled = true
 format = 'on [$symbol($profile )(\($region\) )]($style)'
 style = "bold blue"
 symbol = "🅰 "
-disabled = true
 
 [aws.region_aliases]
 ap-southeast-2 = "au"
 us-east-1 = "va"
+
+[gcloud]
+disabled = true
+format = '[$symbol$active]($style) '
+style = 'bold yellow'
+
+[gcloud.region_aliases]
+us-central1 = 'uc1'
+asia-northeast1 = 'an1'
 
 #[time]
 #time_format = "%T"
 #format = "🕙 $time($style) "
 #style = "bright-white"
 #disabled = false
-

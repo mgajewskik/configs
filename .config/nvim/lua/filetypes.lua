@@ -122,8 +122,8 @@ augroup("QuickClose", function(g)
       group = g,
       pattern = {
          "qf",
-         "help",
          "man",
+         "help",
          "notify",
          "lspinfo",
          "fugitive",

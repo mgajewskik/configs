@@ -55,6 +55,7 @@ vim.api.nvim_create_autocmd("User", {
    pattern = "VeryLazy",
    callback = function()
       require("keymaps")
+      require("cmd")
       require("autocmd")
       require("filetypes")
       require("fzk").setup()

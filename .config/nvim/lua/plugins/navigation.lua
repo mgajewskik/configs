@@ -60,7 +60,7 @@ return {
          respect_buf_cwd = true,
          view = {
             centralize_selection = true,
-            side = "right",
+            -- side = "right",
          },
       },
       -- <Tab> - preview

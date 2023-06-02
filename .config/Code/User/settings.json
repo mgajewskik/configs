@@ -1,14 +1,27 @@
 {
   "telemetry.telemetryLevel": "off",
-  "terminal.integrated.fontFamily": "monospace",
-  "editor.inlineSuggest.enabled": true,
+  "aws.telemetry": false,
+  "redhat.telemetry.enabled": false,
   "github.copilot.enable": {
     "*": true,
-    "yaml": false,
+    "yaml": true,
     "plaintext": true,
     "markdown": true
   },
+  // OTHEr
+  "terminal.integrated.fontFamily": "monospace",
+  "breadcrumbs.enabled": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Kanagawa",
+  // EDITOR
+  "editor.folding": false,
+  "editor.cursorBlinking": "solid",
+  "editor.minimap.enabled": false,
+  "editor.scrollbar.vertical": "hidden",
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.inlineSuggest.enabled": true,
   "editor.fontFamily": "'JetBrains Mono'",
+  "editor.fontSize": 14,
   "editor.fontLigatures": false,
   "editor.formatOnSaveMode": "file",
   "editor.formatOnSave": true,
@@ -20,14 +33,114 @@
   "editor.tabSize": 4,
   "editor.insertSpaces": true,
   "editor.lineNumbers": "relative",
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Kanagawa",
+  // Vim setup
+  "vim.enableNeovim": false,
+  "vim.neovimPath": "/usr/bin/nvim",
+  "vim.neovimUseConfigFile": true,
+  "vim.leader": "<space>",
+  "vim.cursorStylePerMode.insert": "line-thin",
+  "vim.cursorStylePerMode.normal": "block",
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.searchHighlightColor": "rgba(150, 255, 255, 0.3)",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false
+  },
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "1"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": ":tabn 1"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "2"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": ":tabn 2"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "3"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": ":tabn 3"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "4"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": ":tabn 4"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "l"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusSecondEditorGroup"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<C-r>",
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.view.explorer"
+        },
+        {
+          "command": "-workbench.view.explorer"
+        },
+      ]
+    },
+  ],
+  // LANGUAGE SPECIFIC
   // "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   // "python.formatting.provider": "black",
-  "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim",
-  "vscode-neovim.neovimInitVimPaths.linux": "$HOME/.config/nvim/init.vim",
-  "redhat.telemetry.enabled": false,
   "yaml.customTags": [
     "!And",
     "!And sequence",
@@ -57,11 +170,13 @@
     "!Split",
     "!Split sequence"
   ],
-  "aws.telemetry": false,
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
   }
 }

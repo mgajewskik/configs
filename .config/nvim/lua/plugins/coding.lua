@@ -11,18 +11,6 @@ return {
       opts = { use_diagnostic_signs = true },
    },
    {
-      "github/copilot.vim",
-      event = "VeryLazy",
-      config = function()
-         vim.g.copilot_no_tab_map = true
-         vim.g.copilot_assume_mapped = true
-         vim.g.copilot_filetypes = { yaml = "v:true" }
-         vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-         vim.api.nvim_set_keymap("i", "<C-H>", "copilot#Previous()", { silent = true, expr = true })
-         vim.api.nvim_set_keymap("i", "<C-L>", "copilot#Next()", { silent = true, expr = true })
-      end,
-   },
-   {
       "ray-x/go.nvim",
       dependencies = {
          "ray-x/guihua.lua",
@@ -65,6 +53,7 @@ return {
          "hrsh7th/cmp-nvim-lsp-document-symbol",
          "L3MON4D3/LuaSnip",
          "hrsh7th/cmp-nvim-lua",
+         "petertriho/cmp-git",
       },
       config = function()
          local cmp = require("cmp")
@@ -132,6 +121,7 @@ return {
                { name = "path" },
                { name = "nvim_lsp" },
                { name = "nvim_lsp_signature_help" },
+               { name = "git" },
                { name = "buffer", keyword_length = 5 },
                { name = "luasnip" },
                -- { name = "calc" },

@@ -18,7 +18,14 @@ return {
          servers = {
             jsonls = {},
             jsonnet_ls = {},
-            yamlls = {},
+            yamlls = {
+               settings = {
+                  yaml = {
+                     -- FIX mapKeyOrder warning
+                     keyOrdering = false,
+                  },
+               },
+            },
             bashls = {},
             dockerls = {},
             lua_ls = {

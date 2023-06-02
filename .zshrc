@@ -152,6 +152,8 @@ export SHELL='/bin/zsh'
 #export LANG='en_GB.UTF-8'
 #export LC_ALL='en_GB.UTF-8'
 export BAT_THEME="gruvbox-dark"
+# export TZ_LIST="Europe/Warsaw,Warsaw - Home;Asia/Hong_Kong,Bali;US/Central,Colorado - Denver"
+export TZ_LIST="Asia/Hong_Kong,Bali;US/Central,Colorado - Denver"
 
 #PATH="/usr/local/bin:/usr/local/sbin/:$PATH"
 export PATH=$PATH:/usr/local/bin
@@ -195,6 +197,7 @@ alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9
 alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
 alias k="kubectl"
+alias mk="minikube kubectl --"
 alias tf="terraform"
 # alias src="export $(cat .env | xargs)"
 alias nvim=/usr/local/bin/nvim
@@ -202,6 +205,8 @@ alias snvim=/usr/bin/nvim
 alias vi=/usr/local/bin/nnvim
 alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
 alias run=./run
+alias connect="protonvpn-cli connect -f"
+alias disconnect="protonvpn-cli disconnect"
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'

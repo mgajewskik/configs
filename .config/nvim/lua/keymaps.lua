@@ -32,10 +32,10 @@ map("t", "<M-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { noremap = true, e
 map("n", "<leader>tt", ":tabnew<CR>:terminal<CR>i", { noremap = true })
 
 -- Pane navigation
--- map("n", "<leader>h", ":wincmd h<CR>", { noremap = true })
--- map("n", "<leader>j", ":wincmd j<CR>", { noremap = true })
--- map("n", "<leader>k", ":wincmd k<CR>", { noremap = true })
--- map("n", "<leader>l", ":wincmd l<CR>", { noremap = true })
+map("n", "<C-h>", ":wincmd h<CR>", { noremap = true })
+map("n", "<C-j>", ":wincmd j<CR>", { noremap = true })
+map("n", "<C-k>", ":wincmd k<CR>", { noremap = true })
+map("n", "<C-l>", ":wincmd l<CR>", { noremap = true })
 
 -- Tab navigation
 map("n", "<leader>1", "1gt", { noremap = true })
@@ -166,8 +166,6 @@ map(
 map("n", "<leader><CR>", "o<Esc>", { noremap = true })
 -- map("n", "<leader>o", ':<C-u>call append(line("."), repeat([""], v:count1))<CR>', { noremap = true, silent = true })
 map("n", "<leader>O", ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>', { noremap = true, silent = true })
-
--- vim.cmd([[command! Jfmt :%!jq .]])
 
 -- Resizing panes
 map("n", "<C-Left>", ":vertical resize +2<CR>", default_options)
