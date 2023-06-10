@@ -37,7 +37,7 @@ $exec blueman-applet
 $exec dropbox
 $exec fusuma
 # $exec caffeine
-$exec /home/mgajewskik/go/bin/x -protonTray
+# $exec /home/mgajewskik/go/bin/x -protonTray
 
 
 # #---Special Keybindings---# #
@@ -81,7 +81,8 @@ bindsym $mod+Shift+q		        [con_id="__focused__" instance="^(?!dropdown_).*$"
 bindsym $mod+n                      $exec dunstctl set-paused toggle && notify-send 'notifications toggle'
 bindsym $mod+w                      $exec pavucontrol
 
-bindsym $alt+w 			            $exec brave
+# bindsym $alt+w 			            $exec brave
+bindsym $alt+w 			            $exec firefox
 # bindsym $alt+e 			            $exec nautilus
 bindsym $alt+e 			            $exec nemo
 bindsym $alt+p 			            $exec bitwarden-desktop

@@ -186,7 +186,7 @@ alias -- -='cd -'
 alias cht="cht.sh"
 
 alias srconfig='source ~/.zshrc'
-alias senv='which pip; source venv/bin/activate; which pip'
+alias senv='which pip; source .venv/bin/activate; which pip'
 alias eenv='eval $(cat .env)'
 alias om=optimus-manager
 alias weather='curl wttr.in'
@@ -220,6 +220,7 @@ alias localaws='docker run -d -e "SERVICES=s3,dynamodb" -p 4566-4599:4566-4599 l
 alias completeaws="complete -C '/usr/bin/aws_completer' aws"
 alias sduterraform="$HOME/sdu/terraform"
 alias sdutf="$HOME/sdu/terraform"
+alias sshel="sshuttle --disable-ipv6 --dns --remote ec2-user@i-08378bc0586671909.us-east-1 10.0.0.0/8 -v --no-latency-control"
 
 #alias poetry=$HOME/.poetry/bin/poetry
 
