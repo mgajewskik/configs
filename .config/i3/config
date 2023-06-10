@@ -51,8 +51,8 @@ bindsym XF86AudioRaiseVolume $exec "pactl set-sink-volume @DEFAULT_SINK@ +10%; n
 bindsym XF86AudioMicMute $exec "pactl set-source-mute @DEFAULT_SOURCE@ toggle; notify-send 'microphone mute toggle'"
 
 # Screen brightness controls
-bindsym XF86MonBrightnessDown $exec "brightnessctl -d 'intel_backlight' set 10%-; notify-send 'brightness down'"
-bindsym XF86MonBrightnessUp $exec "brightnessctl -d 'intel_backlight' set +10%; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown $exec "brightnessctl -d 'amdgpu_bl0' set 10%-; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp $exec "brightnessctl -d 'amdgpu_bl0' set +10%; notify-send 'brightness up'"
 
 bindsym XF86Display $exec "~/scripts/toggle_screensaver.sh"
 # XF86WLAN
@@ -334,7 +334,7 @@ mode "$mode_display" {
     #bindsym s $exec xrandr --auto --output eDP-1-1 --primary && notify-send 'Single monitor configured', mode "default"
     bindsym s $exec xrandr --auto --output eDP-1 --primary && notify-send 'Single monitor configured' && $wallpaper_reset, mode "default"
     bindsym e $exec xrandr --auto --output HDMI-1 --auto --above eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
-    bindsym d $exec xrandr --auto --output DP-3 --primary --auto --left-of eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
+    bindsym d $exec xrandr --auto --output DP-2 --primary --auto --above eDP-1 && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
     bindsym o $exec xrandr --auto --output DP-3 --primary --output eDP-1 --off && notify-send 'Only Dell monitor configured ThinkPad turned off' && $wallpaper_reset, mode "default"
     bindsym f $exec xrandr --auto --output DP-3 --primary --auto --left-of eDP-1 && notify-send 'Dell monitor configured on the left side of laptop' && $wallpaper_reset, mode "default"
     bindsym p $exec xrandr --auto --output DP-3 --mode 1920x1080 --same-as eDP-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"

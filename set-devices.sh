@@ -22,19 +22,10 @@ xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1
 xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.6
 xinput set-prop 'TPPS/2 Elan TrackPoint' "libinput Scrolling Pixel Distance" 10
 
-if [ "$HOSTNAME" == thinkpad ]; then
-	xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Accel Speed" 1
-	xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Natural Scrolling Enabled" 1
-	xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Tapping Enabled" 1
-	xinput set-prop "SYNA8009:00 06CB:CE57 Touchpad" "libinput Scrolling Pixel Distance" 10
-fi
-
-if [ "$HOSTNAME" == extreme ]; then
-	xinput set-prop "Synaptics TM3418-002" "libinput Accel Speed" 1
-	xinput set-prop "Synaptics TM3418-002" "libinput Natural Scrolling Enabled" 1
-	xinput set-prop "Synaptics TM3418-002" "libinput Tapping Enabled" 1
-	xinput set-prop "Synaptics TM3418-002" "libinput Scrolling Pixel Distance" 10
-fi
+xinput set-prop "ELAN0678:00 04F3:3195 Touchpad" "libinput Accel Speed" 1
+xinput set-prop "ELAN0678:00 04F3:3195 Touchpad" "libinput Natural Scrolling Enabled" 1
+xinput set-prop "ELAN0678:00 04F3:3195 Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "ELAN0678:00 04F3:3195 Touchpad" "libinput Scrolling Pixel Distance" 10
 
 xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Accel Speed" 1
 xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Scrolling Pixel Distance" 10
