@@ -36,7 +36,7 @@ markup=none
 # Display any packages to install
 [packages]
 # command=echo "📦 $(yay -Qu | wc -l)"
-command=echo " $(yay -Qu | wc -l)"
+command=echo "󰏔 $(yay -Qu | wc -l)"
 separator=true
 interval=1800
 signal=3
@@ -66,7 +66,7 @@ signal=3
 #signal=2
 
 # Memory usage
-#
+
 # The type defaults to "mem" if the instance is not specified.
 # [memory]
 # separator=false
@@ -88,12 +88,20 @@ signal=3
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
 [cpu_usage]
-command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
+# command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
+command=echo " $(~/.config/i3blocks/i3cpu)"
 interval=1
 separator=false
 
 [temp]
-command=echo "T: $(~/.config/i3blocks/i3temp)"
+# command=echo "T: $(~/.config/i3blocks/i3temp)"
+command=echo "󰏈 $(~/.config/i3blocks/i3temp)"
+interval=1
+seperator=true
+
+[fan]
+# command=echo "F: $(~/.config/i3blocks/i3fan)"
+command=echo "󰈐 $(~/.config/i3blocks/i3fan)"
 interval=1
 seperator=true
 
@@ -113,7 +121,8 @@ signal=1
 # Backlight Level
 [light]
 # command=echo "☀️️ $(light -G)%"
-command=echo "  $(light -G)%"
+# command=echo " $(light -G)%"
+command=echo "󰖨 $(light -G)%"
 interval=1
 signal=4
 
@@ -126,7 +135,7 @@ interval=1
 
 # Date Time
 [time]
-command=date '+ %V   %d-%m-%Y   %H:%M:%S  '
+command=date '+ %V  %d-%m-%Y   %H:%M:%S '
 interval=1
 
 # Key indicators

@@ -1,0 +1,13 @@
+#!/usr/bin/sh
+
+# https://github.com/phillipberndt/autorandr
+
+# restart i3 and therefore blugon
+# not sure if this is the best approach
+# i3-msg restart
+
+# restart service that applies blugon
+systemctl --user restart blugon.service
+
+# notify user of current profile
+notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"

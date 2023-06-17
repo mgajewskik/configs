@@ -151,9 +151,21 @@ return {
                --color=auto \
                --type f \
                --hidden \
+               --no-ignore \
                --follow \
                --exclude .git \
+               --exclude venv \
+               --exclude .venv \
                --exclude .node-gyp \
+               --exclude .cache \
+               --exclude .kube \
+               --exclude .dropbox-dist \
+               --exclude .mozilla \
+               --exclude .pyenv \
+               --exclude .tmux \
+               --exclude .trash \
+               --exclude .terraform \
+               --exclude *.pyc \
                -X ls -t modified
                ]],
             },

@@ -45,7 +45,8 @@ style = "bold #87A752"
 [cmd_duration]
 min_time = 1000
 #format = "⏲️ [$duration]($style)"
-format = "祥[$duration]($style)"
+# format = "󱎫 [$duration]($style)"
+format = "󰔛 [$duration]($style)"
 style = "bold italic #87A752"
 
 [directory]
@@ -97,15 +98,21 @@ format = '([\[$all_status$ahead_behind\]]($style) )'
 disabled = true
 
 [python]
-symbol = " "
+symbol = " "
 format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 #format = "[$symbol$version]($style) "
 style = "bold green"
 # detect_extensions = ["py"]
-detect_files = ["*.py", "*.pyc", "requirements.txt", "pyproject.toml"]
+detect_files = [
+  "*.py",
+  "*.pyc",
+  "requirements.txt",
+  "pyproject.toml",
+  ".python-version",
+]
 
 [golang]
-symbol = "ﳑ "
+symbol = " "
 format = "via [$symbol$version](bold cyan) "
 
 [ruby]
@@ -118,13 +125,13 @@ disabled = true
 
 [terraform]
 #format = "[ 🏎 $version$workspace]($style) "
-format = "[T:$version$workspace]($style) "
+format = "[󱁢 $version$workspace]($style) "
 
 [aws]
 disabled = true
 format = 'on [$symbol($profile )(\($region\) )]($style)'
 style = "bold blue"
-symbol = "🅰 "
+symbol = "󰸏 "
 
 [aws.region_aliases]
 ap-southeast-2 = "au"

@@ -20,7 +20,7 @@ window:
   # program: /bin/zsh
   # args:
     # - --login
- 
+
 # # Kanagawa Alacritty Colors
 colors:
   primary:
@@ -63,7 +63,7 @@ colors:
 #     background: '#282828'
 #     # soft contrast: background = '#32302f'
 #     foreground: '#ebdbb2'
-# 
+#
 #   # Normal colors
 #   normal:
 #     black:   '#282828'
@@ -74,7 +74,7 @@ colors:
 #     magenta: '#b16286'
 #     cyan:    '#689d6a'
 #     white:   '#a89984'
-# 
+#
 #   # Bright colors
 #   bright:
 #     black:   '#928374'
