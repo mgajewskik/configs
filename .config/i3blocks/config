@@ -33,6 +33,11 @@ markup=none
 # separator=true
 # interval=1
 
+# [browser]
+# full_text= 
+# color=#ff7f81
+# command=i3-msg -q exec firefox
+
 # Display any packages to install
 [packages]
 # command=echo "📦 $(yay -Qu | wc -l)"
@@ -97,13 +102,13 @@ separator=false
 # command=echo "T: $(~/.config/i3blocks/i3temp)"
 command=echo "󰏈 $(~/.config/i3blocks/i3temp)"
 interval=1
-seperator=true
+seperator=false
 
 [fan]
 # command=echo "F: $(~/.config/i3blocks/i3fan)"
 command=echo "󰈐 $(~/.config/i3blocks/i3fan)"
 interval=1
-seperator=true
+seperator=false
 
 #[uptime]
 #command=echo "UPT: $(~/.config/i3blocks/i3uptime)"

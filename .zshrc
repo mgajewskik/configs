@@ -153,7 +153,7 @@ export SHELL='/bin/zsh'
 #export LC_ALL='en_GB.UTF-8'
 export BAT_THEME="gruvbox-dark"
 # export TZ_LIST="Europe/Warsaw,Warsaw - Home;Asia/Hong_Kong,Bali;US/Central,Colorado - Denver"
-export TZ_LIST="Asia/Hong_Kong,Bali;US/Central,Colorado - Denver"
+export TZ_LIST="US/Mountain,Denver;US/Central,Houston"
 
 #PATH="/usr/local/bin:/usr/local/sbin/:$PATH"
 export PATH=$PATH:/usr/local/bin

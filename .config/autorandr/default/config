@@ -17,6 +17,7 @@ crtc 0
 gamma 1.0:0.833:0.714
 mode 1920x1200
 pos 0x0
+primary
 rate 60.00
 x-prop-max_bpc 16
 x-prop-non_desktop 0

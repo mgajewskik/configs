@@ -2,6 +2,11 @@
 smart_gaps on
 smart_borders on
 
+# # smart|urgent|focus|none
+# focus_on_window_activation urgent
+# # do not focus new windows
+# no_focus [class="^.*"]
+
 set $mod Mod4
 set $alt Mod1
 set $exec exec --no-startup-id
@@ -16,9 +21,9 @@ floating_modifier $mod
 
 
 # #---Gaps---# #
-for_window [class="^.*"] border pixel 3
-gaps inner 3
-gaps outer 3
+for_window [class="^.*"] border pixel 4
+gaps inner 0
+gaps outer 0
 
 
 # #---Autostart---# #
@@ -65,8 +70,8 @@ bindsym XF86Display $exec "~/scripts/toggle_screensaver.sh"
 
 
 # #---Bindings---# #
-bindsym $mod+Return 		         $exec kitty
-bindsym $mod+t       		         $exec alacritty
+bindsym $mod+Return 		         $exec alacritty
+bindsym $mod+t       		         $exec kitty
 bindsym $mod+Shift+t       		     $exec alacritty -e bash
 bindsym $mod+Shift+Return 		     $exec xterm -e bash
 # Shift + Tab will execute any string as a shell command
@@ -83,10 +88,10 @@ bindsym $mod+Shift+q		        [con_id="__focused__" instance="^(?!dropdown_).*$"
 bindsym $mod+n                      $exec dunstctl set-paused toggle && notify-send 'notifications toggle'
 bindsym $mod+w                      $exec pavucontrol
 
-# bindsym $alt+w 			            $exec brave
-bindsym $alt+w 			            $exec firefox
+bindsym $alt+w 			            $exec brave
+# bindsym $alt+w 			            $exec firefox
 # bindsym $alt+e 			            $exec nautilus
-bindsym $alt+e 			            $exec nemo
+bindsym $alt+e 			            $exec nemo ~/downloads
 bindsym $alt+p 			            $exec bitwarden-desktop
 bindsym $alt+o 			            $exec obsidian
 bindsym $alt+f 			            $exec ferdium

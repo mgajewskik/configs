@@ -9,5 +9,11 @@
 # restart service that applies blugon
 systemctl --user restart blugon.service
 
+# reset wallpaper location
+feh --bg-fill --no-fehbg ~/pictures/wallpapers/firewatch_6.jpg
+
+# move all workspaces to the primary monitor
+i3-msg '[class=".*"]' move workspace to output "$(xrandr --query | grep " connected" | grep "primary" | awk '{print $1}')"
+
 # notify user of current profile
 notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"
