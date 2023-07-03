@@ -188,7 +188,6 @@ alias cht="cht.sh"
 alias srconfig='source ~/.zshrc'
 alias senv='python --version; which pip; source .venv/bin/activate; python --version; which pip'
 alias eenv='eval $(cat .env)'
-alias om=optimus-manager
 alias weather='curl wttr.in'
 alias clp="greenclip print | sed '/^$/d' | fzf -e | xargs -r -d'\n' -I '{}' greenclip print '{}'"
 # alias cleanup="yay -Rsn $(yay -Qdtq)"
@@ -196,13 +195,11 @@ alias clp="greenclip print | sed '/^$/d' | fzf -e | xargs -r -d'\n' -I '{}' gree
 alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9999999'
 alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
-alias k="kubectl"
-alias mk="minikube kubectl --"
-alias tf="terraform"
 # alias src="export $(cat .env | xargs)"
 #alias nvim=/usr/local/bin/nvim
 #alias snvim=/usr/bin/nvim
-alias vi=/usr/bin/nvim
+# alias vi=/usr/bin/nvim
+alias vi=$HOME/.local/bin/nnvim
 alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
 alias run=./run
 alias connect="protonvpn-cli connect -f"
@@ -215,12 +212,14 @@ alias tl='tmux list-sessions'
 alias tksv='tmux kill-server'
 alias tkss='tmux kill-session -t'
 
-alias vpn='cd $HOME/MEGA/brytlyt/openvpn && sudo openvpn --config mgajewskik.brytlyt.com.ovpn --auth-user-pass'
+alias tf="terraform"
 alias localaws='docker run -d -e "SERVICES=s3,dynamodb" -p 4566-4599:4566-4599 localstack/localstack:0.12.6'
 alias completeaws="complete -C '/usr/bin/aws_completer' aws"
-alias sduterraform="$HOME/sdu/terraform"
-alias sdutf="$HOME/sdu/terraform"
-alias sshel="sshuttle --disable-ipv6 --dns --remote ec2-user@i-08378bc0586671909.us-east-1 10.0.0.0/8 -v --no-latency-control"
+
+alias k="kubectl"
+alias mk="minikube kubectl --"
+alias ks="kubectl apply -f"
+alias kn="kubectl config set-context --current --namespace"
 
 #alias poetry=$HOME/.poetry/bin/poetry
 
