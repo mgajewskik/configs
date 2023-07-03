@@ -103,6 +103,7 @@ return {
       end,
    },
    {
+      -- TODO this does not work for a while now
       "rcarriga/nvim-notify",
       opts = {
          level = vim.log.levels.ERROR,

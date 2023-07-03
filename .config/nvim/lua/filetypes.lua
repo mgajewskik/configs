@@ -97,7 +97,7 @@ augroup("TStfvars", function(g)
       group = g,
       pattern = { "terraform-vars" },
       callback = function()
-         vim.bo.filetype = "hcl"
+         vim.bo.filetype = "terraform"
          vim.opt_local.tabstop = 2
          vim.opt_local.shiftwidth = 2
          vim.opt_local.softtabstop = 2
