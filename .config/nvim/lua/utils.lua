@@ -68,6 +68,7 @@ function M.format_on_attach(client, bufnr)
             -- remove formatting on save for yaml and sh files
             -- TODO think if this can be done better
             local ft = vim.bo[bufnr].filetype
+            -- if ft == "yaml" or ft == "sh" then
             if ft == "yaml" or ft == "sh" then
                return
             else
@@ -159,10 +160,10 @@ end
 
 function M.have_compiler()
    if
-      vim.fn.executable("cc") == 1
-      or vim.fn.executable("gcc") == 1
-      or vim.fn.executable("clang") == 1
-      or vim.fn.executable("cl") == 1
+       vim.fn.executable("cc") == 1
+       or vim.fn.executable("gcc") == 1
+       or vim.fn.executable("clang") == 1
+       or vim.fn.executable("cl") == 1
    then
       return true
    end

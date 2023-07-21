@@ -1,18 +1,5 @@
 return {
    {
-      "tzachar/local-highlight.nvim",
-      event = "VeryLazy",
-      opts = {
-         hlgroup = "CursorLine",
-      },
-   },
-   {
-      "norcalli/nvim-colorizer.lua",
-      lazy = true,
-      cmd = "ColorizerToggle",
-      config = true,
-   },
-   {
       "nvim-treesitter/nvim-treesitter",
       dependencies = {
          "nvim-treesitter/nvim-treesitter-textobjects",
@@ -44,10 +31,6 @@ return {
                node_incremental = "<CR>",
                scope_incremental = "<S-CR>",
                node_decremental = "<BS>",
-               -- init_selection = "<CR>",
-               -- node_incremental = "<TAB>",
-               -- scope_incremental = "<CR>",
-               -- node_decremental = "<S-TAB>",
             },
          },
          -- should be in editor config but it can't

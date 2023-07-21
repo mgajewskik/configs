@@ -17,14 +17,6 @@ map("n", "^", "0", { noremap = true })
 -- w!! to save with sudo
 map("c", "w!!", "<esc>:lua require'utils'.sudo_write()<CR>", { silent = true })
 
--- Beginning and end of line in `:` command mode
-map("c", "<C-a>", "<home>", {})
-map("c", "<C-e>", "<end>", {})
-
--- Arrows in command line mode (':') menus
-map("c", "<down>", '(pumvisible() ? "\\<C-n>" : "\\<down>")', { noremap = true, expr = true })
-map("c", "<up>", '(pumvisible() ? "\\<C-p>" : "\\<up>")', { noremap = true, expr = true })
-
 -- Terminal mappings
 map("t", "<C-w>e", [[<C-\><C-n>]], { noremap = true })
 --map('t', '<C-w>', [[<C-\><C-n><C-w>]], { noremap = true })

@@ -38,7 +38,8 @@ augroup("JSON", function(g)
          vim.opt_local.tabstop = 2
          vim.opt_local.shiftwidth = 2
          vim.opt_local.softtabstop = 2
-         vim.opt_local.filetype = "jsonc"
+         -- why was this done?
+         -- vim.opt_local.filetype = "jsonc"
       end,
    })
 end)
@@ -92,30 +93,16 @@ augroup("GitCommit", function(g)
    })
 end)
 
-augroup("TStfvars", function(g)
-   aucmd("FileType", {
-      group = g,
-      pattern = { "terraform-vars" },
-      callback = function()
-         vim.bo.filetype = "terraform"
-         vim.opt_local.tabstop = 2
-         vim.opt_local.shiftwidth = 2
-         vim.opt_local.softtabstop = 2
-      end,
-   })
-end)
-
-augroup("Terraform", function(g)
-   aucmd("FileType", {
-      group = g,
-      pattern = { "terraform" },
-      callback = function()
-         vim.opt_local.tabstop = 2
-         vim.opt_local.shiftwidth = 2
-         vim.opt_local.softtabstop = 2
-      end,
-   })
-end)
+-- TODO this does not work yet
+-- augroup("TSDisable", function(g)
+--    aucmd("Filetype", {
+--       group = g,
+--       pattern = { "fugitive" },
+--       callback = function(args)
+--          vim.treesitter.stop(args.buf)
+--       end,
+--    })
+-- end)
 
 augroup("QuickClose", function(g)
    aucmd("Filetype", {

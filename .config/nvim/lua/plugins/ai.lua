@@ -30,7 +30,7 @@ return {
       config = function()
          require("chatgpt").setup({
             keymaps = {
-               submit = "<C-J>",
+               submit = "<C-CR>",
             },
          })
       end,

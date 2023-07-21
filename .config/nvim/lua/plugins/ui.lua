@@ -18,6 +18,45 @@ return {
       },
    },
    {
+      "tzachar/local-highlight.nvim",
+      event = "VeryLazy",
+      opts = {
+         hlgroup = "CursorLine",
+      },
+   },
+   {
+      "norcalli/nvim-colorizer.lua",
+      lazy = true,
+      cmd = "ColorizerToggle",
+      config = true,
+   },
+   {
+      "echasnovski/mini.indentscope",
+      opts = {
+         draw = {
+            delay = 10,
+            animation = function(_, _)
+               return 5
+            end,
+         },
+         mappings = {
+            object_scope = "ii",
+            object_scope_with_border = "ai",
+            goto_top = "[i",
+            goto_bottom = "]i",
+         },
+         options = {
+            try_as_border = true,
+         },
+         -- Which character to use for drawing scope indicator
+         -- alternative styles: ┆ ┊ ╎
+         symbol = "╎",
+      },
+      config = function(_, opts)
+         require("mini.indentscope").setup(opts)
+      end,
+   },
+   {
       "nvim-lualine/lualine.nvim",
       dependencies = {
          "kyazdani42/nvim-web-devicons",
@@ -103,37 +142,46 @@ return {
       end,
    },
    {
-      -- TODO this does not work for a while now
       "rcarriga/nvim-notify",
       opts = {
-         level = vim.log.levels.ERROR,
-         -- Animation style
-         stages = "fade_in_slide_out",
-         -- Function called when a new window is opened, use for changing win settings/config
-         on_open = nil,
-         -- Function called when a window is closed
-         on_close = nil,
-         -- Render function for notifications. See notify-render()
-         render = "default",
-         -- Default timeout for notifications
-         timeout = 2000,
-         -- For stages that change opacity this is treated as the highlight behind the window
-         -- Set this to either a highlight group, an RGB hex value e.g. "#000000" or a function returning an RGB code for dynamic values
-         background_colour = "#000000",
-         -- Minimum width for notification windows
-         minimum_width = 30,
-         -- Icons for the different levels
-         -- TODO add icons from file here
-         icons = {
-            ERROR = "",
-            WARN = "",
-            INFO = "",
-            DEBUG = "",
-            TRACE = "✎",
-         },
+         timeout = 3000,
+         max_height = function()
+            return math.floor(vim.o.lines * 0.75)
+         end,
+         max_width = function()
+            return math.floor(vim.o.columns * 0.75)
+         end,
       },
-      -- config = function()
-      --     vim.notify = require("notify")
-      -- end,
+      -- TODO this does not work for a while now - works when oooptions are turned off
+      -- opts = {
+      --    level = vim.log.levels.ERROR,
+      --    -- Animation style
+      --    stages = "fade_in_slide_out",
+      --    -- Function called when a new window is opened, use for changing win settings/config
+      --    on_open = nil,
+      --    -- Function called when a window is closed
+      --    on_close = nil,
+      --    -- Render function for notifications. See notify-render()
+      --    render = "default",
+      --    -- Default timeout for notifications
+      --    timeout = 2000,
+      --    -- For stages that change opacity this is treated as the highlight behind the window
+      --    -- Set this to either a highlight group, an RGB hex value e.g. "#000000" or a function returning an RGB code for dynamic values
+      --    background_colour = "#000000",
+      --    -- Minimum width for notification windows
+      --    minimum_width = 30,
+      --    -- Icons for the different levels
+      --    -- TODO add icons from file here
+      --    icons = {
+      --       ERROR = "",
+      --       WARN = "",
+      --       INFO = "",
+      --       DEBUG = "",
+      --       TRACE = "✎",
+      --    },
+      -- },
+      init = function()
+         vim.notify = require("notify")
+      end,
    },
 }

@@ -25,23 +25,29 @@ return {
       lazy = true,
       cmd = "DiffviewOpen",
       keys = {
-         { "<leader>gdh", ":DiffviewFileHistory<CR>", { noremap = true } },
+         { "<leader>gdh", ":DiffviewFileHistory %<CR>", { noremap = true } },
          { "<leader>gdd", ":DiffviewOpen origin/master", { noremap = true } },
          { "<leader>gds", ":DiffviewOpen --staged", { noremap = true } },
       },
       config = true,
    },
    {
-      "TimUntersberger/neogit",
+      "NeogitOrg/neogit",
       dependencies = {
          "nvim-lua/plenary.nvim",
+         "sindrets/diffview.nvim",
       },
       lazy = true,
       cmd = "Neogit",
       keys = {
          { "<leader>sg", ":Neogit<CR>", { noremap = true, silent = true } },
       },
-      config = true,
+      opts = {
+         integrations = {
+            diffview = true,
+         },
+      },
+      -- config = true,
       -- Keybinding	Function
       -- Tab	Toggle diff
       -- 1, 2, 3, 4	Set a foldlevel

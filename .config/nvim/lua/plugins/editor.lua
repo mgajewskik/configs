@@ -8,6 +8,10 @@ return {
       event = "VeryLazy",
    },
    {
+      -- easy align with gl=
+      "tommcdo/vim-lion",
+   },
+   {
       "mbbill/undotree",
       keys = {
          { "<leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>", { noremap = true } },
@@ -18,32 +22,6 @@ return {
       event = "VeryLazy",
       config = function()
          require("mini.comment").setup()
-      end,
-   },
-   {
-      "echasnovski/mini.indentscope",
-      opts = {
-         draw = {
-            delay = 10,
-            animation = function(_, _)
-               return 5
-            end,
-         },
-         mappings = {
-            object_scope = "ii",
-            object_scope_with_border = "ai",
-            goto_top = "[i",
-            goto_bottom = "]i",
-         },
-         options = {
-            try_as_border = true,
-         },
-         -- Which character to use for drawing scope indicator
-         -- alternative styles: ┆ ┊ ╎
-         symbol = "╎",
-      },
-      config = function(_, opts)
-         require("mini.indentscope").setup(opts)
       end,
    },
    {
@@ -66,9 +44,5 @@ return {
       config = function()
          require("mini.ai").setup()
       end,
-   },
-   {
-      -- easy align with gl=
-      "tommcdo/vim-lion",
    },
 }

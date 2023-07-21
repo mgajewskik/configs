@@ -17,7 +17,6 @@ return {
          },
          servers = {
             jsonls = {},
-            jsonnet_ls = {},
             yamlls = {
                settings = {
                   yaml = {
@@ -28,6 +27,7 @@ return {
             },
             bashls = {},
             dockerls = {},
+            gopls = {},
             lua_ls = {
                settings = {
                   Lua = {
@@ -52,7 +52,7 @@ return {
                   },
                },
             },
-            -- terraformls = {},
+            tflint = {},
             marksman = {},
             vimls = {},
             bufls = {},
@@ -99,15 +99,19 @@ return {
             require("lspconfig")[server].setup(server_opts)
          end
 
-         local mlsp = require("mason-lspconfig")
-         local available = mlsp.get_available_servers()
+         -- get all the servers that are available thourgh mason-lspconfig
+         local have_mason, mlsp = pcall(require, "mason-lspconfig")
+         local all_mslp_servers = {}
+         if have_mason then
+            all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+         end
 
          local ensure_installed = {} ---@type string[]
          for server, server_opts in pairs(servers) do
             if server_opts then
                server_opts = server_opts == true and {} or server_opts
                -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-               if server_opts.mason == false or not vim.tbl_contains(available, server) then
+               if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
                   setup(server)
                else
                   ensure_installed[#ensure_installed + 1] = server
@@ -115,8 +119,9 @@ return {
             end
          end
 
-         require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
-         require("mason-lspconfig").setup_handlers({ setup })
+         if have_mason then
+            mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
+         end
       end,
    },
    {
@@ -163,18 +168,19 @@ return {
                nls.builtins.diagnostics.revive,
                nls.builtins.diagnostics.staticcheck,
                nls.builtins.diagnostics.trail_space,
-               nls.builtins.diagnostics.tflint,
                nls.builtins.diagnostics.tfsec,
+               -- nls.builtins.diagnostics.terraform_validate,
                nls.builtins.diagnostics.buf,
                nls.builtins.diagnostics.checkmake,
-               nls.builtins.diagnostics.dotenv_linter,
+               -- nls.builtins.diagnostics.dotenv_linter,
                nls.builtins.diagnostics.hadolint,
                nls.builtins.diagnostics.jsonlint,
                nls.builtins.diagnostics.opacheck,
                nls.builtins.diagnostics.sqlfluff,
                nls.builtins.diagnostics.djlint,
                -- formatters
-               nls.builtins.formatting.fixjson,
+               -- json formatting doesnt work
+               -- nls.builtins.formatting.fixjson,
                nls.builtins.formatting.jq,
                nls.builtins.formatting.yamlfmt,
                nls.builtins.formatting.stylua.with({
@@ -187,7 +193,7 @@ return {
                }),
                nls.builtins.formatting.shfmt,
                nls.builtins.formatting.shellharden,
-               nls.builtins.formatting.terraform_fmt,
+               -- nls.builtins.formatting.terraform_fmt,
                nls.builtins.formatting.black,
                nls.builtins.formatting.isort,
                nls.builtins.formatting.ruff,
@@ -243,7 +249,7 @@ return {
             "djlint",
             -- formatters
             "black",
-            "fixjson",
+            -- "fixjson",
             "gofumpt",
             "goimports",
             "goimports-reviser",
@@ -257,16 +263,145 @@ return {
             "taplo",
          },
       },
-      -- @param opts MasonSettings | {ensure_installed: string[]}
-      config = function(plugin, opts)
+      config = function(_, opts)
          require("mason").setup(opts)
          local mr = require("mason-registry")
-         for _, tool in ipairs(opts.ensure_installed) do
-            local p = mr.get_package(tool)
-            if not p:is_installed() then
-               p:install()
+         local function ensure_installed()
+            for _, tool in ipairs(opts.ensure_installed) do
+               local p = mr.get_package(tool)
+               if not p:is_installed() then
+                  p:install()
+               end
             end
          end
+         if mr.refresh then
+            mr.refresh(ensure_installed)
+         else
+            ensure_installed()
+         end
+      end,
+   },
+   {
+      "simrat39/symbols-outline.nvim",
+      lazy = true,
+      cmd = "SymbolsOutline",
+      config = true,
+   },
+   {
+      "folke/trouble.nvim",
+      cmd = { "TroubleToggle", "Trouble" },
+      opts = { use_diagnostic_signs = true },
+   },
+   {
+      "hrsh7th/nvim-cmp",
+      dependencies = {
+         "neovim/nvim-lspconfig",
+         "onsails/lspkind-nvim",
+         "hrsh7th/cmp-buffer",
+         "hrsh7th/cmp-nvim-lsp",
+         "hrsh7th/cmp-path",
+         "hrsh7th/cmp-cmdline",
+         "lukas-reineke/cmp-rg",
+         "hrsh7th/cmp-nvim-lsp-signature-help",
+         "hrsh7th/cmp-nvim-lsp-document-symbol",
+         "L3MON4D3/LuaSnip",
+         "hrsh7th/cmp-nvim-lua",
+         "petertriho/cmp-git",
+      },
+      config = function()
+         local cmp = require("cmp")
+         local lspkind = require("lspkind")
+
+         -- not sure this works as the group for copilot is not configured properly in cmp
+         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
+         cmp.setup({
+            formatting = {
+               format = lspkind.cmp_format({
+                  with_text = false,
+                  maxwidth = 50,
+                  mode = "symbol",
+                  menu = {
+                     buffer = "BUF",
+                     rg = "RG",
+                     nvim_lsp = "LSP",
+                     path = "PATH",
+                     luasnip = "SNIP",
+                     calc = "CALC",
+                     spell = "SPELL",
+                     copilot = " COP",
+                  },
+                  before = function(entry, vim_item)
+                     if entry.source.name == "copilot" then
+                        -- vim_item.kind = "[] Copilot"
+                        vim_item.kind_hl_group = "CmpItemKindCopilot"
+                        return vim_item
+                     end
+                     return vim_item
+                  end,
+               }),
+            },
+            snippet = {
+               expand = function(args)
+                  require("luasnip").lsp_expand(args.body)
+               end,
+            },
+            mapping = {
+               ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+               ["<C-u>"] = cmp.mapping.scroll_docs(4),
+               ["<C-Space>"] = cmp.mapping.complete(),
+               ["<C-e>"] = cmp.mapping.close(),
+               ["<CR>"] = cmp.mapping.confirm({
+                  behavior = cmp.ConfirmBehavior.Replace,
+                  select = false,
+               }),
+               ["<Tab>"] = cmp.mapping(function(fallback)
+                  if cmp.visible() then
+                     cmp.select_next_item()
+                  else
+                     fallback()
+                  end
+               end, { "i", "s" }),
+               ["<S-Tab>"] = cmp.mapping(function()
+                  if cmp.visible() then
+                     cmp.select_prev_item()
+                  end
+               end, { "i", "s" }),
+            },
+            sources = {
+               -- { name = "copilot", group_index = 2 },
+               { name = "nvim_lua" },
+               { name = "path" },
+               { name = "nvim_lsp" },
+               { name = "nvim_lsp_signature_help" },
+               { name = "git" },
+               { name = "buffer", keyword_length = 5 },
+               { name = "luasnip" },
+               -- { name = "calc" },
+               -- { name = "spell", keyword_length = 5 },
+               { name = "rg", keyword_length = 5 },
+            },
+         })
+
+         -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+         cmp.setup.cmdline("/", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+               { name = "nvim_lsp_document_symbol" },
+            }, {
+               { name = "buffer" },
+            }),
+         })
+
+         -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+         cmp.setup.cmdline(":", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+               { name = "path" },
+            }, {
+               { name = "cmdline" },
+            }),
+         })
       end,
    },
 }
