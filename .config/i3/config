@@ -230,7 +230,7 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Skype"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="MEGAsync"] floating enable border pixel 1
-for_window [class="Nemo"] floating enable
+# for_window [class="Nemo"] floating enable
 
  # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -344,9 +344,9 @@ mode "$mode_display" {
     bindsym d $exec xrandr --auto --output DisplayPort-1 --primary --auto --above eDP && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
     bindsym o $exec xrandr --auto --output DisplayPort-1 --primary --output eDP --off && notify-send 'Only Dell monitor configured ThinkPad turned off' && $wallpaper_reset, mode "default"
     bindsym p $exec xrandr --auto --output DP-3 --mode 1920x1080 --same-as eDP-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
-    bindsym r $exec xrandr --auto --output eDP-1 --primary --left-of DP-3 && notify-send 'ThinkVision configured on the right side' && $wallpaper_reset, mode "default"
-    bindsym l $exec xrandr --auto --output eDP-1 --primary --right-of DP-3 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
-    bindsym u $exec xrandr --auto --output eDP-1 --primary --below DP-3 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
+    bindsym r $exec xrandr --auto --output eDP --primary --left-of DisplayPort-1 && notify-send 'ThinkVision configured on the right side' && $wallpaper_reset, mode "default"
+    bindsym l $exec xrandr --auto --output eDP --primary --right-of DisplayPort-1 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
+    bindsym u $exec xrandr --auto --output eDP --primary --below DisplayPort-1 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
     bindsym a $exec xrandr --output DP-1-2 --primary --auto --above eDP-1 --output DP-1-1 --auto --right-of eDP-1 && notify-send 'ThinkVision and Dell configured in integrated mode' && $wallpaper_reset, mode "default"
     bindsym t $exec xrandr --output DP-1 --primary --auto --above eDP-1-1 --output DP-0 --auto --right-of eDP-1-1 && notify-send 'ThinkVision and Dell configured in nvidia mode' && $wallpaper_reset, mode "default"
     bindsym w $exec $wallpaper_reset

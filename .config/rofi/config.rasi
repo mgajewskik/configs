@@ -153,6 +153,6 @@ configuration {
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
-/* @theme "Arc-Dark" */
+@theme "Arc-Dark"
 /* @theme "DarkBlue" */
-@theme "gruvbox-dark-hard"
+/* @theme "gruvbox-dark-hard" */
