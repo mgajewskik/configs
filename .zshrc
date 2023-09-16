@@ -50,7 +50,7 @@ zstyle ':completion:complete:*:options' sort false
 zstyle ':fzf-tab:complete:_zlua:*' query-string input
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
 zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
-zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always ${~ctxt[hpre]}$in'
+zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'eza -1 --color=always ${~ctxt[hpre]}$in'
 ### FZF
 ## TODO TO INSTALL
 #zinit ice lucid wait'0b' from"gh-r" as"program"
@@ -142,7 +142,7 @@ setopt vi
 
 # Automatic ls when changing directory
 # removed --classify
-chpwd() exa --git --icons --group-directories-first --time-style=long-iso --group --color-scale
+chpwd() eza --git --icons --group-directories-first --time-style=long-iso --group --color-scale
 #####################
 # ENV VARIABLE      #
 #####################
@@ -181,7 +181,7 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias pskill="ps aux  |  grep -i csp_build  |  awk '{print $2}'  |  xargs sudo kill -9"
 alias ram="ps aux | awk '{print $2, $4, $11}' | sort -k2rn | head -n 20"
 alias myip="curl http://ipecho.net/plain; echo"
-alias ls="exa --git --icons --group-directories-first --time-style=long-iso --group --color-scale"
+alias ls="eza --git --icons --group-directories-first --time-style=long-iso --group --color-scale"
 alias myconfig='/usr/bin/git --git-dir=$HOME/.myconfig/ --work-tree=$HOME'
 alias -- -='cd -'
 alias cht="cht.sh"
@@ -205,6 +205,7 @@ alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
 alias run=./run
 alias connect="protonvpn-cli connect -f"
 alias disconnect="protonvpn-cli disconnect"
+alias t=tailscale
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -216,11 +217,6 @@ alias tkss='tmux kill-session -t'
 alias tf="terraform"
 alias localaws='docker run -d -e "SERVICES=s3,dynamodb" -p 4566-4599:4566-4599 localstack/localstack:0.12.6'
 alias completeaws="complete -C '/usr/bin/aws_completer' aws"
-
-alias k="kubectl"
-alias mk="minikube kubectl --"
-alias ks="kubectl apply -f"
-alias kn="kubectl config set-context --current --namespace"
 
 #alias poetry=$HOME/.poetry/bin/poetry
 
@@ -342,6 +338,40 @@ alias dre='docker exec -it'
 #     project_name=$2
 #     toggl start $1 --project-id $(toggl projects | awk -v var=$project_name '$2 == var { print $1 }')
 # }
+#
+########################
+# K8s helpers          #
+#######################
+
+export KUBECONFIG=~/.kube/config
+export KUBECONFIG=$KUBECONFIG:~/.kube/pi-config
+
+alias k="kubectl"
+alias mk="minikube kubectl --"
+alias ks="kubectl apply -f"
+alias kn="kubectl config set-context --current --namespace"
+
+function kctx() {
+    found=0
+    for c in $(kubectl config get-contexts --no-headers -o name); do
+        if [[ $c == $1 ]]; then
+            found=1
+        fi
+    done
+    if [[ $found == 0 ]]; then
+        echo "Context $1 not found"
+        return 1
+    fi
+    echo "Switching to context $1 and setting up aliases"
+
+    BASE="kubectl --context=$1"
+
+    alias k="$BASE"
+    alias kg="$BASE get"
+    alias ke="$BASE edit"
+    alias kgp="$BASE get pod"
+    alias kde="$BASE describe"
+}
 
 #####################
 # FANCY-CTRL-Z      #
@@ -409,6 +439,11 @@ fi
 ## POETRY SETTINGS         #
 ############################
 export PATH="$HOME/.poetry/bin:$PATH"
+
+############################
+## ASDF SETTINGS           #
+############################
+. /opt/asdf-vm/asdf.sh
 
 #####################
 # Starship Prompt   #

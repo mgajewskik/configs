@@ -58,8 +58,8 @@ bindsym XF86AudioRaiseVolume $exec "pactl set-sink-volume @DEFAULT_SINK@ +10%; n
 bindsym XF86AudioMicMute $exec "pactl set-source-mute @DEFAULT_SOURCE@ toggle; notify-send 'microphone mute toggle'"
 
 # Screen brightness controls
-bindsym XF86MonBrightnessDown $exec "brightnessctl -d 'amdgpu_bl0' set 5%-; notify-send 'brightness down'"
-bindsym XF86MonBrightnessUp $exec "brightnessctl -d 'amdgpu_bl0' set +5%; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown $exec "brightnessctl -d 'amdgpu_bl1' set 5%-; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp $exec "brightnessctl -d 'amdgpu_bl1' set +5%; notify-send 'brightness up'"
 
 bindsym XF86Display $exec "~/scripts/toggle_screensaver.sh"
 # XF86WLAN

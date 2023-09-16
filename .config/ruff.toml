@@ -2,11 +2,11 @@
 
 # selected rules families
 select = [
-  "F",   # pyflakes
-  "E",   # pycodestyle - errors
-  "W",   # pycodestyle - warnings
-  "B",   # bugbear - potential bugs
-  "D",   # pydocstyle - docstrings
+  "F", # pyflakes
+  "E", # pycodestyle - errors
+  "W", # pycodestyle - warnings
+  "B", # bugbear - potential bugs
+  # "D",   # pydocstyle - docstrings
   "C4",  # comprehensions
   "SIM", # simplify
   # "N", # naming
@@ -24,6 +24,7 @@ ignore = [
   "D105", # missing docstring in magic method
   "D107", # missing __init__ docstring
   "D417", # missing argument descriptions in the docstring
+  "S101", # use of assert detected
 ]
 
 # # Allow autofix for all enabled rules (when `--fix`) is provided.

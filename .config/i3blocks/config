@@ -138,6 +138,13 @@ signal=4
 command=~/.config/i3blocks/i3battery
 interval=1
 
+[bat]
+# command=echo "󱊥 $(~/.config/i3blocks/i3bat-watt)"
+command=echo "⚡ $(~/.config/i3blocks/i3bat-watt)"
+interval=1
+seperator=false
+
+
 # Date Time
 [time]
 command=date '+ %V  %d-%m-%Y   %H:%M:%S '
