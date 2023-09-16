@@ -102,8 +102,8 @@ function M.keymaps_on_attach(client, bufnr)
    map("n", "]d", ("<cmd>lua vim.diagnostic.goto_next(%s)<CR>"):format(winopts), opts)
 
    -- Formatting
-   map("n", "gf", "<cmd>lua require('utils').format()<CR>", opts)
-   -- map("n", "gf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+   -- map("n", "gf", "<cmd>lua require('utils').format()<CR>", opts)
+   map("n", "gf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
 -- toggle quickfixlist

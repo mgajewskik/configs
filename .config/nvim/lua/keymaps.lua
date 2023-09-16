@@ -119,7 +119,7 @@ map("n", "N", "Nzzzv", default_opts)
 -- any jump over 5 modifies the jumplist
 -- so we can use <C-o> <C-i> to jump back and forth
 for _, c in ipairs({ "j", "k" }) do
-   map("n", c, ([[(v:count > 5 ? "m'" . v:count : "") . '%s']]):format(c), expr_opts)
+	map("n", c, ([[(v:count > 5 ? "m'" . v:count : "") . '%s']]):format(c), expr_opts)
 end
 
 -- -- move along visual lines, not numbered ones

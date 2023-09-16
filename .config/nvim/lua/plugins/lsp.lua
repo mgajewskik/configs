@@ -77,7 +77,7 @@ return {
       },
       config = function(_, opts)
          require("utils").on_attach(function(client, buffer)
-            require("utils").format_on_attach(client, buffer)
+            -- require("utils").format_on_attach(client, buffer)
             require("utils").keymaps_on_attach(client, buffer)
          end)
 
@@ -139,173 +139,108 @@ return {
          end
       end,
    },
-   {
-      "jose-elias-alvarez/null-ls.nvim",
-      dependencies = {
-         "mason.nvim",
-      },
-      event = { "BufReadPre", "BufNewFile" },
-      -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
-      opts = function()
-         local nls = require("null-ls")
-         return {
-            sources = {
-               -- code actions
-               nls.builtins.code_actions.shellcheck,
-               nls.builtins.code_actions.gitsigns,
-               -- nls.builtins.code_actions.gomodifytags,
-               -- diagnostics
-               nls.builtins.diagnostics.actionlint,
-               nls.builtins.diagnostics.cfn_lint,
-               nls.builtins.diagnostics.yamllint,
-               nls.builtins.diagnostics.flake8.with({
-                  extra_args = {
-                     "--max-line-length=120",
-                  },
-               }),
-               -- turning off as throwing too many errors
-               -- nls.builtins.diagnostics.mypy,
-               -- nls.builtins.diagnostics.pylint,
-               -- nls.builtins.diagnostics.pyproject_flake8,
-               -- nls.builtins.diagnostics.ruff,
-               -- nls.builtins.diagnostics.checkmake,
-               -- nls.builtins.diagnostics.codespell,
-               nls.builtins.diagnostics.gitlint,
-               nls.builtins.diagnostics.commitlint,
-               nls.builtins.diagnostics.golangci_lint,
-               -- gives weird underlines if no package comment - managed by a config file
-               nls.builtins.diagnostics.revive,
-               -- nls.builtins.diagnostics.staticcheck,
-               nls.builtins.diagnostics.luacheck.with({
-                  extra_args = {
-                     "--globals",
-                     "vim",
-                  },
-               }),
-               nls.builtins.diagnostics.trail_space,
-               nls.builtins.diagnostics.tfsec,
-               -- nls.builtins.diagnostics.terraform_validate,
-               nls.builtins.diagnostics.buf,
-               nls.builtins.diagnostics.checkmake,
-               -- nls.builtins.diagnostics.dotenv_linter,
-               nls.builtins.diagnostics.hadolint,
-               nls.builtins.diagnostics.jsonlint,
-               nls.builtins.diagnostics.opacheck,
-               nls.builtins.diagnostics.sqlfluff.with({
-                  extra_args = {
-                     "--dialect",
-                     "postgres",
-                  },
-               }),
-               nls.builtins.diagnostics.djlint,
-               -- formatters
-               -- json formatting doesnt work
-               -- nls.builtins.formatting.fixjson,
-               nls.builtins.formatting.jq.with({
-                  extra_args = {
-                     "--indent",
-                     "4",
-                  },
-               }),
-               nls.builtins.formatting.yamlfmt,
-               nls.builtins.formatting.stylua.with({
-                  extra_args = {
-                     "--indent-type",
-                     "Spaces",
-                     "--indent-width",
-                     "3",
-                  },
-               }),
-               nls.builtins.formatting.shfmt,
-               nls.builtins.formatting.shellharden,
-               -- nls.builtins.formatting.terraform_fmt,
-               nls.builtins.formatting.isort,
-               nls.builtins.formatting.ruff,
-               nls.builtins.formatting.black,
-               -- nls.builtins.formatting.goimports,
-               -- nls.builtins.formatting.gofumpt,
-               -- nls.builtins.formatting.goimports_reviser,
-               -- nls.builtins.formatting.golines,
-               -- changes some strings that need to be like they are
-               -- nls.builtins.formatting.codespell,
-               nls.builtins.formatting.buf,
-               nls.builtins.formatting.cbfmt,
-               nls.builtins.formatting.djlint,
-               nls.builtins.formatting.packer,
-               nls.builtins.formatting.rego,
-               nls.builtins.formatting.sqlfluff,
-               nls.builtins.formatting.taplo,
-               nls.builtins.formatting.trim_newlines,
-               nls.builtins.formatting.trim_whitespace,
-            },
-         }
-      end,
-   },
-   {
-      "williamboman/mason.nvim",
-      cmd = "Mason",
-      opts = {
-         ensure_installed = {
-            -- "gomodifytags",
-            -- linters
-            "actionlint",
-            "codespell",
-            "flake8",
-            "gitlint",
-            "commitlint",
-            "golangci-lint",
-            "luacheck",
-            -- "mypy",
-            -- "pylint",
-            "pyproject-flake8",
-            "revive",
-            "shellcheck",
-            "shellharden",
-            -- "staticcheck",
-            -- "textlint",
-            "tflint",
-            "yamllint",
-            "cfn-lint",
-            "buf",
-            "jsonlint",
-            "hadolint",
-            "ruff",
-            "sqlfluff",
-            "djlint",
-            -- formatters
-            "black",
-            -- "fixjson",
-            -- "gofumpt",
-            -- "goimports",
-            -- "goimports-reviser",
-            -- "golines",
-            "isort",
-            "jq",
-            "shellharden",
-            "shfmt",
-            "yamlfmt",
-            "cbfmt",
-            "taplo",
-         },
-      },
-      config = function(_, opts)
-         require("mason").setup(opts)
-         local mr = require("mason-registry")
-         local function ensure_installed()
-            for _, tool in ipairs(opts.ensure_installed) do
-               local p = mr.get_package(tool)
-               if not p:is_installed() then
-                  p:install()
-               end
-            end
-         end
-         if mr.refresh then
-            mr.refresh(ensure_installed)
-         else
-            ensure_installed()
-         end
-      end,
-   },
+   -- {
+   --    "jose-elias-alvarez/null-ls.nvim",
+   --    dependencies = {
+   --       "mason.nvim",
+   --    },
+   --    event = { "BufReadPre", "BufNewFile" },
+   --    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+   --    opts = function()
+   --       local nls = require("null-ls")
+   --       return {
+   --          sources = {
+   --             -- code actions
+   --             nls.builtins.code_actions.shellcheck,
+   --             nls.builtins.code_actions.gitsigns,
+   --             -- nls.builtins.code_actions.gomodifytags,
+   --             -- diagnostics
+   --             nls.builtins.diagnostics.actionlint,
+   --             nls.builtins.diagnostics.cfn_lint,
+   --             nls.builtins.diagnostics.yamllint,
+   --             nls.builtins.diagnostics.flake8.with({
+   --                extra_args = {
+   --                   "--max-line-length=120",
+   --                },
+   --             }),
+   --             -- turning off as throwing too many errors
+   --             -- nls.builtins.diagnostics.mypy,
+   --             -- nls.builtins.diagnostics.pylint,
+   --             -- nls.builtins.diagnostics.pyproject_flake8,
+   --             -- nls.builtins.diagnostics.ruff,
+   --             -- nls.builtins.diagnostics.checkmake,
+   --             -- nls.builtins.diagnostics.codespell,
+   --             nls.builtins.diagnostics.gitlint,
+   --             nls.builtins.diagnostics.commitlint,
+   --             nls.builtins.diagnostics.golangci_lint,
+   --             -- gives weird underlines if no package comment - managed by a config file
+   --             nls.builtins.diagnostics.revive,
+   --             -- nls.builtins.diagnostics.staticcheck,
+   --             nls.builtins.diagnostics.luacheck.with({
+   --                extra_args = {
+   --                   "--globals",
+   --                   "vim",
+   --                },
+   --             }),
+   --             nls.builtins.diagnostics.trail_space,
+   --             nls.builtins.diagnostics.tfsec,
+   --             -- nls.builtins.diagnostics.terraform_validate,
+   --             nls.builtins.diagnostics.buf,
+   --             nls.builtins.diagnostics.checkmake,
+   --             -- nls.builtins.diagnostics.dotenv_linter,
+   --             nls.builtins.diagnostics.hadolint,
+   --             nls.builtins.diagnostics.jsonlint,
+   --             nls.builtins.diagnostics.opacheck,
+   --             nls.builtins.diagnostics.sqlfluff.with({
+   --                extra_args = {
+   --                   "--dialect",
+   --                   "postgres",
+   --                },
+   --             }),
+   --             nls.builtins.diagnostics.djlint,
+   --             -- formatters
+   --             -- json formatting doesnt work
+   --             -- nls.builtins.formatting.fixjson,
+   --             nls.builtins.formatting.jq.with({
+   --                extra_args = {
+   --                   "--indent",
+   --                   "4",
+   --                },
+   --             }),
+   --             nls.builtins.formatting.yamlfmt,
+   --             nls.builtins.formatting.stylua.with({
+   --                extra_args = {
+   --                   "--indent-type",
+   --                   "Spaces",
+   --                   "--indent-width",
+   --                   "3",
+   --                },
+   --             }),
+   --             nls.builtins.formatting.shfmt,
+   --             nls.builtins.formatting.shellharden,
+   --             -- nls.builtins.formatting.terraform_fmt,
+   --             nls.builtins.formatting.isort,
+   --             nls.builtins.formatting.ruff,
+   --             nls.builtins.formatting.black,
+   --             -- nls.builtins.formatting.goimports,
+   --             -- nls.builtins.formatting.gofumpt,
+   --             -- nls.builtins.formatting.goimports_reviser,
+   --             -- nls.builtins.formatting.golines,
+   --             -- changes some strings that need to be like they are
+   --             -- nls.builtins.formatting.codespell,
+   --             nls.builtins.formatting.buf,
+   --             nls.builtins.formatting.cbfmt,
+   --             nls.builtins.formatting.djlint,
+   --             nls.builtins.formatting.packer,
+   --             nls.builtins.formatting.rego,
+   --             nls.builtins.formatting.sqlfluff,
+   --             nls.builtins.formatting.taplo,
+   --             nls.builtins.formatting.trim_newlines,
+   --             nls.builtins.formatting.trim_whitespace,
+   --          },
+   --       }
+   --    end,
+   -- },
    {
       "simrat39/symbols-outline.nvim",
       lazy = true,
@@ -400,11 +335,11 @@ return {
                { name = "nvim_lsp" },
                { name = "nvim_lsp_signature_help" },
                { name = "git" },
-               { name = "buffer", keyword_length = 5 },
+               { name = "buffer",                 keyword_length = 5 },
                { name = "luasnip" },
                -- { name = "calc" },
                -- { name = "spell", keyword_length = 5 },
-               { name = "rg", keyword_length = 5 },
+               { name = "rg",                     keyword_length = 5 },
             },
          })
 
