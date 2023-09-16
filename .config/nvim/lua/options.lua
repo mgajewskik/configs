@@ -5,7 +5,7 @@ vim.g.maplocalleader = " "
 
 o.clipboard = "unnamedplus" -- Sync with system clipboard
 o.completeopt = "menu,menuone,noselect"
-o.conceallevel = 3 -- Hide * markup for bold and italic
+o.conceallevel = 0 -- Hide * markup for bold and italic
 o.confirm = true -- Confirm to save changes before exiting modified buffer
 o.cursorline = true -- Enable highlighting of the current line
 o.expandtab = true -- Use spaces instead of tabs
@@ -42,6 +42,8 @@ o.autoread = true -- auto read file if changed outside of vim
 o.wildmode = "longest:full,full" -- Command-line completion mode
 o.winminwidth = 5 -- Minimum window width
 o.wrap = true -- Disable line wrap
+-- o.cmdheight = 2 -- cmdline height
+o.showmode = false -- show current mode (insert, etc) under the cmdline
 
 if vim.fn.has("nvim-0.9.0") == 1 then
    o.splitkeep = "screen"

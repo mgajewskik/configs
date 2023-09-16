@@ -1,12 +1,20 @@
 return {
    {
+      "lambdalisue/suda.vim",
+      cmd = {
+         "SudaRead",
+         "SudaWrite",
+      },
+   },
+   {
       "tpope/vim-surround",
       event = "VeryLazy",
    },
-   {
-      "tpope/vim-repeat",
-      event = "VeryLazy",
-   },
+   -- blocks searching through all directories keymap
+   -- {
+   --    "tpope/vim-repeat",
+   --    event = "VeryLazy",
+   -- },
    {
       -- easy align with gl=
       "tommcdo/vim-lion",
@@ -16,6 +24,13 @@ return {
       keys = {
          { "<leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>", { noremap = true } },
       },
+   },
+   {
+      "kevinhwang91/nvim-fundo",
+      dependencies = { "kevinhwang91/promise-async" },
+      config = function()
+         require("fundo").install()
+      end,
    },
    {
       "echasnovski/mini.comment",
@@ -44,5 +59,25 @@ return {
       config = function()
          require("mini.ai").setup()
       end,
+   },
+   {
+      "echasnovski/mini.operators",
+      event = "VeryLazy",
+      config = function()
+         require("mini.operators").setup()
+      end,
+   },
+   {
+      "m4xshen/hardtime.nvim",
+      event = "VeryLazy",
+      dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+      opts = {
+         max_count = 100,
+      },
+   },
+   {
+      "LunarVim/bigfile.nvim",
+      event = "VeryLazy",
+      config = true,
    },
 }

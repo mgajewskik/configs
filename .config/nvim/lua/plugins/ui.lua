@@ -21,14 +21,37 @@ return {
       "tzachar/local-highlight.nvim",
       event = "VeryLazy",
       opts = {
-         hlgroup = "CursorLine",
+         -- hlgroup = "CursorLine",
+         hlgroup = "TelescopeSelection",
       },
+      -- config = function()
+      --    require("local-highlight").setup()
+      -- end,
    },
    {
-      "norcalli/nvim-colorizer.lua",
-      lazy = true,
-      cmd = "ColorizerToggle",
-      config = true,
+      "winston0410/range-highlight.nvim",
+      event = "VeryLazy",
+      dependencies = {
+         "winston0410/cmd-parser.nvim",
+      },
+      config = function()
+         require("range-highlight").setup()
+      end,
+   },
+   -- {
+   --    "norcalli/nvim-colorizer.lua",
+   --    lazy = true,
+   --    cmd = "ColorizerToggle",
+   --    config = true,
+   -- },
+   {
+      "uga-rosa/ccc.nvim",
+      lazy = false,
+      opts = {
+         highlighter = {
+            auto_enable = true,
+         },
+      },
    },
    {
       "echasnovski/mini.indentscope",

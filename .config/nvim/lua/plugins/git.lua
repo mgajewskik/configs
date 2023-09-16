@@ -4,7 +4,7 @@ return {
       lazy = true,
       keys = {
          { "<leader>gs", "<Esc>:Git<CR>", { noremap = true } },
-         { "<leader>gB", "<Esc>:Git blame<CR>", { noremap = true } },
+         { "<leader>gb", "<Esc>:Git blame<CR>", { noremap = true } },
          { "<leader>gc", "<Esc>:Git commit<CR>", { noremap = true } },
          { "<leader>gv", "<Esc>:Gvdiffsplit!<CR>", { noremap = true } },
          { "<leader>gl", "<Esc>:Git log --graph --abbrev-commit --decorate<CR>", { noremap = true } },

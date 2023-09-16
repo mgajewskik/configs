@@ -43,7 +43,7 @@ function M.format()
          return client.name ~= "null-ls"
       end,
       -- TODO add formatting options here if necessary
-   }, {}))
+   }, { timeout = 2000 }))
 end
 
 function M.on_attach(on_attach)
@@ -69,8 +69,14 @@ function M.format_on_attach(client, bufnr)
             -- TODO think if this can be done better
             local ft = vim.bo[bufnr].filetype
             -- if ft == "yaml" or ft == "sh" then
-            if ft == "yaml" or ft == "sh" then
+            if ft == "yaml" or ft == "sh" or ft == "json" then
                return
+            -- elseif ft == "gohtmltmpl" or ft == "gotexttmpl" then
+            --    vim.cmd("%!djlint --profile=golang --reformat --quiet")
+            elseif ft == "go" then
+               require("go.format").org_imports()
+               require("go.format").goimport()
+               -- vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
             else
                M.format()
             end
@@ -97,6 +103,7 @@ function M.keymaps_on_attach(client, bufnr)
 
    -- Formatting
    map("n", "gf", "<cmd>lua require('utils').format()<CR>", opts)
+   -- map("n", "gf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
 -- toggle quickfixlist
@@ -160,10 +167,10 @@ end
 
 function M.have_compiler()
    if
-       vim.fn.executable("cc") == 1
-       or vim.fn.executable("gcc") == 1
-       or vim.fn.executable("clang") == 1
-       or vim.fn.executable("cl") == 1
+      vim.fn.executable("cc") == 1
+      or vim.fn.executable("gcc") == 1
+      or vim.fn.executable("clang") == 1
+      or vim.fn.executable("cl") == 1
    then
       return true
    end
@@ -468,6 +475,49 @@ M.sudo_write = function(tmpfile, filepath)
       vim.cmd("e!")
    end
    vim.fn.delete(tmpfile)
+end
+
+M.jump_to_word = function(ignore_underscore)
+   -- https://www.reddit.com/r/neovim/comments/16aan6k/comment/jz6maht/
+   -- https://github.com/VonHeikemen/dotfiles/blob/e0e186d9931daf13a89c977880928946af5341e0/my-configs/neovim/lua/plugins/leap.lua#L115
+   local search = require("leap.search")
+   local modify_keyword = false
+
+   local ch = vim.fn.getcharstr()
+
+   if ch == " " then
+      print("Must insert a non-whitespace character")
+      return
+   end
+
+   local pattern = string.format("\\V%s", ch)
+
+   if ch:match("[a-z0-9]") then
+      pattern = string.format("\\<%s", ch)
+      modify_keyword = ignore_underscore
+   elseif ch:match("[A-Z]") then
+      local regex = [[\<%s\|\<%s\|[a-z]\@<=%s]]
+      pattern = regex:format(ch:lower(), ch, ch)
+      modify_keyword = ignore_underscore
+   end
+
+   if modify_keyword then
+      vim.opt.iskeyword:remove("_")
+   end
+
+   local winid = vim.api.nvim_get_current_win()
+   local targets = search["get-targets"](pattern, { ["target-windows"] = { winid } })
+
+   if modify_keyword then
+      vim.opt.iskeyword:append("_")
+   end
+
+   if targets == nil then
+      print("No targets found")
+      return
+   end
+
+   require("leap").leap({ targets = targets })
 end
 
 return M

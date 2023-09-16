@@ -27,7 +27,22 @@ return {
             },
             bashls = {},
             dockerls = {},
-            gopls = {},
+            gopls = {
+               -- filetypes = { "go", "gomod", "gohtmltmpl", "gotexttmpl" },
+               settings = {
+                  gopls = {
+                     analyses = {
+                        shadow = true,
+                        unusedparams = true,
+                        unusedvariable = true,
+                     },
+                     staticcheck = true,
+                     formatting = {
+                        gofumpt = true,
+                     },
+                  },
+               },
+            },
             lua_ls = {
                settings = {
                   Lua = {
@@ -138,7 +153,7 @@ return {
                -- code actions
                nls.builtins.code_actions.shellcheck,
                nls.builtins.code_actions.gitsigns,
-               nls.builtins.code_actions.gomodifytags,
+               -- nls.builtins.code_actions.gomodifytags,
                -- diagnostics
                nls.builtins.diagnostics.actionlint,
                nls.builtins.diagnostics.cfn_lint,
@@ -158,15 +173,15 @@ return {
                nls.builtins.diagnostics.gitlint,
                nls.builtins.diagnostics.commitlint,
                nls.builtins.diagnostics.golangci_lint,
+               -- gives weird underlines if no package comment - managed by a config file
+               nls.builtins.diagnostics.revive,
+               -- nls.builtins.diagnostics.staticcheck,
                nls.builtins.diagnostics.luacheck.with({
                   extra_args = {
                      "--globals",
                      "vim",
                   },
                }),
-               -- gives weird underlines if no package comment - managed by a config file
-               nls.builtins.diagnostics.revive,
-               nls.builtins.diagnostics.staticcheck,
                nls.builtins.diagnostics.trail_space,
                nls.builtins.diagnostics.tfsec,
                -- nls.builtins.diagnostics.terraform_validate,
@@ -176,12 +191,22 @@ return {
                nls.builtins.diagnostics.hadolint,
                nls.builtins.diagnostics.jsonlint,
                nls.builtins.diagnostics.opacheck,
-               nls.builtins.diagnostics.sqlfluff,
+               nls.builtins.diagnostics.sqlfluff.with({
+                  extra_args = {
+                     "--dialect",
+                     "postgres",
+                  },
+               }),
                nls.builtins.diagnostics.djlint,
                -- formatters
                -- json formatting doesnt work
                -- nls.builtins.formatting.fixjson,
-               nls.builtins.formatting.jq,
+               nls.builtins.formatting.jq.with({
+                  extra_args = {
+                     "--indent",
+                     "4",
+                  },
+               }),
                nls.builtins.formatting.yamlfmt,
                nls.builtins.formatting.stylua.with({
                   extra_args = {
@@ -194,13 +219,13 @@ return {
                nls.builtins.formatting.shfmt,
                nls.builtins.formatting.shellharden,
                -- nls.builtins.formatting.terraform_fmt,
-               nls.builtins.formatting.black,
                nls.builtins.formatting.isort,
                nls.builtins.formatting.ruff,
-               nls.builtins.formatting.goimports,
-               nls.builtins.formatting.gofumpt,
-               nls.builtins.formatting.goimports_reviser,
-               nls.builtins.formatting.golines,
+               nls.builtins.formatting.black,
+               -- nls.builtins.formatting.goimports,
+               -- nls.builtins.formatting.gofumpt,
+               -- nls.builtins.formatting.goimports_reviser,
+               -- nls.builtins.formatting.golines,
                -- changes some strings that need to be like they are
                -- nls.builtins.formatting.codespell,
                nls.builtins.formatting.buf,
@@ -221,7 +246,7 @@ return {
       cmd = "Mason",
       opts = {
          ensure_installed = {
-            "gomodifytags",
+            -- "gomodifytags",
             -- linters
             "actionlint",
             "codespell",
@@ -236,7 +261,7 @@ return {
             "revive",
             "shellcheck",
             "shellharden",
-            "staticcheck",
+            -- "staticcheck",
             -- "textlint",
             "tflint",
             "yamllint",
@@ -250,10 +275,10 @@ return {
             -- formatters
             "black",
             -- "fixjson",
-            "gofumpt",
-            "goimports",
-            "goimports-reviser",
-            "golines",
+            -- "gofumpt",
+            -- "goimports",
+            -- "goimports-reviser",
+            -- "golines",
             "isort",
             "jq",
             "shellharden",

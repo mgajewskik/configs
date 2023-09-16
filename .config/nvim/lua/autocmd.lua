@@ -60,3 +60,18 @@ augroup("AutoResize", function(g)
       end,
    })
 end)
+
+-- Delete [No Name] buffers
+-- augroup("BufDelete", function(g)
+--    aucmd("BufHidden", {
+--       group = g,
+--       desc = "Delete [No Name] buffers",
+--       callback = function(event)
+--          if event.file == "" and vim.bo[event.buf].buftype == "" and not vim.bo[event.buf].modified then
+--             vim.schedule(function()
+--                pcall(vim.api.nvim_buf_delete, event.buf, {})
+--             end)
+--          end
+--       end,
+--    })
+-- end)
