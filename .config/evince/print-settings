@@ -1,0 +1,32 @@
+[Print Settings]
+cups-ColorModel=RGB
+cups-OutputMode=Normal
+default-source=Auto
+media-type=Plain
+cups-MediaType=Plain
+cups-job-priority=50
+cups-number-up=1
+evince-print-setting-page-autorotate=true
+evince-print-setting-page-size=false
+cover-before=none
+evince-print-setting-page-scale=0
+cups-InputSlot=Auto
+print-at-time=
+quality=normal
+cover-after=none
+print-at=now
+printer=HP_Photosmart_B109a-m
+cups-job-sheets=none,none
+
+output-file-format=pdf
+
+[Page Setup]
+PPDName=Letter
+DisplayName=US Letter
+Width=215.89999389648438
+Height=279.39999389648438
+MarginTop=6.3499999999999996
+MarginBottom=14.224
+MarginLeft=6.3499999999999996
+MarginRight=6.3499999999999996
+Orientation=portrait

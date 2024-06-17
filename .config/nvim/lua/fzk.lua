@@ -1,7 +1,7 @@
 local M = {}
 
 local my_opts = {
-   cwd = vim.fn.expand("$HOME/Dropbox/obsidian"),
+   cwd = vim.fn.expand("$HOME/dropbox/obsidian"),
    grep = {
       -- NOTE those options do not work here and are taken from the main config
       rg_opts = "--column --line-number --no-heading --color=always --smart-case",

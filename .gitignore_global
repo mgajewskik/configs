@@ -2,6 +2,9 @@
 .python-version
 .git
 .node-gyp
+node_modules
+.mise.toml
+run
 
 # Source
 # https://github.com/github/gitignore

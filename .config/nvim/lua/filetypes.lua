@@ -78,6 +78,29 @@ augroup("Lua", function(g)
    })
 end)
 
+augroup("Hyprlang", function(g)
+   aucmd("FileType", {
+      group = g,
+      pattern = { "hyprlang" },
+      callback = function()
+         vim.opt_local.commentstring = "# %s"
+      end,
+   })
+end)
+
+augroup("Nix", function(g)
+   aucmd("FileType", {
+      group = g,
+      pattern = { "nix" },
+      callback = function()
+         vim.opt_local.commentstring = "# %s"
+         vim.opt_local.tabstop = 2
+         vim.opt_local.shiftwidth = 2
+         vim.opt_local.softtabstop = 2
+      end,
+   })
+end)
+
 -- :verbose setlocal formatoptions? - check what is causing the markdown wrapping
 augroup("Markdown", function(g)
    aucmd({ "FileType", "BufEnter" }, {

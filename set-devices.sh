@@ -1,5 +1,8 @@
 #!/usr/bin/sh
 
+# disable X authentication, sddm does not work with i3exit lock
+xhost +
+
 # Add /usr/bin/setxkbmap if not on the PATH
 setxkbmap -layout pl -option "ctrl:nocaps"
 echo "Language set to PL"

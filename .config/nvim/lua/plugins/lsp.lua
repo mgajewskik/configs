@@ -16,6 +16,7 @@ return {
             severity_sort = true,
          },
          servers = {
+            -- has formatting
             jsonls = {},
             yamlls = {
                settings = {
@@ -76,10 +77,11 @@ return {
          setup = {},
       },
       config = function(_, opts)
-         require("utils").on_attach(function(client, buffer)
-            -- require("utils").format_on_attach(client, buffer)
-            require("utils").keymaps_on_attach(client, buffer)
-         end)
+         -- require("utils").on_attach(function(client, buffer)
+         --    -- require("utils").format_on_attach(client, buffer)
+         --    require("utils").keymaps_on_attach(client, buffer)
+         -- end)
+         require("utils").lsp_on_attach()
 
          -- diagnostics
          -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#customizing-how-diagnostics-are-displayed
@@ -275,7 +277,9 @@ return {
          -- not sure this works as the group for copilot is not configured properly in cmp
          vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
+         ---@diagnostic disable-next-line: missing-fields
          cmp.setup({
+            ---@diagnostic disable-next-line: missing-fields
             formatting = {
                format = lspkind.cmp_format({
                   with_text = false,
@@ -335,15 +339,16 @@ return {
                { name = "nvim_lsp" },
                { name = "nvim_lsp_signature_help" },
                { name = "git" },
-               { name = "buffer",                 keyword_length = 5 },
+               { name = "buffer", keyword_length = 5 },
                { name = "luasnip" },
                -- { name = "calc" },
                -- { name = "spell", keyword_length = 5 },
-               { name = "rg",                     keyword_length = 5 },
+               { name = "rg", keyword_length = 5 },
             },
          })
 
          -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+         ---@diagnostic disable-next-line: missing-fields
          cmp.setup.cmdline("/", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
@@ -354,6 +359,7 @@ return {
          })
 
          -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+         ---@diagnostic disable-next-line: missing-fields
          cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({

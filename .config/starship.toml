@@ -51,9 +51,13 @@ style = "bold italic #87A752"
 
 [directory]
 truncation_length = 10
-truncate_to_repo = true                                   # truncates directory to root folder if in github repo
+truncate_to_repo = true # truncates directory to root folder if in github repo
+# fish_style_pwd_dir_length = 3
 format = "[$path]($style) [$read_only]($read_only_style)"
 style = "bold #89CFF0"
+
+[directory.substitutions]
+'~/semantive' = '~/sem'
 
 [env_var]
 variable = "0"

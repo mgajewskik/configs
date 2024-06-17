@@ -106,10 +106,10 @@ zinit load 'wfxr/forgit'
 #zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
 #zinit light mborsuk/hubflow
 # DIRENV auto load .envrc
-zinit from"gh-r" as"program" mv"direnv* -> direnv" \
-    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
-    pick"direnv" src="zhook.zsh" for \
-        direnv/direnv
+# zinit from"gh-r" as"program" mv"direnv* -> direnv" \
+#     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
+#     pick"direnv" src="zhook.zsh" for \
+#         direnv/direnv
 
 #####################
 # HISTORY           #
@@ -140,9 +140,6 @@ setopt listpacked
 setopt automenu
 setopt vi
 
-# Automatic ls when changing directory
-# removed --classify
-chpwd() eza --git --icons --group-directories-first --time-style=long-iso --group --color-scale
 #####################
 # ENV VARIABLE      #
 #####################
@@ -181,7 +178,7 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias pskill="ps aux  |  grep -i csp_build  |  awk '{print $2}'  |  xargs sudo kill -9"
 alias ram="ps aux | awk '{print $2, $4, $11}' | sort -k2rn | head -n 20"
 alias myip="curl http://ipecho.net/plain; echo"
-alias ls="eza --git --icons --group-directories-first --time-style=long-iso --group --color-scale"
+alias ls="eza --git --icons --group-directories-first --time-style=long-iso --group"
 alias myconfig='/usr/bin/git --git-dir=$HOME/.myconfig/ --work-tree=$HOME'
 alias -- -='cd -'
 alias cht="cht.sh"
@@ -200,12 +197,13 @@ alias muteoff="brightnessctl -d 'platform::mute' set 0"
 #alias nvim=/usr/local/bin/nvim
 #alias snvim=/usr/bin/nvim
 # alias vi=/usr/bin/nvim
-alias vi=$HOME/.local/bin/nnvim
+# alias vi=$HOME/.local/bin/nnvim
+# alias vi=$HOME/.local/bin/nvim
 alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
 alias run=./run
 alias connect="protonvpn-cli connect -f"
 alias disconnect="protonvpn-cli disconnect"
-alias t=tailscale
+alias hm="home-manager"
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -217,8 +215,28 @@ alias tkss='tmux kill-session -t'
 alias tf="terraform"
 alias localaws='docker run -d -e "SERVICES=s3,dynamodb" -p 4566-4599:4566-4599 localstack/localstack:0.12.6'
 alias completeaws="complete -C '/usr/bin/aws_completer' aws"
+alias ghce="gh copilot explain"
+alias ghcs="gh copilot suggest"
 
 #alias poetry=$HOME/.poetry/bin/poetry
+
+#####################
+# FUNCTIONS         #
+#####################
+
+# Automatic ls when changing directory
+# removed --classify
+chpwd() eza --git --icons --group-directories-first --time-style=long-iso --group
+
+# run all bats tests for exercism
+ba() {
+    BATS_RUN_SKIPPED=true command bats *.bats
+}
+
+# decode JWT token and return header and payload
+decode() {
+    jq -R 'split(".") | select(length > 0) | .[0],.[1] | @base64d | fromjson' <<< "$1"
+}
 
 #####################
 # DOCKER FUNC      #
@@ -342,14 +360,24 @@ alias dre='docker exec -it'
 ########################
 # K8s helpers          #
 #######################
-
 export KUBECONFIG=~/.kube/config
 export KUBECONFIG=$KUBECONFIG:~/.kube/pi-config
 
+# Source: https://wkontenerach.pl/jak-zdac-ckad-certified-kubernetes-application-developer/
+export dry=" -o yaml --dry-run=client -o yaml"
+export now="--force --grace-period=0"
+
+# kubectl create deployment my-dep --image=busybox -o yaml --dry-run -o yaml > deploy-example.yaml
+# kubectl explain
+
+alias bb="k run busybox --image=busybox:latest --restart=Never --rm -it --command -- "
+
 alias k="kubectl"
+alias kc="kubecolor"
 alias mk="minikube kubectl --"
-alias ks="kubectl apply -f"
-alias kn="kubectl config set-context --current --namespace"
+alias ka="kubectl apply -f"
+alias kcl="kubectl config get-contexts"
+alias kns="kubectl config set-context --current --namespace"
 
 function kctx() {
     found=0
@@ -425,25 +453,25 @@ export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 ############################
 ## PYENV SETTINGS          #
 ############################
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-fi
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+#
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init --path)"
+#   eval "$(pyenv init -)"
+# fi
 #eval "$(pyenv init --path)"
 #eval "$(pyenv init -)"
 
 ############################
 ## POETRY SETTINGS         #
 ############################
-export PATH="$HOME/.poetry/bin:$PATH"
+# export PATH="$HOME/.poetry/bin:$PATH"
 
 ############################
 ## ASDF SETTINGS           #
 ############################
-. /opt/asdf-vm/asdf.sh
+# . /opt/asdf-vm/asdf.sh
 
 #####################
 # Starship Prompt   #
@@ -462,3 +490,6 @@ eval "$(starship init zsh)"
 # NodeJS version manager
 # source /usr/share/nvm/init-nvm.sh
 # zprof
+# source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+# if stops working pass proper location from nix-store
+eval "$(mise activate zsh)"

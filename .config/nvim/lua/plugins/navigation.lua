@@ -118,7 +118,7 @@ return {
          { "<leader>rf", ":FzfLua files cwd=$HOME/<CR>", { noremap = true } },
          { "<leader>sn", ":FzfLua files cwd=$HOME/.config/nvim/<CR>", { noremap = true } },
          { "<leader>si", ":FzfLua files cwd=$HOME/.config/<CR>", { noremap = true } },
-         { "<leader>so", ":FzfLua files cwd=$HOME/Dropbox/obsidian/<CR>", { noremap = true } },
+         { "<leader>so", ":FzfLua files cwd=$HOME/dropbox/obsidian/<CR>", { noremap = true } },
          { "<leader>f", ":FzfLua git_files<CR>", { noremap = true } },
          { "<leader>`", ":FzfLua buffers<CR>", { noremap = true } },
          { "<leader>\\\\", ":FzfLua grep_visual<CR>", { noremap = true } },
@@ -187,6 +187,7 @@ return {
                --exclude .trash \
                --exclude .terraform \
                --exclude *.pyc \
+               --exclude node_modules \
                -X ls -t modified
                ]],
             },

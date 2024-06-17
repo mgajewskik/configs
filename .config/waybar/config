@@ -1,0 +1,109 @@
+//  _       _______  ______  ___    ____
+// | |     / /   \ \/ / __ )/   |  / __ \
+// | | /| / / /| |\  / __  / /| | / /_/ /
+// | |/ |/ / ___ |/ / /_/ / ___ |/ _, _/
+// |__/|__/_/  |_/_/_____/_/  |_/_/ |_|
+//
+// https://github.com/Jorgedeveloopzz
+
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top",
+    "height": 30,
+
+    // Choose the order of the modules
+    "modules-left": ["hyprland/workspaces", "sway/mode", "custom/media"],
+    "modules-center": ["clock"],
+    "modules-right": ["network", "cpu", "memory", "pulseaudio", "battery", "tray"],
+
+    // Modules configuration
+     "hyprland/workspaces": {
+         "disable-scroll": true,
+         "format":"{name}",
+         "format-icons": {
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "",
+             "5": "",
+	     "6": "",
+	     "7": "",
+             "urgent": "",
+             "focused": "",
+             "default": ""
+         }
+     },
+
+    "clock": {
+        "format": "󰸗 {:%a %d/%m/%Y - %T}",
+    	"interval": 1
+    },
+
+    "network": {
+        "format-wifi": "󰖩 {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈁 {ifname} {bandwidthUpBits} {bandwidthDownBits}",
+        "format-linked": " (No IP) ",
+        "format-disconnected": "󰖪",
+        "interval": 1
+    },
+
+    "cpu": {
+        "format": "{usage}% ",
+        "interval": 1
+    },
+
+    "memory": {
+        "format": "{percentage}% 󰍛",
+        "interval": 1
+    },
+
+        "pulseaudio": {
+            "format": "{icon} {volume}%",
+            "format-bluetooth": "{volume}% {icon} {format_source}",
+            "format-bluetooth-muted": "ﱝ {icon} {format_source}",
+            "format-muted": "ﱝ",
+            "format-source": "{volume}% ",
+            "format-source-muted": "",
+            "format-icons": {
+                "headphones": "",
+                "handsfree": "",
+                "headset": "",
+                "phone": "",
+                "portable": "",
+                "car": "",
+                "default": ["", "", ""]
+            },
+            "on-click": "pavucontrol"
+        },
+
+    "battery": {
+        "bat": "BAT1",
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% 󰂅",
+        "format-icons": ["󰁹", "󰂂", "󰂁", "󰂀", "󰁿", "󰁾", "󰁽", "󰁼", "󰁻", "󰁺"],
+        "tooltip-format": "{time}"
+    },
+
+
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    }
+}

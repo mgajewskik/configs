@@ -92,17 +92,17 @@ signal=3
 #
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
-[cpu_usage]
-# command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
-command=echo " $(~/.config/i3blocks/i3cpu)"
-interval=1
-separator=false
-
-[temp]
-# command=echo "T: $(~/.config/i3blocks/i3temp)"
-command=echo "󰏈 $(~/.config/i3blocks/i3temp)"
-interval=1
-seperator=false
+# [cpu_usage]
+# # command=echo "CPU: $(~/.config/i3blocks/i3cpu)"
+# command=echo " $(~/.config/i3blocks/i3cpu)"
+# interval=1
+# separator=false
+#
+# [temp]
+# # command=echo "T: $(~/.config/i3blocks/i3temp)"
+# command=echo "󰏈 $(~/.config/i3blocks/i3temp)"
+# interval=1
+# seperator=false
 
 [fan]
 # command=echo "F: $(~/.config/i3blocks/i3fan)"

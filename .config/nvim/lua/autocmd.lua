@@ -16,6 +16,18 @@ end
 -- 	})
 -- end)
 
+-- -- TODO wtf, I cannot make this work
+-- augroup("CopilotDisable", function(g)
+--    aucmd("BufEnter", {
+--       group = g,
+--       pattern = "*",
+--       callback = function()
+--          vim.cmd("Copilot disable<CR>")
+--       end,
+--       -- command = "Copilot disable",
+--    })
+-- end)
+
 augroup("HighlightYankedText", function(g)
    aucmd("TextYankPost", {
       group = g,
@@ -27,7 +39,7 @@ end)
 
 -- auto-delete fugitive buffers
 augroup("Fugitive", function(g)
-   aucmd("BufReadPost,", {
+   aucmd("BufReadPost", {
       group = g,
       pattern = "fugitive://*",
       command = "set bufhidden=delete",
@@ -48,6 +60,18 @@ augroup("TrimWhiteSpaceGrp", function(g)
       group = g,
       pattern = "*",
       command = [[:%s/\s\+$//e]],
+   })
+end)
+
+--- Remove all trailing new lines on save
+augroup("TrimNewLinesGrp", function(g)
+   aucmd("BufWritePre", {
+      group = g,
+      pattern = "*",
+      -- https://stackoverflow.com/a/7496112/11056842
+      -- command = [[:%s#\($\n\s*\)\+\%$##]],
+      -- https://stackoverflow.com/a/27552161/11056842
+      command = [[:%s/\($\n\s*\)\+\%$//e]],
    })
 end)
 

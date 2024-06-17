@@ -8,7 +8,7 @@
     "plaintext": true,
     "markdown": true
   },
-  // OTHEr
+  // OTHER
   "terminal.integrated.fontFamily": "monospace",
   "breadcrumbs.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
@@ -27,7 +27,7 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   },
   "editor.wordWrap": "on",
   "editor.tabSize": 4,
@@ -45,6 +45,7 @@
   "vim.useSystemClipboard": true,
   "vim.useCtrlKeys": true,
   "vim.hlsearch": true,
+  //"vim.searchHighlightColor": "rgba(150, 255, 255, 0.3)",
   "vim.searchHighlightColor": "rgba(150, 255, 255, 0.3)",
   "vim.handleKeys": {
     "<C-a>": false,
@@ -62,6 +63,89 @@
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<Esc><Esc>"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": ":nohl"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "v"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.splitEditor"
+        }
+      ]
+    },
+    // I dont know what it does
+    {
+      "before": [
+        "<leader>",
+        "u"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusActiveEditorGroup"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<C-h>",
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusFirstEditorGroup"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<C-l>",
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusSecondEditorGroup"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<C-p>",
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.quickOpen"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<C-r>",
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.view.explorer"
+        },
+        {
+          "command": "-workbench.view.explorer"
+        },
+      ]
+    },
     {
       "before": [
         "<leader>",
@@ -110,32 +194,6 @@
         }
       ]
     },
-    {
-      "before": [
-        "<leader>",
-        "l"
-      ],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.focusSecondEditorGroup"
-        }
-      ]
-    },
-    {
-      "before": [
-        "<C-r>",
-      ],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.view.explorer"
-        },
-        {
-          "command": "-workbench.view.explorer"
-        },
-      ]
-    },
   ],
   // LANGUAGE SPECIFIC
   // "python.linting.pylintEnabled": true,
@@ -171,12 +229,17 @@
     "!Split sequence"
   ],
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "GitHub.copilot"
   },
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "GitHub.copilot"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[lua]": {
+    "editor.tabSize": 3,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false
   }
 }

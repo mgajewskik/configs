@@ -11,18 +11,21 @@ return {
       ft = { "go", "gomod" },
       build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
       opts = {
-         goimport = "golines",
+         goimports = "golines",
          lsp_cfg = true,
          lsp_gofumpt = true,
          -- lsp_on_attach = nil,
          -- lsp_on_attach = function(client, bufnr)
          --    require("utils").on_attach(client, bufnr)
          -- end,
-         lsp_on_attach = function(client, buffer)
-            require("utils").on_attach(function(client, buffer)
-               -- require("utils").format_on_attach(client, buffer)
-               require("utils").keymaps_on_attach(client, buffer)
-            end)
+         -- lsp_on_attach = function(client, buffer)
+         --    require("utils").on_attach(function(client, buffer)
+         --       -- require("utils").format_on_attach(client, buffer)
+         --       require("utils").keymaps_on_attach(client, buffer)
+         --    end)
+         -- end,
+         lsp_on_attach = function(client, bufnr)
+            require("utils").lsp_on_attach()
          end,
          lsp_codelens = false,
          lsp_keymaps = false,
@@ -87,7 +90,8 @@ return {
       opts = {
          formatters_by_ft = {
             lua = { "stylua" },
-            python = { "isort", "black", "ruff" },
+            -- python = { "isort", "black", "ruff" },
+            python = { "isort", "ruff_fix", "black", "ruff_format" },
             go = { "golines", "gofumpt", "goimports" },
             json = { "jq" },
             yaml = { "yamlfmt" },
@@ -97,15 +101,19 @@ return {
             gohtmltmpl = { "djlint" },
             terraform = { "terraform_fmt" },
             hcl = { "terraform_fmt" },
-            ["*"] = { "trim_whitespace", "trim_newlines" },
+            nix = { "nixfmt" },
          },
          notify_on_error = true,
          format_on_save = function(bufnr)
+            if vim.bo[bufnr].filetype == "yaml" then
+               vim.b[bufnr].disable_autoformat = true
+            end
             -- Disable with a global or buffer-local variable
             if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                return
             end
-            return { timeout_ms = 500, lsp_fallback = "always" }
+            -- return { timeout_ms = 500, lsp_fallback = "always" }
+            return { timeout_ms = 500, lsp_fallback = true }
          end,
       },
       config = function(_, opts)
@@ -136,9 +144,13 @@ return {
             bang = true,
          })
 
-         cmd("FormatEnable", function()
-            vim.b.disable_autoformat = false
-            vim.g.disable_autoformat = false
+         cmd("FormatEnable", function(args)
+            if args.bang then
+               -- FormatEnable! will enable formatting just for this buffer
+               vim.b.disable_autoformat = false
+            else
+               vim.g.disable_autoformat = false
+            end
          end, {
             desc = "Re-enable autoformat-on-save",
          })
@@ -148,22 +160,25 @@ return {
       "mfussenegger/nvim-lint",
       opts = {
          linters_by_ft = {
-            yaml = { "actionlint", "cfn_lint", "yamllint" },
+            -- yaml = { "actionlint", "cfn_lint", "yamllint" },
+            -- yaml = { "actionlint", "yamllint" },
+            yaml = { "yamllint" },
             go = { "golangcilint", "revive" },
             lua = { "luacheck" },
             terraform = { "tfsec" },
             dockerfile = { "hadolint" },
             json = { "jsonlint" },
             sql = { "sqlfluff" },
+            nix = { "nix" },
          },
       },
       config = function(_, opts)
          require("lint").linters_by_ft = opts.linters_by_ft
 
          require("lint.linters.luacheck").args =
-         { "--formatter", "plain", "--codes", "--ranges", "-", "--globals", "vim" }
+            { "--formatter", "plain", "--codes", "--ranges", "-", "--globals", "vim" }
 
-         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+         vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
             callback = function()
                require("lint").try_lint()
             end,

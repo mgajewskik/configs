@@ -23,7 +23,10 @@ return {
          "nvim-lua/plenary.nvim",
       },
       lazy = true,
-      cmd = "DiffviewOpen",
+      cmd = {
+         "DiffviewOpen",
+         "DiffviewFileHistory",
+      },
       keys = {
          { "<leader>gdh", ":DiffviewFileHistory %<CR>", { noremap = true } },
          { "<leader>gdd", ":DiffviewOpen origin/master", { noremap = true } },

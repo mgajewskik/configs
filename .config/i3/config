@@ -31,6 +31,7 @@ $exec_always $wallpaper_reset
 $exec_always systemctl --user start greenclip.service
 # $exec_always picom --config ~/.config/picom.conf
 $exec_always systemctl --user restart blugon.service
+$exec_always insync quit && insync start
 
 $exec dunst
 $exec udiskie --tray
@@ -39,7 +40,7 @@ $exec blueman-applet
 # $exec megasync
 # $exec pcloud
 # $exec gpclient
-$exec dropbox
+# $exec dropbox
 $exec fusuma
 # $exec slimbookbattery
 # $exec slimbookamdcontroller
@@ -77,7 +78,7 @@ bindsym $mod+Shift+Return 		     $exec xterm -e bash
 # Shift + Tab will execute any string as a shell command
 # bindsym $mod+Tab 			         $exec PATH=~/scripts:$PATH rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
 # bindsym $mod+Tab 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
-bindsym $mod+space 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
+# bindsym $mod+space 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
 bindsym $alt+Tab 			         $exec rofi -show combi -run-shell-command 'alacritty --hold -e zsh -ic "{cmd} && read"'
 # bindsym $mod+Tab 			         $exec rofi -show drun
 bindsym $mod+c 			             $exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
@@ -92,7 +93,7 @@ bindsym $alt+w 			            $exec brave
 # bindsym $alt+w 			            $exec firefox
 # bindsym $alt+e 			            $exec nautilus
 bindsym $alt+e 			            $exec nemo ~/downloads
-bindsym $alt+p 			            $exec bitwarden-desktop
+bindsym $alt+p 			            $exec bitwarden
 bindsym $alt+o 			            $exec obsidian
 bindsym $alt+f 			            $exec ferdium
 bindsym $alt+l 			            $exec alacritty -e lf
@@ -137,10 +138,13 @@ bindsym $mod+d layout toggle split
 
 # use flaating toggle mod+shift+f to bring scratchpad back to normal window
 bindsym $mod+Shift+s mark "alpha" move scratchpad
-bindsym $mod+s [con_mark="alpha"] scratchpad show
+bindsym $mod+s [con_mark="alpha"] scratchpad show, resize set 1900 1150, move position center
 #bindsym mod4+s [title="^Sup ::"] scratchpad show
 bindsym $alt+Shift+s mark "beta" move scratchpad
-bindsym $alt+s [con_mark="beta"] scratchpad show
+bindsym $alt+s [con_mark="beta"] scratchpad show, resize set 1900 1150, move position center
+
+# bindsym $mod+space+Shift mark "special" move scratchpad
+# bindsym $mod+space [con_mark="special"] scratchpad show
 
 
 # toggle fullscreen
@@ -221,12 +225,13 @@ for_window [window_role="pop-up"] floating enable
 for_window [instance="file_progress"] floating enable
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [title="File Transfer*"] floating enable
-for_window [title="Bluetooth Devices"] floating enable
+for_window [title="Bluetooth Devices"] floating enable, resize set 900 600, move position center
 for_window [class="Galculator"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
 for_window [class="Lightdm-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Pavucontrol"] floating enable
+# for_window [class="pavucontrol"] floating enable
+for_window [class="Pavucontrol"] floating enable, resize set 1000 900, move position center
 for_window [class="Skype"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="MEGAsync"] floating enable border pixel 1
@@ -342,12 +347,13 @@ mode "$mode_display" {
     bindsym s $exec xrandr --auto --output eDP --primary && notify-send 'Single monitor configured' && $wallpaper_reset, mode "default"
     bindsym e $exec xrandr --auto --output DisplayPort-1 --auto --left-of eDP && notify-send 'Dell monitor configured on the left side' && $wallpaper_reset, mode "default"
     bindsym d $exec xrandr --auto --output DisplayPort-1 --primary --auto --above eDP && notify-send 'Dell monitor configured' && $wallpaper_reset, mode "default"
-    bindsym o $exec xrandr --auto --output DisplayPort-1 --primary --output eDP --off && notify-send 'Only Dell monitor configured ThinkPad turned off' && $wallpaper_reset, mode "default"
-    bindsym p $exec xrandr --auto --output DP-3 --mode 1920x1080 --same-as eDP-1 && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
+    bindsym o $exec xrandr --auto --output DisplayPort-1 --primary --output eDP --off && notify-send 'Only Dell monitor configured ThinkPad turned off' && $wallpaper_reset, mode "default"-
+    bindsym p $exec xrandr --auto --output HDMI-A-0 --primary --auto --same-as eDP && notify-send 'HDMI projector configured' && $wallpaper_reset, mode "default"
     bindsym r $exec xrandr --auto --output eDP --primary --left-of DisplayPort-1 && notify-send 'ThinkVision configured on the right side' && $wallpaper_reset, mode "default"
     bindsym l $exec xrandr --auto --output eDP --primary --right-of DisplayPort-1 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
     bindsym u $exec xrandr --auto --output eDP --primary --below DisplayPort-1 && notify-send 'ThinkVision configured on the left side' && $wallpaper_reset, mode "default"
     bindsym a $exec xrandr --output DP-1-2 --primary --auto --above eDP-1 --output DP-1-1 --auto --right-of eDP-1 && notify-send 'ThinkVision and Dell configured in integrated mode' && $wallpaper_reset, mode "default"
+    bindsym a $exec xrandr --output DisplayPort-1 --primary --auto --left-of eDP --output DisplayPort-0 --auto --above eDP && notify-send 'ThinkVision and Dell configured on the right' && $wallpaper_reset, mode "default"
     bindsym t $exec xrandr --output DP-1 --primary --auto --above eDP-1-1 --output DP-0 --auto --right-of eDP-1-1 && notify-send 'ThinkVision and Dell configured in nvidia mode' && $wallpaper_reset, mode "default"
     bindsym w $exec $wallpaper_reset
 
@@ -382,7 +388,8 @@ bar {
 
 	bindsym button4 nop
 	bindsym button5 nop
-    font pango: JetBrains Mono Nerd Font 12
+    # font pango: JetBrains Mono Nerd Font 12
+    font pango: JetBrainsMono 12
 	strip_workspace_numbers yes
 
     colors {

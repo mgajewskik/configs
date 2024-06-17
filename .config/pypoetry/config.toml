@@ -1,6 +1,7 @@
 [virtualenvs]
 in-project = true
 create = true
+prefer-active-python = true
 
 [repositories.foo-pub]
 url = "https://pypi.example.org/legacy/"

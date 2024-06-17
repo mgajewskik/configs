@@ -1,5 +1,29 @@
 return {
    {
+      "tree-sitter-grammars/tree-sitter-hyprlang",
+      dependencies = { "nvim-treesitter/nvim-treesitter" },
+      config = function(_, opts)
+         -- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#adding-parsers
+         local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+         parser_config.hyprlang = {
+            install_info = {
+               url = "~/.local/share/nvim/lazy/tree-sitter-hyprlang", -- local path or git repo
+               files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+               -- optional entries:
+               branch = "main", -- default branch in case of git repo if different from master
+               generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+               requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+            },
+            filetype = "hyprlang", -- if filetype does not match the parser name
+         }
+
+         vim.filetype.add({
+            pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+         })
+         vim.treesitter.language.register("hyprlang", "hyprlang")
+      end,
+   },
+   {
       "nvim-treesitter/nvim-treesitter",
       dependencies = {
          "nvim-treesitter/nvim-treesitter-textobjects",
@@ -25,7 +49,7 @@ return {
             max_file_lines = 2000, -- Do not enable for files with more than specified lines
          },
          incremental_selection = {
-            enable = true,
+            enable = false,
             keymaps = {
                init_selection = "<CR>",
                node_incremental = "<CR>",
@@ -85,6 +109,7 @@ return {
             "regex",
             "sql",
             "vim",
+            "nix",
          }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
       },
       config = function(_, opts)

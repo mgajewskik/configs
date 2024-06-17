@@ -28,6 +28,34 @@ function M.home_fzf(cmd)
    -- fzf_lua.fzf_exec(cmd, opts)
 end
 
+function M.lsp_on_attach()
+   vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+         local map = vim.keymap.set
+         local opts = { noremap = true, silent = true }
+         local winopts = "{ float =  { border = 'rounded' } }"
+
+         map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+         map("n", "gD", "<cmd>vsplit<CR> <cmd>lua vim.lsp.buf.definition()<CR>", opts)
+         -- map(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+         map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+         map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+         map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+         -- map(bufnr, "n", "<leader>K", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+
+         map("n", "[d", ("<cmd>lua vim.diagnostic.goto_prev(%s)<CR>"):format(winopts), opts)
+         map("n", "]d", ("<cmd>lua vim.diagnostic.goto_next(%s)<CR>"):format(winopts), opts)
+
+         -- Formatting
+         -- map("n", "gf", "<cmd>lua require('utils').format()<CR>", opts)
+         map("n", "gf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+         -- fixes formatting with gq
+         -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
+         vim.bo[args.buf].formatexpr = nil
+      end,
+   })
+end
+
 function M.format()
    local buf = vim.api.nvim_get_current_buf()
    local ft = vim.bo[buf].filetype
@@ -107,22 +135,22 @@ function M.keymaps_on_attach(client, bufnr)
 end
 
 -- toggle quickfixlist
-M.toggle_qf = function()
-   local windows = vim.fn.getwininfo()
-   local qf_exists = false
-   for _, win in pairs(windows) do
-      if win["quickfix"] == 1 then
-         qf_exists = true
-      end
-   end
-   if qf_exists == true then
-      vim.cmd("cclose")
-      return
-   end
-   if M.isNotEmpty(vim.fn.getqflist()) then
-      vim.cmd("copen")
-   end
-end
+-- M.toggle_qf = function()
+--    local windows = vim.fn.getwininfo()
+--    local qf_exists = false
+--    for _, win in pairs(windows) do
+--       if win["quickfix"] == 1 then
+--          qf_exists = true
+--       end
+--    end
+--    if qf_exists == true then
+--       vim.cmd("cclose")
+--       return
+--    end
+--    if M.isNotEmpty(vim.fn.getqflist()) then
+--       vim.cmd("copen")
+--    end
+-- end
 
 function M._echo_multiline(msg)
    for _, s in ipairs(vim.fn.split(msg, "\n")) do
@@ -341,22 +369,22 @@ end
 -- toggle quickfix/loclist on/off
 -- type='*': qf toggle and send to bottom
 -- type='l': loclist toggle (all windows)
-function M.toggle_qf(type)
-   local windows = M.find_qf(type)
-   if M.tablelength(windows) > 0 then
-      -- hide all visible windows
-      for _, win in pairs(windows) do
-         vim.api.nvim_win_hide(win.winid)
-      end
-   else
-      -- no windows are visible, attempt to open
-      if type == "l" then
-         M.open_loclist_all()
-      else
-         M.open_qf()
-      end
-   end
-end
+-- function M.toggle_qf(type)
+--    local windows = M.find_qf(type)
+--    if M.tablelength(windows) > 0 then
+--       -- hide all visible windows
+--       for _, win in pairs(windows) do
+--          vim.api.nvim_win_hide(win.winid)
+--       end
+--    else
+--       -- no windows are visible, attempt to open
+--       if type == "l" then
+--          M.open_loclist_all()
+--       else
+--          M.open_qf()
+--       end
+--    end
+-- end
 
 -- taken from:
 -- https://www.reddit.com/r/neovim/comments/o1byad/what_lua_code_do_you_have_to_enhance_neovim/

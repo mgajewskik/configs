@@ -1,0 +1,3 @@
+[settings]
+experimental = true
+python_compile = true
