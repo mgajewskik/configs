@@ -35,6 +35,7 @@ return {
       opts = {
          debug = false, -- Enable debugging
          show_help = false,
+         model = "gpt-4",
          window = {
             layout = "float",
             width = 0.7,

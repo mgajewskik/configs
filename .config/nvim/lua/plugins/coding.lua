@@ -37,7 +37,7 @@ return {
          run_in_floaterm = true,
          luasnip = true,
          lsp_inlay_hints = {
-            enable = false,
+            enable = false, -- cannot be false as it throuws an error at LSP setup
             -- -- Only show inlay hints for the current line
             -- only_current_line = true,
             -- -- Event which triggers a refersh of the inlay hints.
@@ -75,15 +75,6 @@ return {
          vim.cmd("let g:terraform_fmt_on_save=0")
          vim.cmd("let g:hcl_align=1")
       end,
-   },
-   {
-      "luckasRanarison/nvim-devdocs",
-      dependencies = {
-         "nvim-lua/plenary.nvim",
-         "nvim-telescope/telescope.nvim",
-         "nvim-treesitter/nvim-treesitter",
-      },
-      opts = {},
    },
    {
       "stevearc/conform.nvim",
@@ -163,7 +154,8 @@ return {
             -- yaml = { "actionlint", "cfn_lint", "yamllint" },
             -- yaml = { "actionlint", "yamllint" },
             yaml = { "yamllint" },
-            go = { "golangcilint", "revive" },
+            go = { "golangcilint", "revive" }, -- golangci-lint is not working
+            -- go = { "revive" },
             lua = { "luacheck" },
             terraform = { "tfsec" },
             dockerfile = { "hadolint" },

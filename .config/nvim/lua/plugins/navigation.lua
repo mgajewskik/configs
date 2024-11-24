@@ -188,6 +188,7 @@ return {
                --exclude .terraform \
                --exclude *.pyc \
                --exclude node_modules \
+               --exclude .mypy_cache \
                -X ls -t modified
                ]],
             },

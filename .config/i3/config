@@ -93,7 +93,7 @@ bindsym $alt+w 			            $exec brave
 # bindsym $alt+w 			            $exec firefox
 # bindsym $alt+e 			            $exec nautilus
 bindsym $alt+e 			            $exec nemo ~/downloads
-bindsym $alt+p 			            $exec bitwarden
+bindsym $alt+p 			            $exec bitwarden-desktop
 bindsym $alt+o 			            $exec obsidian
 bindsym $alt+f 			            $exec ferdium
 bindsym $alt+l 			            $exec alacritty -e lf
@@ -419,6 +419,5 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 
-# #---User Scripts---# #
+#---User Scripts---# #
 $exec_always "~/set-devices.sh && notify-send 'Devices settings set'"
-#$exec_always "sudo /home/mgajewskik/bin/set-thermals.sh && notify-send 'Thermals set'"

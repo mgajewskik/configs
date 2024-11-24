@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 # disable X authentication, sddm does not work with i3exit lock
-xhost +
+# xhost +
 
 # Add /usr/bin/setxkbmap if not on the PATH
 setxkbmap -layout pl -option "ctrl:nocaps"
@@ -18,8 +18,8 @@ echo "MORE SPEED!!!!!!!!!!!!!!!!!!!!!!!!!!1111"
 # xset -r 45
 # xset -r 46
 
-xmodmap ~/.Xmodmap
-echo "Source ~/.Xmodmap"
+# xmodmap ~/.Xmodmap
+# echo "Source ~/.Xmodmap"
 
 xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1
 xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.6

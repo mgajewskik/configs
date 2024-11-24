@@ -144,6 +144,7 @@ augroup("QuickClose", function(g)
          "qf",
          "man",
          "help",
+         "guihua",
          "notify",
          "lspinfo",
          "fugitive",

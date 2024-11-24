@@ -57,7 +57,7 @@ return {
                },
             },
             pyright = {},
-            ruff_lsp = {
+            ruff = {
                -- https://pypi.org/project/ruff/0.0.47/
                init_options = {
                   settings = {
@@ -71,7 +71,6 @@ return {
             tflint = {},
             marksman = {},
             vimls = {},
-            bufls = {},
             spectral = {},
          },
          setup = {},
