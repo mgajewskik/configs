@@ -1,0 +1,6 @@
+[flavor]
+# install with
+# ya pack -a dangooddd/kanagawa
+use = "kanagawa"
+dark = "kanagawa"
+light = "kanagawa"

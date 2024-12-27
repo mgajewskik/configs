@@ -40,5 +40,12 @@ xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Scrolling Pixel D
 xinput set-prop "LIFT Mouse" "libinput Accel Speed" 1
 xinput set-prop "LIFT Mouse" "libinput Scrolling Pixel Distance" 10
 
+# set microphone sensitivity to 100% - usually it's less than that after connecting a new device
+pactl set-source-volume @DEFAULT_SOURCE@ 100%
+
+for source in $(pactl list short sources | grep -e 'alsa_input' | cut -f2); do
+    pactl set-source-volume "$source" 100%
+done
+
 echo "Mouse settings applied"
 notify-send "Devices settings set"

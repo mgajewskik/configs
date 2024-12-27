@@ -1,0 +1,21 @@
+[manager]
+
+# ya pack -a yazi-rs/plugins:chmod
+# ya pack -a yazi-rs/plugins:smart-enter
+
+prepend_keymap = [
+  { on = "!", run = 'shell "$SHELL" --block', desc = "Open shell here." },
+
+  { on = "l", run = "plugin smart-enter", desc = "Enter the child directory or open the file." },
+
+  { on = [
+    "c",
+    "m",
+  ], run = "plugin chmod", desc = "Chmod on selected files." },
+
+  { on = "s", run = "search --via=rg", desc = "Search files by content via ripgrep" },
+  { on = "<C-s>", run = "search --via=rg", desc = "Search files by content via ripgrep" },
+
+  { on = "z", run = "plugin fzf", desc = "Jump to a file/directory via fzf" },
+  { on = "<C-f>", run = "plugin fzf", desc = "Jump to a file/directory via fzf" },
+]

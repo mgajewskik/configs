@@ -58,6 +58,7 @@ zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'eza -1 --color=alw
 #zinit ice lucid wait'0c' as"command" pick"bin/fzf-tmux"
 #zinit light junegunn/fzf
 # BIND MULTIPLE WIDGETS USING FZF
+# TODO for macos key-bindings.zsh needs to be modified to delete the condition for zmodload -u zsh/parameters p:{commands,history} in .zinit/plugins/junegunn---fzf_completions/shell/key-bindings.zsh
 zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"
 zinit light junegunn/fzf
 ## FZF-TAB
@@ -148,7 +149,7 @@ export PAGER='less'
 export SHELL='/bin/zsh'
 #export LANG='en_GB.UTF-8'
 #export LC_ALL='en_GB.UTF-8'
-export BAT_THEME="gruvbox-dark"
+export BAT_THEME="ansi"
 # export TZ_LIST="Europe/Warsaw,Warsaw - Home;Asia/Hong_Kong,Bali;US/Central,Colorado - Denver"
 export TZ_LIST="US/Mountain,Denver;US/Central,Houston"
 
@@ -401,22 +402,17 @@ function kctx() {
 }
 
 #####################
-# FANCY-CTRL-Z      #
+# YAZI              #
 #####################
-# function fg-fzf() {
-# 	job="$(jobs | fzf -0 -1 | sed -E 's/\[(.+)\].*/\1/')" && echo '' && fg %$job
-# }
-# function fancy-ctrl-z () {
-# 	if [[ $#BUFFER -eq 0 ]]; then
-# 		BUFFER=" fg-fzf"
-# 		zle accept-line -w
-# 	else
-# 		zle push-input -w
-# 		zle clear-screen -w
-# 	fi
-# }
-# zle -N fancy-ctrl-z
-# bindkey '^Z' fancy-ctrl-z
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 
 #####################
 # FZF SETTINGS      #
@@ -431,7 +427,7 @@ export FZF_DEFAULT_OPTS="
 --preview-window=right:60%
 --preview-window=sharp
 --preview-window=cycle
---preview '([[ -f {} ]] && (bat --style=header,grid,numbers --color=always --theme=Coldark-Dark --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--preview '([[ -f {} ]] && (bat --force-colorization --style=changes --paging=never --theme=ansi --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
 --prompt='λ -> '
 --pointer='|>'
 --marker='✓'
@@ -449,29 +445,6 @@ export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 #export GOPATH=$GOPATH:$HOME/code
 
-############################
-## PYENV SETTINGS          #
-############################
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-#
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv init --path)"
-#   eval "$(pyenv init -)"
-# fi
-#eval "$(pyenv init --path)"
-#eval "$(pyenv init -)"
-
-############################
-## POETRY SETTINGS         #
-############################
-# export PATH="$HOME/.poetry/bin:$PATH"
-
-############################
-## ASDF SETTINGS           #
-############################
-# . /opt/asdf-vm/asdf.sh
-
 #####################
 # Starship Prompt   #
 #####################
@@ -486,9 +459,4 @@ eval "$(starship init zsh)"
 # eval "$(complete -C '/usr/bin/aws_completer' aws)"
 # eval "$(bw completion --shell zsh); compdef _bw bw;"
 
-# NodeJS version manager
-# source /usr/share/nvm/init-nvm.sh
-# zprof
-# source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-# if stops working pass proper location from nix-store
 eval "$(mise activate zsh)"

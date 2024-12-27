@@ -5,6 +5,7 @@
 node_modules
 .mise.toml
 run
+vendor
 
 # Source
 # https://github.com/github/gitignore

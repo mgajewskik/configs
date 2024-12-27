@@ -88,15 +88,15 @@ style = "bold white"
 #style = "bright-white"
 #format = "$all_status$ahead_behind"
 
-[git_status]
-untracked = ""
-modified = '*'
-staged = '[+ ×${count}](green)'
-ahead = "⇡×${count}"
-diverged = "⇕×⇡${ahead_count}⇣${behind_count}"
-behind = "⇣×${count}"
-#format = '([\[$conflicted$deleted$renamed$modified$staged$behind\]]($style) )'
-format = '([\[$all_status$ahead_behind\]]($style) )'
+# [git_status]
+# untracked = ""
+# modified = '*'
+# staged = '[+ ×${count}](green)'
+# ahead = "⇡×${count}"
+# diverged = "⇕×⇡${ahead_count}⇣${behind_count}"
+# behind = "⇣×${count}"
+# #format = '([\[$conflicted$deleted$renamed$modified$staged$behind\]]($style) )'
+# format = '([\[$all_status$ahead_behind\]]($style) )'
 
 [package]
 disabled = true
