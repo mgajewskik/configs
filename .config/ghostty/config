@@ -1,0 +1,17 @@
+theme = "Kanagawa Wave"
+
+confirm-close-surface = false
+scrollback-limit = 104857600
+# scrollback-limit = 536870912
+# shell-integration = none
+working-directory = home
+window-inherit-working-directory = false
+
+gtk-single-instance = true
+gtk-titlebar = false
+gtk-tabs-location = hidden
+
+keybind = global:cmd+s=toggle_quick_terminal
+
+keybind = global:ctrl+enter=unbind
+keybind = shift+enter=text:\n

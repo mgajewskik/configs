@@ -1,0 +1,188 @@
+*{
+    font-family: JetBrainsMono;
+}
+
+window {
+    background-color: #7C818C;
+    font-size: 1.3rem;
+}
+
+#input {
+    margin: 5px;
+    border-radius: 0px;
+    border: none;
+    /* border-bottom: 3px solid black; */
+    background-color: #383C4A;
+    color: white;
+}
+
+#inner-box {
+    background-color: #383C4A;
+
+}
+
+#outer-box {
+    margin: 5px;
+    padding:20px;
+    background-color: #383C4A;
+}
+
+/* #scroll { */
+/* } */
+/**/
+/* #text { */
+/*     padding: 5px; */
+/*     color: white; */
+/* } */
+/**/
+/* #entry:nth-child(even){ */
+/*     background-color: #404552; */
+/* } */
+/**/
+/* #entry:selected { */
+/*     background-color: #5291e2; */
+/* } */
+/**/
+/* #text:selected { */
+/* } */
+/**/
+/* #window { */
+/*   /* background-color: rgba(24, 24, 24, 0.6); */ */
+/*   /* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); */ */
+/*   /* border-radius: 1rem; */ */
+/*   font-size: 1.3rem; */
+/*   /* The name of the box that contains everything */ */
+/* } */
+/* #window #outer-box { */
+/*   /* The name of the search bar */ */
+/*   /* The name of the scrolled window containing all of the entries */ */
+/* } */
+/* #window #outer-box #input { */
+/*   /* background-color: rgba(24, 24, 24, 0.6); */ */
+/*   /* color: #f2f2f2; */ */
+/*   /* border: none; */ */
+/*   /* border-bottom: 1px solid rgba(24, 24, 24, 0.2); */ */
+/*   /* padding: 0.8rem 1rem; */ */
+/*   font-size: 1.3rem; */
+/*   /* border-radius: 1rem 1rem 0 0; */ */
+/* } */
+/* #window #outer-box #input:focus, #window #outer-box #input:focus-visible, #window #outer-box #input:active { */
+/*   border: none; */
+/*   outline: 2px solid transparent; */
+/*   outline-offset: 2px; */
+/* } */
+/* #window #outer-box #scroll { */
+/*   /* The name of the box containing all of the entries */ */
+/* } */
+/* #window #outer-box #scroll #inner-box { */
+/*   /* The name of all entries */ */
+/*   /* The name of all boxes shown when expanding  */ */
+/*   /* entries with multiple actions */ */
+/* } */
+/* #window #outer-box #scroll #inner-box #entry { */
+/*   color: #fff; */
+/*   background-color: rgba(24, 24, 24, 0.1); */
+/*   padding: 0.6rem 1rem; */
+/*   /* The name of all images in entries displayed in image mode */ */
+/*   /* The name of all the text in entries */ */
+/* } */
+/* #window #outer-box #scroll #inner-box #entry #img { */
+/*   width: 1rem; */
+/*   margin-right: 0.5rem; */
+/* } */
+/* #window #outer-box #scroll #inner-box #entry:selected { */
+/*   color: #fff; */
+/*   background-color: rgba(255, 255, 255, 0.1); */
+/*   outline: none; */
+/* } */
+
+/* window { */
+/* margin: 0px; */
+/* border: 1px solid #C9CBFF; */
+/* background-color: #1E1D2F; */
+/* } */
+/**/
+/* #input { */
+/* margin: 5px; */
+/* border: none; */
+/* color: #D9E0EE; */
+/* background-color: #575268; */
+/* } */
+/**/
+/* #inner-box { */
+/* margin: 5px; */
+/* border: none; */
+/* background-color: #1E1D2F; */
+/* } */
+/**/
+/* #outer-box { */
+/* margin: 5px; */
+/* border: none; */
+/* background-color: #1E1D2F; */
+/* } */
+/**/
+/* #scroll { */
+/* margin: 0px; */
+/* border: none; */
+/* } */
+/**/
+/* #text { */
+/* margin: 5px; */
+/* border: none; */
+/* color: #988BA2; */
+/* font-size: 36px; */
+/* }  */
+/**/
+/* #entry:selected { */
+/* background-color: #F5C2E7; */
+/* } */
+
+/* * { */
+/*   font-family: JetBrainsMono; */
+/*   color: #e5e9f0; */
+/*   /* background: transparent; */ */
+/* } */
+
+/* #window { */
+/*   background: rgba(41, 46, 66, 0.5); */
+/*   margin: auto; */
+/*   padding: 10px; */
+/*   border-radius: 20px; */
+/*   border: 5px solid #b072d1; */
+/* } */
+/**/
+/* #input { */
+/*   padding: 10px; */
+/*   margin-bottom: 10px; */
+/*   border-radius: 15px; */
+/* } */
+/**/
+/* #outer-box { */
+/*   padding: 20px; */
+/* } */
+/**/
+/* #img { */
+/*   margin-right: 6px; */
+/* } */
+/**/
+/* #entry { */
+/*   padding: 10px; */
+/*   border-radius: 15px; */
+/* } */
+/**/
+/* #entry:selected { */
+/*   background-color: #2e3440; */
+/* } */
+/**/
+/* #text { */
+/*   margin: 2px; */
+/* } */
+
+/* ::root{ */
+/*     --accent: #5291e2; */
+/*     --dark: #383C4A; */
+/*     --light: #7C818C; */
+/*     --ld: #404552; */
+/*     --dl: #4B5162 */
+/*     --white: white; */
+/* } */

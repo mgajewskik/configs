@@ -1,0 +1,148 @@
+{
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-center": [
+    "clock",
+    "idle_inhibitor"
+  ],
+  "modules-right": [
+    "tray",
+    "network",
+    "pulseaudio",
+    "battery#ext",
+    "battery#int",
+    "custom/power"
+  ],
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+  "sway/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "1": "一",
+      "2": "に",
+      "3": "三",
+      "4": "四",
+      "5": "五",
+      "6": "六",
+      "7": "七",
+      "8": "八",
+      "9": "九",
+      "10": "十",
+      "urgent": "",
+      "active": "",
+      "default": ""
+    },
+    "sort-by-number": true
+  },
+  "network": {
+    "format-wifi": "{essid} {icon}",
+    "tooltip-format": "{essid} - {frequency}G ({signalStrength}%)",
+    "format-ethernet": "{ifname} ",
+    "format-disconnected": "",
+    "max-length": 50,
+    "on-click": "swaymsg exec wezterm start -- nmtui",
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ]
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰾪"
+    },
+    "on-click": "bash /home/dg/.local/bin/toggleRemote"
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 10
+  },
+  "clock": {
+    "format": "{:%a, %H:%M %b %d}",
+    "on-double-click": "swaymsg exec xdg-open https://calendar.google.com/"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}  {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": "0% {icon}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol",
+    "scroll-step": 5
+  },
+  "battery#ext": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "bat": "BAT0",
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "battery#int": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "bat": "BAT1",
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "custom/power": {
+    "format": " ",
+    "on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#1f2335 --button-background=#565f89 --button-border=#002b33 --border-bottom=#002b33 --text=#e0e0e0 --button-text=#e0e0e0"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{percent}% {icon}",
+    "format-icons": [
+      "󰃞 ",
+      "󰃝 ",
+      "󰃟 ",
+      "󰃠 "
+    ],
+    "scroll-step": 5
+  }
+}

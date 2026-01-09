@@ -1,0 +1,11 @@
+[manager]
+
+ratio = [1, 3, 4]
+# sort_by = "mtime"
+sort_by = "natural"
+linemode = "mtime"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+show_symlink = true
+scrolloff = 10

@@ -1,0 +1,22 @@
+{
+  "id": "mangowc-layout-switcher",
+  "name": "Mangowc Layout Switcher",
+  "version": "1.1.2",
+  "minNoctaliaVersion": "3.6.0",
+  "author": "atheeq-rhxn",
+  "license": "MIT",
+  "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+  "description": "Switch between different mangowc layouts",
+  "tags": ["Bar", "Panel", "Gaming"],
+  "entryPoints": {
+    "main": "Main.qml",
+    "barWidget": "BarWidget.qml",
+    "panel": "Panel.qml"
+  },
+  "dependencies": {
+    "plugins": []
+  },
+  "metadata": {
+    "defaultSettings": {}
+  }
+}

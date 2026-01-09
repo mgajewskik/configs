@@ -1,0 +1,11 @@
+export XDG_SESSION_TYPE=wayland
+export CLUTTER_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
+export ELECTRON_ENABLE_WAYLAND=1
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+
+export QT_QPA_PLATFORM="Wayland;xcb"
+export QT_QPA_PLATFORMTHEME=qt6ct
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+# export GTK_THEME=Arc-Dark
