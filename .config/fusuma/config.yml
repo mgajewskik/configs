@@ -1,16 +1,20 @@
 swipe:
   3:
     left:
-      command: "xdotool key alt+Left"
+      # command: "xdotool key alt+Left"
+      sendkey: "LEFTALT+RIGHT" # History back
     right:
-      command: "xdotool key alt+Right"
+      # command: "xdotool key alt+Right"
+      sendkey: "LEFTALT+LEFT" # History forward
     up:
-      command: "xdotool key ctrl+t"
-      keypress:
-      LEFTSHIFT:
-        command: "xdotool key --clearmodifiers ctrl+shift+t" # Open last closed tab
+      # command: "xdotool key ctrl+t"
+      sendkey: "LEFTCTRL+T" # Open a new tab
+      # keypress:
+      # LEFTSHIFT:
+      #   command: "xdotool key --clearmodifiers ctrl+shift+t" # Open last closed tab
     down:
-      command: "xdotool key ctrl+w" # Close tab
+      # command: "xdotool key ctrl+w" # Close tab
+      sendkey: "LEFTCTRL+W" # Close a tab
 
   4:
     left:
@@ -23,9 +27,10 @@ swipe:
       command: exec i3 floating toggle
 pinch:
   in:
-    command: "xdotool key ctrl+plus"
+    # command: "xdotool key ctrl+plus"
+    sendkey: "LEFTCTRL+plus"
   out:
-    command: "xdotool key ctrl+minus"
+    sendkey: "LEFTCTRL+minus"
 
 threshold:
   swipe: 0.4

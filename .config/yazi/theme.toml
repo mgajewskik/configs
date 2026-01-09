@@ -1,6 +1,7 @@
-[flavor]
-# install with
-# ya pack -a dangooddd/kanagawa
-use = "kanagawa"
-dark = "kanagawa"
-light = "kanagawa"
+# turning this off completely as the colors changed recently and I prefer the defaults
+# [flavor]
+# # install with
+# # ya pack -a dangooddd/kanagawa
+# use = "kanagawa"
+# dark = "kanagawa"
+# light = "kanagawa"

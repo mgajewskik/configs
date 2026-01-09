@@ -1,84 +1,114 @@
+@define-color background #1F1F28;
+
 * {
     border: none;
-    font-family: JetBrainsMono;
-    font-size: 15px;
+    border-radius: 0;
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 16px;
 }
+
+/* window#waybar { */
+/*     background: rgba(31, 31, 40, 0.80); */
+/*     color: #DCD7BA; */
+/* } */
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0);
-    transition-property: background-color;
-    transition-duration: .5s;
+    /* background: transparent; */
+    /* color: #DCD7BA; */
+    /* color: #000000; */
+    color: @background;
 }
 
-window#waybar.hidden {
-    opacity: 0.2;
+/* window > box { */
+/* 	  margin: 8px; */
+/*     background: rgba(31, 31, 40, 0.90); */
+/*     color: #DCD7BA; */
+/*     border-radius: 4px; */
+/* } */
+
+#window {
+    font-weight: bold;
 }
 
 #workspaces {
-    background-color: black;
-    border: 2px solid #c9a0dc;
-    border-radius: 10px;
+    font-weight: bold;
+    padding: 0 5px;
 }
 
 #workspaces button {
     padding: 0 5px;
-    background-color: transparent;
-    color: #8a8a8a;
+    background: transparent;
+    color: #DCD7BA;
+    border-top: 2px solid transparent;
 }
 
-#workspaces button:hover {
-    box-shadow: inherit;
+#workspaces button.focused {
+    color: #E46876;
+    border-top: 2px solid #E46876;
 }
 
 #workspaces button.active {
-    color: #ffffff;
-}
-
-#workspaces button.urgent {
-    background-color: #c9a0dc;
-    color: #000000;
+    color: #383c4a;
+    background: #5294e2;
+    border-radius: 15px;
+    min-width: 40px;
+    transition: all 0.3s ease-in-out;
 }
 
 #mode {
-    background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    background: #1F1F28;
+    border-bottom: 3px solid white;
 }
 
+#custom-battery-draw,
+#backlight,
+#custom-fan,
 #clock,
 #battery,
 #cpu,
 #memory,
+#temperature,
 #network,
 #pulseaudio,
 #custom-media,
 #tray,
 #mode,
-#idle_inhibitor,
-#mpd {
-    padding: 0 10px;
-    color: #ffffff;
+#custom-power,
+#custom-menu,
+#idle_inhibitor {
+    padding: 0 8px;
+    color: #DCD7BA;
+}
+
+#custom-separator {
+  color: #DCD7BA;
+  margin: 0 1px;
+  padding: 0 1px;
 }
 
 #clock {
-    border-radius: 10px;
-    background-color: #c9a0dc;
-    color: #000000;
+    font-weight: bold;
 }
 
 #battery {
-    background-color: #c9a0dc;
-    border-radius: 0 10px 10px 0;
-    color: #000000;
+}
+
+#battery icon {
+    color: #C34043;
 }
 
 #battery.charging {
-    color: #000000;
-    background-color: #0bda51;
 }
 
-#battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
+/*@keyframes blink {*/
+/*    to {*/
+/*        background-color: #DCD7BA;*/
+/*        color: #16161D;*/
+/*    }*/
+/*}*/
+
+#battery.warning:not(.charging) {
+    color: #DCD7BA;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -86,78 +116,24 @@ window#waybar.hidden {
     animation-direction: alternate;
 }
 
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
-}
-
-label:focus {
-    background-color: #000000;
-}
-
 #cpu {
-    background-color: #c9a0dc;
-    color: #000000;
 }
 
 #memory {
-    background-color: #c9a0dc;
-    color: #000000;
 }
 
 #network {
-    background-color: #c9a0dc;
-    border-radius: 10px 0 0 10px;
-    color: #000000;
 }
 
 #network.disconnected {
-    background-color: #f53c3c;
+    background: #C34043;
 }
 
 #pulseaudio {
-    background-color: #c9a0dc;
-    color: #000000;
 }
 
-#custom-media {
-    background-color: #66cc99;
-    color: #2a5c45;
-    min-width: 100px;
-}
-
-#custom-media.custom-spotify {
-    background-color: #66cc99;
-}
-
-#custom-media.custom-vlc {
-    background-color: #ffa000;
+#pulseaudio.muted {
 }
 
 #tray {
-    background-color: transparent;
-}
-
-#idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
-}
-
-#mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
-}
-
-#mpd.disconnected {
-    background-color: #f53c3c;
-}
-
-#mpd.stopped {
-    background-color: #90b1b1;
-}
-
-#mpd.paused {
-    background-color: #51a37a;
 }

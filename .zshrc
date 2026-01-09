@@ -218,6 +218,10 @@ alias completeaws="complete -C '/usr/bin/aws_completer' aws"
 alias ghce="gh copilot explain"
 alias ghcs="gh copilot suggest"
 
+alias oc="opencode"
+alias fabric="fabric-ai"
+alias todo="todoist-rs"
+
 #alias poetry=$HOME/.poetry/bin/poetry
 
 #####################
@@ -237,6 +241,27 @@ ba() {
 decode() {
     jq -R 'split(".") | select(length > 0) | .[0],.[1] | @base64d | fromjson' <<< "$1"
 }
+
+# Override fzf-history-widget to use fc instead of $history array
+# (share_history breaks $history in subshells)
+zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null" \
+  atload'fzf-history-widget() {
+    local selected
+    setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases noglob no_ksharrays extendedglob 2> /dev/null
+    selected="$(fc -rl 1 | awk '\''{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }'\'' |
+      FZF_DEFAULT_OPTS="$(__fzf_defaults "" "-n2..,.. --scheme=history --bind=ctrl-r:toggle-sort --wrap-sign '\''\t↳ '\'' --highlight-line ${FZF_CTRL_R_OPTS-} --query=${(qqq)LBUFFER}")" \
+      FZF_DEFAULT_OPTS_FILE='\'''\'' $(__fzfcmd))"
+    local ret=$?
+    if [[ -n "$selected" ]]; then
+      local num=$(awk '\''{print $1}'\'' <<< "$selected")
+      if [[ -n "$num" ]]; then
+        zle vi-fetch-history -n $num
+      fi
+    fi
+    zle reset-prompt
+    return $ret
+  }'
+zinit light junegunn/fzf
 
 #####################
 # DOCKER FUNC      #
@@ -312,41 +337,6 @@ alias dre='docker exec -it'
 #   drvrm $1;
 # }
 
-########################
-# Hub Flow Validator   #
-########################
-
-# hfv() {
-#   feature_branch_regexp="^feature\/[A-Z]{2}-[0-9]{6}$"
-#   semver2_branch_regexp="^(hotfix|release)\/(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
-#   branch=$(git branch --show-current | sed 's/ *$//g')
-#
-#   if [[ "$branch" =~ $semver2_branch_regexp ]] || [[ "$branch" =~ $feature_branch_regexp ]]
-#   then
-#     echo "✅ Correct branch: \"$branch\""
-#   else
-#     echo "❌ Invalid branch: \"$branch\""
-#     echo "Aborting"
-#     return 1
-#   fi
-#
-#   commit_regexp="^[A-Z]{2}-[0-9]{6} - (ADD|DEL|UPD|FIX|DOC|RFC|PRF|TST) .*$"
-#   while IFS= read -r commit; do
-#     # remove commit hash prefix
-#     commit_message=$(echo $commit | sed -e 's/\+ [a-z0-9]* //')
-#     if [[ $commit_message =~ $commit_regexp ]]
-#     then
-#       echo "✅ Correct commit: \"$commit_message\""
-#     else
-#       echo "❌ Invalid commit: \"$commit_message\" message pattern"
-#       echo "Aborting"
-#       return 1
-#     fi
-#   done < <( git cherry -v stg )
-#
-#   echo "✅ All good!"
-# }
-
 #####################
 # Toggl CLI         #
 #####################
@@ -356,7 +346,7 @@ alias dre='docker exec -it'
 #     project_name=$2
 #     toggl start $1 --project-id $(toggl projects | awk -v var=$project_name '$2 == var { print $1 }')
 # }
-#
+
 ########################
 # K8s helpers          #
 #######################
@@ -415,6 +405,39 @@ function y() {
 }
 
 #####################
+# FABRIC            #
+#####################
+
+# # Loop through all files in the ~/.config/fabric/patterns directory
+# for pattern_file in $HOME/.config/fabric/patterns/*; do
+#     # Get the base name of the file (i.e., remove the directory path)
+#     pattern_name="$(basename "$pattern_file")"
+#     alias_name="${FABRIC_ALIAS_PREFIX:-}${pattern_name}"
+#
+#     # Create an alias in the form: alias pattern_name="fabric --pattern pattern_name"
+#     alias_command="alias $alias_name='fabric --pattern $pattern_name'"
+#
+#     # Evaluate the alias command to add it to the current shell
+#     eval "$alias_command"
+# done
+
+yt() {
+    if [ "$#" -eq 0 ] || [ "$#" -gt 2 ]; then
+        echo "Usage: yt [-t | --timestamps] youtube-link"
+        echo "Use the '-t' flag to get the transcript with timestamps."
+        return 1
+    fi
+
+    transcript_flag="--transcript"
+    if [ "$1" = "-t" ] || [ "$1" = "--timestamps" ]; then
+        transcript_flag="--transcript-with-timestamps"
+        shift
+    fi
+    local video_link="$1"
+    fabric -y "$video_link" $transcript_flag
+}
+
+#####################
 # FZF SETTINGS      #
 #####################
 #--info=inline
@@ -433,7 +456,7 @@ export FZF_DEFAULT_OPTS="
 --marker='✓'
 --bind 'ctrl-s:select-all'
 --bind 'ctrl-e:execute(nvim {} < /dev/tty > /dev/tty 2>&1)' > selected
---bind 'ctrl-v:execute(code {+})'"
+--bind 'ctrl-v:execute(nvim {+})'"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden -g "!{.git/*,.tox/*,venv/*,.venv/*,.pyenv/*,*.pyi,*.pyc,__pycache__/*,.cache/*,.mypy_cache/*}" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
@@ -444,6 +467,14 @@ export GOPATH=$HOME/go
 export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 #export GOPATH=$GOPATH:$HOME/code
+
+#####################
+# Wayland SETTINGS  #
+#####################
+
+# NOTE: this should be set only for hyprland
+# export WAYLAND_DISPLAY=wayland-1
+# alias hyprctl="hyprctl --instance 0"
 
 #####################
 # Starship Prompt   #
@@ -460,3 +491,6 @@ eval "$(starship init zsh)"
 # eval "$(bw completion --shell zsh); compdef _bw bw;"
 
 eval "$(mise activate zsh)"
+
+# opencode
+export PATH=/home/mgajewskik/.opencode/bin:$PATH

@@ -1,3 +1,6 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = git@github.com:mgajewskik/nvim.git
+[submodule ".config/opencode"]
+	path = .config/opencode
+	url = git@github.com:mgajewskik/opencode-config.git

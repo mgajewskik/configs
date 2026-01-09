@@ -1,3 +1,0 @@
-#!/bin/sh
-bat=$(upower -d | grep -E "energy-rate" | awk '{print $2}' | head -n 1)
-echo $bat W

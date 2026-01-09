@@ -1,3 +1,5 @@
+# TODO check this link out for better dunstrc config
+# https://github.com/mylinuxforwork/hyprland-starter/blob/main/dotfiles/.config/dunst/dunstrc
 [global]
     ### Display ###
 
