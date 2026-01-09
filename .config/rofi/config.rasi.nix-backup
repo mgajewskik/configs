@@ -1,0 +1,15 @@
+configuration {
+combi-modi: "window,drun,run";
+font: "JetBrainsMono 12";
+kb-accept-entry: "Control+m,Return,KP_Enter";
+kb-remove-to-eol: "";
+kb-row-down: "Down,Control+n,Control+j";
+kb-row-up: "Up,Control+p,Control+k";
+location: 0;
+modi: "run,drun";
+run-shell-command: "alacritty --hold -e zsh -ic {cmd} && read";
+show-icons: true;
+xoffset: 0;
+yoffset: 0;
+}
+@theme "Arc-Dark"

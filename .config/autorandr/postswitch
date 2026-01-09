@@ -1,0 +1,24 @@
+#!/usr/bin/sh
+
+# https://github.com/phillipberndt/autorandr
+
+# restart i3 and therefore blugon
+# not sure if this is the best approach
+# i3-msg restart
+
+# restart service that applies blugon
+systemctl --user restart blugon.service
+
+# reset wallpaper location
+feh --bg-fill --no-fehbg ~/pictures/wallpapers/firewatch_6.jpg
+
+# TODO: probably could be set to move current monitor from primary to new primary as well
+# move all workspaces to the primary monitor
+i3-msg '[class=".*"]' move workspace to output "$(xrandr --query | grep " connected" | grep "primary" | awk '{print $1}')"
+
+# notify user of current profile
+notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"
+
+sleep 2
+
+/home/mgajewskik/set-devices.sh

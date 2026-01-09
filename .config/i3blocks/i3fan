@@ -1,0 +1,13 @@
+#!/bin/sh
+# Simple script to show the fan RMP formatted for use with i3blocks
+fan=$(sensors | grep -E "^fan1:" | awk '{print $2}' | sed 's/+//;s/RPM//')
+# echo $temp°C
+echo $fan RPM
+
+# if [ 1 -eq "$(echo "$temp > 80" | bc)" ]; then
+#     echo "#FF2E00"
+# elif [ 1 -eq "$(echo "$temp > 70" | bc)" ]; then
+#     echo "#FF8400"
+# elif [ 1 -eq "$(echo "$temp > 60" | bc)" ]; then
+#     echo "#FFF600"
+# fi

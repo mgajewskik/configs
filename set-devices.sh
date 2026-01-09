@@ -1,0 +1,61 @@
+#!/usr/bin/sh
+
+# disable X authentication, sddm does not work with i3exit lock
+# xhost +
+
+# Add /usr/bin/setxkbmap if not on the PATH
+setxkbmap -layout pl -option "ctrl:nocaps"
+echo "Language set to PL"
+echo "Ctrl set to CapsLock"
+
+# to set a typematic DELAY to 200ms and a typematic RATE to 50Hz
+# xset r rate 200 100
+xset r rate 200 80
+echo "MORE SPEED!!!!!!!!!!!!!!!!!!!!!!!!!!1111"
+
+# disable key repeat for hjkl
+# xset -r 43
+# xset -r 44
+# xset -r 45
+# xset -r 46
+
+# enable key repeat
+# xset r 43
+# xset r 44
+# xset r 45
+# xset r 46
+
+# xmodmap ~/.Xmodmap
+# echo "Source ~/.Xmodmap"
+
+xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Natural Scrolling Enabled" 1
+xinput set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.6
+xinput set-prop 'TPPS/2 Elan TrackPoint' "libinput Scrolling Pixel Distance" 10
+
+xinput set-prop "ELAN0678:00 04F3:3195 Touchpad" "libinput Accel Speed" 1
+xinput set-prop "ELAN0678:00 04F3:3195 Touchpad" "libinput Natural Scrolling Enabled" 1
+xinput set-prop "ELAN0678:00 04F3:3195 Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "ELAN0678:00 04F3:3195 Touchpad" "libinput Scrolling Pixel Distance" 10
+
+xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Accel Speed" 1
+xinput set-prop "MOSART Semi. Trust Wireless Mouse" "libinput Scrolling Pixel Distance" 10
+
+xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Accel Speed" 1
+xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Scrolling Pixel Distance" 10
+# xinput set-prop "PixArt HP Travel USB Optical Mouse" "libinput Left Handed Enabled" 1
+
+xinput set-prop "LIFT Mouse" "libinput Accel Speed" 1
+xinput set-prop "LIFT Mouse" "libinput Scrolling Pixel Distance" 10
+
+xinput set-prop "Logitech USB Receiver Mouse" "libinput Accel Speed" 1
+xinput set-prop "Logitech USB Receiver Mouse" "libinput Scrolling Pixel Distance" 10
+
+# set microphone sensitivity to 100% - usually it's less than that after connecting a new device
+pactl set-source-volume @DEFAULT_SOURCE@ 100%
+
+for source in $(pactl list short sources | grep -e 'alsa_input' | cut -f2); do
+    pactl set-source-volume "$source" 100%
+done
+
+echo "Mouse settings applied"
+notify-send "Devices settings set"
