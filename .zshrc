@@ -19,16 +19,37 @@ autoload -Uz _zinit
 #####################
 # PLUGINS           #
 #####################
+# Starship
+zinit ice from"gh-r" as"command" atload'eval "$(starship init zsh)"'
+zinit load starship/starship
+
+# MISE
+zinit as="command" lucid from="gh-r" for \
+    id-as="usage" \
+    atpull="%atclone" \
+    jdx/usage
+    #atload='eval "$(mise activate zsh)"' \
+
+zinit as="command" lucid from="gh-r" for \
+    id-as="mise" mv="mise* -> mise" \
+    atclone="./mise* completion zsh > _mise" \
+    atpull="%atclone" \
+    atload='eval "$(mise activate zsh)"' \
+    jdx/mise
+
 # SSH-AGENT
 # zinit light bobsoppe/zsh-ssh-agent
- ##AUTOSUGGESTIONS, TRIGGER PRECMD HOOK UPON LOAD
+
+##AUTOSUGGESTIONS, TRIGGER PRECMD HOOK UPON LOAD
 #ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 #zinit ice wait"0a" lucid atload"_zsh_autosuggest_start"
 #zinit light zsh-users/zsh-autosuggestions
+
 # ENHANCD
 zinit ice wait"0b" lucid
-zinit light b4b4r07/enhancd
+zinit light babarot/enhancd
 export ENHANCD_FILTER=fzf:fzy:peco
+
 # HISTORY SUBSTRING SEARCHING
 zinit ice wait"0b" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
 zinit light zsh-users/zsh-history-substring-search
@@ -36,6 +57,7 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
 # TAB COMPLETIONS
 zinit ice wait"0b" lucid blockf
 zinit light zsh-users/zsh-completions
@@ -50,32 +72,52 @@ zstyle ':fzf-tab:complete:_zlua:*' query-string input
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
 zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
 zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'eza -1 --color=always ${~ctxt[hpre]}$in'
+
 ### FZF
-## TODO TO INSTALL
-#zinit ice lucid wait'0b' from"gh-r" as"program"
-#zinit light junegunn/fzf
+zinit ice lucid wait'0b' from"gh-r" as"program"
+zinit light junegunn/fzf
 ### FZF BYNARY AND TMUX HELPER SCRIPT
 #zinit ice lucid wait'0c' as"command" pick"bin/fzf-tmux"
 #zinit light junegunn/fzf
 # BIND MULTIPLE WIDGETS USING FZF
-# TODO for macos key-bindings.zsh needs to be modified to delete the condition for zmodload -u zsh/parameters p:{commands,history} in .zinit/plugins/junegunn---fzf_completions/shell/key-bindings.zsh
 zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"
 zinit light junegunn/fzf
 ## FZF-TAB
 zinit ice wait"1" lucid
 zinit light Aloxaf/fzf-tab
+
+# Override fzf-history-widget to use fc instead of $history array
+# (share_history breaks $history in subshells)
+zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null" \
+  atload'fzf-history-widget() {
+    local selected
+    setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases noglob no_ksharrays extendedglob 2> /dev/null
+    selected="$(fc -rl 1 | awk '\''{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }'\'' |
+      FZF_DEFAULT_OPTS="$(__fzf_defaults "" "-n2..,.. --scheme=history --bind=ctrl-r:toggle-sort --wrap-sign '\''\t↳ '\'' --highlight-line ${FZF_CTRL_R_OPTS-} --query=${(qqq)LBUFFER}")" \
+      FZF_DEFAULT_OPTS_FILE='\'''\'' $(__fzfcmd))"
+    local ret=$?
+    if [[ -n "$selected" ]]; then
+      local num=$(awk '\''{print $1}'\'' <<< "$selected")
+      if [[ -n "$num" ]]; then
+        zle vi-fetch-history -n $num
+      fi
+    fi
+    zle reset-prompt
+    return $ret
+  }'
+zinit light junegunn/fzf
+
 # SYNTAX HIGHLIGHTING
 zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay"
 zinit light zdharma-continuum/fast-syntax-highlighting
-# EXA
-# # TODO TO INSTALL
-#zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
-#zinit light ogham/exa
-#zinit ice wait blockf atpull'zinit creinstall -q .'
+
+# EZA
+zinit ice wait lucid from"gh-r" as"program"
+zinit light eza-community/eza
+
 # BAT
-# TODO TO INSTALL
-#zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"
-#zinit light sharkdp/bat
+zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"
+zinit light sharkdp/bat
 # BAT-EXTRAS
 zinit ice wait"1" as"program" pick"src/batgrep.sh" lucid
 zinit ice wait"1" as"program" pick"src/batdiff.sh" lucid
@@ -84,32 +126,56 @@ alias cat=bat
 alias rg=batgrep.sh
 alias bd=batdiff.sh
 alias man=batman.sh
+
 # RIPGREP
-# # TODO TO INSTALL
-#zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
-#zinit light BurntSushi/ripgrep
+zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
+zinit light BurntSushi/ripgrep
+
 # FORGIT
 # ga - git add
 # glo - git log
 # gd - git diff
-# zinit ice wait lucid
-# zinit load 'wfxr/forgit'
+zinit ice wait lucid
+zinit load 'wfxr/forgit'
+
 # FD
-# # TODO TO INSTALL
-#zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
-#zinit light sharkdp/fd
+zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+zinit light sharkdp/fd
+
 # ZSH MANYDOTS MAGIC
 # zinit autoload'#manydots-magic' for knu/zsh-manydots-magic
-# GIT-FLOW
-# zinit light petervanderdoes/git-flow-completion
-## GIT-HUBFLOW
-#zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
-#zinit light mborsuk/hubflow
-# DIRENV auto load .envrc
-# zinit from"gh-r" as"program" mv"direnv* -> direnv" \
-#     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
-#     pick"direnv" src="zhook.zsh" for \
-#         direnv/direnv
+
+# Fabric completions
+zinit ice wait"1" lucid blockf as"completion"
+zinit snippet https://raw.githubusercontent.com/danielmiessler/fabric/main/completions/_fabric
+
+# YAZI
+zinit ice from"gh-r" as"program" mv"**/yazi -> yazi" mv"**/ya -> ya" pick"yazi" wait lucid
+zinit light sxyazi/yazi
+
+# LF
+zinit ice from"gh-r" as"program" sbin"lf" wait lucid
+zinit light gokcehan/lf
+
+# TRY - does not work out of the box with btrfs
+# zinit ice as"program" pick"try"
+# zinit light binpash/try
+
+# DUST
+zinit ice from"gh-r" as"program" mv"**/dust -> dust" pick"dust" wait lucid
+zinit light bootandy/dust
+
+# # LAZYGIT
+# zinit ice from"gh-r" as"program" sbin"lazygit" wait lucid
+# zinit light jesseduffield/lazygit
+#
+# # LAZYDOCKER
+# zinit ice from"gh-r" as"program" sbin"lazydocker" wait lucid
+# zinit light jesseduffield/lazydocker
+
+# Neofetch
+zinit ice as"program" pick"neofetch" wait lucid nocompile
+zinit light dylanaraps/neofetch
 
 #####################
 # HISTORY           #
@@ -194,16 +260,11 @@ alias godoro='pomodoro $1 && dunstify "Pomodoro finish time!!!" -u critical -t 9
 alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
 # alias src="export $(cat .env | xargs)"
-#alias nvim=/usr/local/bin/nvim
-#alias snvim=/usr/bin/nvim
-# alias vi=/usr/bin/nvim
-# alias vi=$HOME/.local/bin/nnvim
-# alias vi=$HOME/.local/bin/nvim
+alias vi=/usr/bin/nvim
 alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
 alias run=./run
 alias connect="protonvpn-cli connect -f"
 alias disconnect="protonvpn-cli disconnect"
-alias hm="home-manager"
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -222,7 +283,8 @@ alias oc="opencode"
 alias fabric="fabric-ai"
 alias todo="todoist-rs"
 
-#alias poetry=$HOME/.poetry/bin/poetry
+alias "?"="$HOME/scripts/duck"
+alias "??"="$HOME/scripts/fabric_query"
 
 #####################
 # FUNCTIONS         #
@@ -241,27 +303,6 @@ ba() {
 decode() {
     jq -R 'split(".") | select(length > 0) | .[0],.[1] | @base64d | fromjson' <<< "$1"
 }
-
-# Override fzf-history-widget to use fc instead of $history array
-# (share_history breaks $history in subshells)
-zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null" \
-  atload'fzf-history-widget() {
-    local selected
-    setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases noglob no_ksharrays extendedglob 2> /dev/null
-    selected="$(fc -rl 1 | awk '\''{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }'\'' |
-      FZF_DEFAULT_OPTS="$(__fzf_defaults "" "-n2..,.. --scheme=history --bind=ctrl-r:toggle-sort --wrap-sign '\''\t↳ '\'' --highlight-line ${FZF_CTRL_R_OPTS-} --query=${(qqq)LBUFFER}")" \
-      FZF_DEFAULT_OPTS_FILE='\'''\'' $(__fzfcmd))"
-    local ret=$?
-    if [[ -n "$selected" ]]; then
-      local num=$(awk '\''{print $1}'\'' <<< "$selected")
-      if [[ -n "$num" ]]; then
-        zle vi-fetch-history -n $num
-      fi
-    fi
-    zle reset-prompt
-    return $ret
-  }'
-zinit light junegunn/fzf
 
 #####################
 # DOCKER FUNC      #
@@ -408,6 +449,7 @@ function y() {
 # FABRIC            #
 #####################
 
+# turning it off as it's quite slow, add this only for the most used patterns
 # # Loop through all files in the ~/.config/fabric/patterns directory
 # for pattern_file in $HOME/.config/fabric/patterns/*; do
 #     # Get the base name of the file (i.e., remove the directory path)
@@ -467,30 +509,6 @@ export GOPATH=$HOME/go
 export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 #export GOPATH=$GOPATH:$HOME/code
-
-#####################
-# Wayland SETTINGS  #
-#####################
-
-# NOTE: this should be set only for hyprland
-# export WAYLAND_DISPLAY=wayland-1
-# alias hyprctl="hyprctl --instance 0"
-
-#####################
-# Starship Prompt   #
-#####################
-
-eval "$(starship init zsh)"
-
-# Necessary for AWS autocompletion
-# autoload bashcompinit && bashcompinit
-# autoload -Uz compinit && compinit
-# compinit
-#
-# eval "$(complete -C '/usr/bin/aws_completer' aws)"
-# eval "$(bw completion --shell zsh); compdef _bw bw;"
-
-eval "$(mise activate zsh)"
 
 # opencode
 export PATH=/home/mgajewskik/.opencode/bin:$PATH
