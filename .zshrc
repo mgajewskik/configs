@@ -292,7 +292,9 @@ alias "??"="$HOME/scripts/fabric_query"
 
 # Automatic ls when changing directory
 # removed --classify
-chpwd() eza --git --icons --group-directories-first --time-style=long-iso --group
+chpwd() {
+    eza --git --icons --group-directories-first --time-style=long-iso --group
+}
 
 # run all bats tests for exercism
 ba() {
@@ -512,3 +514,13 @@ export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 
 # opencode
 export PATH=/home/mgajewskik/.opencode/bin:$PATH
+
+# Per-directory history support (works with mise)
+_histfile_current="$HISTFILE"
+_sync_histfile() {
+  [[ "$HISTFILE" == "$_histfile_current" ]] && return
+  fc -P
+  fc -p "$HISTFILE"
+  _histfile_current="$HISTFILE"
+}
+precmd_functions+=(_sync_histfile)
