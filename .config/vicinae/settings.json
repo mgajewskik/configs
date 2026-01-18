@@ -17,7 +17,7 @@
    },
    "theme": {
       "dark": {
-         "name": "one-dark",
+         "name": "vicinae-dark",
          "icon_theme": "Papirus-Dark"
       }
    },
