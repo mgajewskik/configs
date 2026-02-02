@@ -177,6 +177,13 @@ zinit light bootandy/dust
 zinit ice as"program" pick"neofetch" wait lucid nocompile
 zinit light dylanaraps/neofetch
 
+# kubectl completions
+zinit ice wait"1" lucid as"completion" atload"source <(kubectl completion zsh)"
+zinit light zdharma-continuum/null
+
+zinit ice wait"1" lucid as"completion" atload"source <(k3d completion zsh)"
+zinit light zdharma-continuum/null
+
 #####################
 # HISTORY           #
 #####################
@@ -394,7 +401,7 @@ alias dre='docker exec -it'
 # K8s helpers          #
 #######################
 export KUBECONFIG=~/.kube/config
-export KUBECONFIG=$KUBECONFIG:~/.kube/pi-config
+# export KUBECONFIG=$KUBECONFIG:~/.kube/pi-config
 
 # Source: https://wkontenerach.pl/jak-zdac-ckad-certified-kubernetes-application-developer/
 export dry=" -o yaml --dry-run=client -o yaml"

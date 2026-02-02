@@ -6,7 +6,8 @@ local function setup()
       local cwd = cx.active.current.cwd
       -- if cwd:ends_with("notes") then
       if tostring(cwd):find("obsidian") then
-         ya.emit("sort", { "mtime", reverse = true, dir_first = true })
+         -- changing from mtime to btime for tests
+         ya.emit("sort", { "btime", reverse = true, dir_first = true })
       else
          ya.emit("sort", { "alphabetical", reverse = false, dir_first = true })
       end
