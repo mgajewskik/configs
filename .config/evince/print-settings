@@ -15,10 +15,15 @@ print-at-time=
 quality=normal
 cover-after=none
 print-at=now
-printer=HP_Photosmart_B109a-m
+printer=Brother_DCP-T720DW
 cups-job-sheets=none,none
 
 output-file-format=pdf
+cups-BRResolution=Normal
+duplex=horizontal
+cups-BRMonoColor=FullColor
+cups-BRMediaType=Plain
+cups-Duplex=DuplexNoTumble
 
 [Page Setup]
 PPDName=Letter
