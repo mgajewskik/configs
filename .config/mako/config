@@ -1,6 +1,60 @@
-font=JetBrainsMono Nerd Font 8
-background-color=#1F1F28dd
-default-timeout=6000
-border-size=1
-border-radius=4
+# https://github.com/emersion/mako/wiki
+
+# Global
+sort=-time
+max-history=20
+max-visible=5
+layer=top
+anchor=top-right
+
+# Bindings
+on-button-left=invoke-default-action
+on-button-middle=dismiss-all
+on-button-right=dismiss
+
+# Style
+font=JetBrainsMono Nerd Font 12
+background-color=#1F1F28EE
+text-color=#DCD7BAFF
+width=400
+height=150
+outer-margin=10
+margin=5
+padding=12
+border-size=2
 border-color=#54546D
+border-radius=8
+markup=1
+actions=1
+history=1
+format=<b>%s</b>\n%b
+text-alignment=center
+default-timeout=10000
+ignore-timeout=0
+
+# Icons
+icons=1
+max-icon-size=48
+icon-location=left
+icon-path=/usr/share/icons/Papirus-Dark
+
+# Urgency styles
+[urgency=low]
+border-color=#727169
+default-timeout=10000
+
+[urgency=normal]
+border-color=#7E9CD8
+default-timeout=10000
+
+[urgency=critical]
+background-color=#C34043EE
+border-color=#FF5D62
+default-timeout=0
+
+[grouped]
+format=(%g) <b>%s</b>\n%b
+
+# Do not disturb mode
+[mode=do-not-disturb]
+invisible=1
