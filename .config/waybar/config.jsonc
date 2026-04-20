@@ -1,0 +1,249 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top",
+    "height": 20,
+
+    "modules-left": [
+        "ext/workspaces"
+        // "mpris"
+    ],
+    "modules-center": ["clock"],
+    "modules-right": [
+        "privacy",
+        "custom/separator",
+        "custom/screen-record",
+        "custom/separator",
+        "custom/screenshot",
+        "custom/separator",
+        "custom/idle-inhibitor",
+        "custom/separator",
+        "tray", 
+        "custom/separator",
+        "network#wifi",
+        "network#vpn",
+        "custom/separator",
+        "pulseaudio", 
+        "custom/separator",
+        "backlight",
+        "custom/separator",
+        // "custom/fan",
+        // "custom/separator",
+        "custom/battery-draw",
+        "battery",
+        "custom/separator",
+        "custom/exit",
+        "custom/separator",
+        "custom/restart-waybar"
+        // "custom/separator",
+        // "clock"
+    ],
+
+    // Modules configuration
+    "ext/workspaces": {
+        "format": "{icon}",
+        "ignore-hidden": false,
+        "on-click": "activate",
+        "on-click-right": "deactivate",
+        "sort-by-id": true
+    },
+
+    "mpris": {
+        "format": "{player_icon} {title} - {artist}",
+        "format-paused": "{status_icon} {title} - {artist}",
+        "format-stopped": "",
+        "max-length": 40,
+        "player-icons": {
+            "default": "▶",
+            "spotify": ""
+        },
+        "status-icons": {
+            "paused": "⏸"
+        }
+    },
+
+    "custom/separator": {
+        "format": "|",
+        "interval": "once",
+        "tooltip": false
+    },
+
+    "privacy": {
+        "icon-spacing": 4,
+        "icon-size": 14,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 20
+            },
+            {
+                "type": "audio-out",
+                "tooltip": true,
+                "tooltip-icon-size": 20
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+                "tooltip-icon-size": 20
+            }
+        ]
+    },
+
+    "custom/restart-waybar": {
+        "format": "󰑓 ",
+        "tooltip-format": "Restart Waybar",
+        "on-click": "systemctl --user restart waybar.service"
+    },
+
+    "custom/exit": {
+        "format": "⏻",
+        "tooltip-format": "Powermenu",
+        "on-click": "wlogout -b 4",
+        "tooltip": false
+    },
+
+    "custom/screenshot": {
+        "format": "󰩭",
+        "tooltip-format": "Screenshot",
+        "on-click": "~/scripts/screenshot.sh"
+    },
+
+    "custom/screen-record": {
+        "format": "{icon}",
+        "return-type": "json",
+        "exec": "if pgrep -x gpu-screen-reco >/dev/null; then echo '{\"alt\": \"on\", \"tooltip\": \"Recording...\", \"class\": \"on\"}'; else echo '{\"alt\": \"off\", \"tooltip\": \"Not recording\", \"class\": \"off\"}'; fi",
+        "interval": 2,
+        "format-icons": {
+            "on": "󰻂",
+            "off": "󰻃"
+        },
+        "on-click": "~/scripts/screen-record.sh toggle"
+    },
+
+    "custom/idle-inhibitor": {
+        "format": "{icon}",
+        "return-type": "json",
+        "exec": "if pgrep -x hypridle >/dev/null; then echo '{\"alt\": \"off\", \"tooltip\": \"Hypridle running\", \"class\": \"off\"}'; else echo '{\"alt\": \"on\", \"tooltip\": \"Hypridle stopped\", \"class\": \"on\"}'; fi",
+        "interval": 2,
+        "format-icons": {
+            "on": "󰅶",
+            "off": "󰾪"
+        },
+        "on-click": "~/scripts/toggle_hypridle.sh"
+    },
+
+    "clock": {
+        // "format": "󰸗 {:%a %d-%m-%Y %T}",
+        "format": "󰸗 {:%Y-%m-%d %T %a}",
+    	"interval": 1,
+        "tooltip": true,
+        "locale": "pl_PL.utf8",
+        "tooltip-format": "<tt><span size='14pt'>{calendar}</span></tt>",
+        "calendar": {
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#DCD7BA'><b>{}</b></span>",
+                "days":     "<span color='#C8C093'>{}</span>",
+                "weeks":    "<span color='#938AA9'>W{}</span>",
+                "weekdays": "<span color='#7E9CD8'><b>{}</b></span>",
+                "today":    "<span color='#E46876'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+
+    "network#wifi": {
+        "interface": "wlan0",
+        "format-wifi": "󰖩 {essid}",
+        "format-disconnected": "󰖪",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) - {ipaddr}/{cidr}",
+        "on-click": "alacritty -e impala"
+    },
+
+    "network#vpn": {
+        "interface": "tun0",
+        "format-ethernet": "󰌾 {ifname}",
+        "format-disconnected": "",
+        "tooltip-format-ethernet": "VPN: {ifname} - {ipaddr}/{cidr}",
+        "on-click": "alacritty -e bash -c 'echo \"=== Routes ===\"; ip route show dev tun0; echo; echo \"=== DNS ===\"; resolvectl status tun0 2>/dev/null; echo; echo \"=== Interface ===\"; ip addr show tun0; echo; read -p \"Press enter to close\"'"
+    },
+
+    "cpu": {
+        "format": "{usage}% ",
+        "interval": 1
+    },
+
+    "memory": {
+        "format": "{percentage}% 󰍛",
+        "interval": 1
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": "ﱝ {icon} {format_source}",
+        "format-muted": "0% {icon}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon} {time}",
+        "format-time": "{H}h{M}m",
+        "format-charging": "{capacity}% 󰂅",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{time}"
+    },
+
+    "custom/fan": {
+        "format": "{} RPM",
+        "exec": "sensors | grep -E '^fan1:' | awk '{print $2}' | sed 's/+//;s/RPM//'",
+        "interval": 1
+    },
+
+    "custom/battery-draw": {
+        "format": "{} W",
+        "exec": "upower -d | grep -E 'energy-rate' | awk '{print $2}' | head -n 1 | xargs printf '%.1f\n'",
+        "interval": 1
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{percent}% {icon}",
+        "format-icons": [
+        "󰃞",
+        "󰃝",
+        "󰃟",
+        "󰃠"
+        ],
+        "scroll-step": 5
+    },
+
+    "tray": {
+        "icon-size": 21,
+        "spacing": 6
+    }
+}

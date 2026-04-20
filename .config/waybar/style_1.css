@@ -4,7 +4,7 @@
     border: none;
     border-radius: 0;
     font-family: JetBrainsMono Nerd Font;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 /* window#waybar { */
@@ -47,13 +47,9 @@ window#waybar {
     border-top: 2px solid #E46876;
 }
 
-#workspaces button.hidden {
-    color: rgba(220, 215, 186, 0.25);
-}
-
 #workspaces button.active {
-    color: #1F1F28;
-    background: #7E9CD8;
+    color: #383c4a;
+    background: #5294e2;
     border-radius: 15px;
     min-width: 40px;
     transition: all 0.3s ease-in-out;
@@ -79,34 +75,19 @@ window#waybar {
 #mode,
 #custom-power,
 #custom-menu,
-#custom-screenshot,
-#custom-screen-record,
-#custom-restart-waybar,
-#custom-exit,
-#privacy,
-#custom-idle-inhibitor {
-    padding: 0 4px;
+#idle_inhibitor {
+    padding: 0 8px;
     color: #DCD7BA;
 }
 
 #custom-separator {
-  color: rgba(220, 215, 186, 0.25);
+  color: #DCD7BA;
   margin: 0 1px;
   padding: 0 1px;
 }
 
 #clock {
     font-weight: bold;
-}
-
-tooltip {
-    background: #1F1F28;
-    border: 1px solid #363646;
-    border-radius: 6px;
-}
-
-tooltip label {
-    color: #DCD7BA;
 }
 
 #battery {
@@ -144,10 +125,6 @@ tooltip label {
 #network {
 }
 
-#network.vpn {
-    color: #7E9CD8;
-}
-
 #network.disconnected {
     background: #C34043;
 }
@@ -156,27 +133,6 @@ tooltip label {
 }
 
 #pulseaudio.muted {
-}
-
-#custom-screen-record.on {
-    color: #E46876;
-}
-
-#privacy {
-    padding: 0 4px;
-}
-
-#privacy-item {
-    color: #E46876;
-}
-
-#mpris {
-    color: #7E9CD8;
-    padding: 0 4px;
-}
-
-#mpris.paused {
-    color: #938AA9;
 }
 
 #tray {
