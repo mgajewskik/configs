@@ -32,9 +32,9 @@ zinit as="command" lucid from="gh-r" for \
 
 zinit as="command" lucid from="gh-r" for \
     id-as="mise" mv="mise* -> mise" \
-    atclone="./mise* completion zsh > _mise" \
+    atclone='chmod +x mise && ./mise completion zsh > _mise' \
     atpull="%atclone" \
-    atload='eval "$(mise activate zsh)"' \
+    atload='eval "$("$HOME/.zinit/plugins/mise/mise" activate zsh)"' \
     jdx/mise
 
 # SSH-AGENT
@@ -108,7 +108,7 @@ zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"jun
 zinit light junegunn/fzf
 
 # SYNTAX HIGHLIGHTING
-zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay"
+zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay;compdef batman.sh=man"
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 # EZA
@@ -272,6 +272,8 @@ alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
 alias run=./run
 alias connect="protonvpn-cli connect -f"
 alias disconnect="protonvpn-cli disconnect"
+alias dc=devcontainer
+alias mr="mise run"
 
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
@@ -287,11 +289,10 @@ alias ghce="gh copilot explain"
 alias ghcs="gh copilot suggest"
 
 alias oc="opencode"
-alias fabric="fabric-ai"
 alias todo="todoist-rs"
 
-alias "?"="$HOME/scripts/duck"
-alias "??"="$HOME/scripts/fabric_query"
+alias "??"="$HOME/scripts/duck"
+alias "?"="$HOME/scripts/fabric_query"
 
 #####################
 # FUNCTIONS         #
@@ -531,3 +532,6 @@ _sync_histfile() {
   _histfile_current="$HISTFILE"
 }
 precmd_functions+=(_sync_histfile)
+
+# PAI alias
+alias pai='bun /home/mgajewskik/.claude/PAI/Tools/pai.ts'
