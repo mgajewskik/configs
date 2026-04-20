@@ -1,0 +1,6 @@
+[Unit]
+Description=Notify when Obsidian inbox needs cleanup
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'count=$(find "%h/obsidian/inbox" -maxdepth 1 -type f -printf 1 | wc -c); [ "$count" -gt 10 ] && exec /usr/bin/notify-send --app-name=inbox "Inbox" "$count notes to process!"'

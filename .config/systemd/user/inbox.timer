@@ -1,0 +1,12 @@
+[Unit]
+Description=Check Obsidian inbox every 15 minutes
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Timer]
+OnStartupSec=15min
+OnUnitInactiveSec=15min
+Unit=inbox.service
+
+[Install]
+WantedBy=graphical-session.target

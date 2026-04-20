@@ -1,0 +1,13 @@
+[Unit]
+Description=swaybg
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swaybg -i /home/mgajewskik/pictures/wallpapers/firewatch_6.jpg -m fill
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target
