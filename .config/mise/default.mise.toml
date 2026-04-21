@@ -1,0 +1,41 @@
+[env]
+
+[tools]
+tmux = "latest"
+neovim = "latest"
+tree-sitter = "latest"
+# fd = "latest"
+fzf = "latest"
+yazi = "latest"
+ripgrep = "latest"
+bat = "latest"
+bat-extras = "latest"
+btop = "latest"
+
+jq = "latest"
+shfmt = "latest"
+shellcheck = "latest"
+yamllint = "latest"
+yamlfmt = "latest"
+# lua = "latest"
+# lua-language-server = "latest"
+# stylua = "latest"
+hadolint = "latest"
+
+k9s = "latest"
+stern = "latest"
+kubectl = "1.35.0"
+
+# lazyssh = "latest"
+lazygit = "latest"
+# lazydocker = "latest"
+lazyjournal = "latest"
+
+uv = "latest"
+ty = "latest"
+"pipx:ansible" = { version = "latest", uvx = "true"}
+"pipx:ansible-core" = { version = "latest", uvx = "true"}
+
+opencode = "latest"
+"github:rtk-ai/rtk" = "latest"
+"github:DeusData/codebase-memory-mcp" = { version = "latest", asset_pattern = "codebase-memory-mcp-ui-linux-amd64.tar.gz" }
