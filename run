@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+BASE_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
+# Sample task showing argument handling and access to the repo root.
+# Usage: ./run sample [name]
+function sample {
+    local name="${1:-world}"
+
+    printf 'Hello, %s!\n' "$name"
+    printf 'Repository root: %s\n' "$BASE_DIR"
+}
+
+function help {
+    printf "%s <task> [args]\n\nTasks:\n" "${0}"
+    compgen -A function | grep -v "^_" | cat -n
+    printf "\nExample:\n  %s sample Claude\n" "${0}"
+}
+
+TIMEFORMAT=$'\nTask completed in %3lR'
+time "${@:-help}"
