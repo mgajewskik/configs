@@ -1,19 +1,29 @@
+# herdr server reload-config
+
+onboarding = false
+
 [theme]
 name = "kanagawa"
 auto_switch = false
 
 [ui]
-agent_panel_sort = "priority"
+agent_panel_sort = "spaces"
 confirm_close = true
 
 show_agent_labels_on_pane_borders = false
+
+status_indicators = "symbols"
 [ui.toast]
 delivery = "terminal"
 
 [ui.sound]
 enabled = false
 
+[advanced]
+scrollback_limit_bytes = 100000000
+
 [experimental]
+kitty_graphics = true
 pane_history = true
 switch_ascii_input_source_in_prefix = false
 
@@ -22,10 +32,63 @@ prefix = "ctrl+a"
 goto = "prefix+q"
 detach = "prefix+d"
 workspace_picker = "prefix+w"
-split_vertical = "prefix+|"
+split_vertical = "prefix+%"
+split_horizontal = "prefix+&"
 navigate_workspace_up = "k"
 navigate_workspace_down = "j"
 next_workspace = "prefix+n"
 previous_workspace = "prefix+p"
 next_agent = "prefix+]"
 previous_agent = "prefix+["
+previous_tab = "prefix+shift+tab"
+next_tab = "prefix+tab"
+switch_workspace = "prefix+shift+1..9"
+close_pane = ""
+# Was prefix+b. Browser takes that chord.
+toggle_sidebar = "prefix+shift+b"
+
+# Plugins
+
+# https://github.com/poweroutlet2/herdr-confirm-close-pane
+# herdr plugin install poweroutlet2/herdr-confirm-close-pane
+[[keys.command]]
+key = "prefix+x"
+command = "confirm-close-pane.confirm-close-pane"
+type = "plugin_action"
+description = "Close pane (with confirmation)"
+
+# https://github.com/zenbu-labs/terminal-browser/tree/main/herdr-plugin
+# herdr plugin install zenbu-labs/terminal-browser/herdr-plugin
+[[keys.command]]
+key = "prefix+b"
+command = "zenbu-labs.terminal-browser.open-split"
+type = "plugin_action"
+description = "Open terminal-browser (right split)"
+
+# https://github.com/ChmaraX/herdr-nvim
+# herdr plugin install ChmaraX/herdr-nvim
+[[keys.command]]
+key = "prefix+e"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.toggle"
+description = "nvim sidebar"
+
+# [[keys.command]]
+# key = "prefix+o"
+# type = "plugin_action"
+# command = "chmarax.herdr-nvim.pick-file"
+# description = "open file from agent output"
+
+# https://github.com/thanhdat77/herdr-navigator
+# herdr plugin install thanhdat77/herdr-navigator
+[[keys.command]]
+key = "prefix+f"
+type = "plugin_action"
+command = "herdr-navigator.open"
+description = "jump to anything"
+
+[[keys.command]]
+key = "prefix+o"
+type = "plugin_action"
+command = "herdr-navigator.jump-back"
+description = "jump to previous workspace"
