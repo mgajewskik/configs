@@ -184,6 +184,13 @@ zinit light zdharma-continuum/null
 zinit ice wait"1" lucid as"completion" atload"source <(k3d completion zsh)"
 zinit light zdharma-continuum/null
 
+# age man pages only: clone source docs, install no binaries.
+zinit ice as"null" wait"1" lucid id-as"age-manpages" \
+  ver"v1.3.1" \
+  atclone'command mkdir -p "$ZPFX/share/man/man1" && command cp -f doc/*.1 "$ZPFX/share/man/man1/"' \
+  atpull"%atclone"
+zinit light FiloSottile/age
+
 #####################
 # HISTORY           #
 #####################
@@ -250,7 +257,8 @@ alias ..="cd .."
 alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias pskill="ps aux  |  grep -i csp_build  |  awk '{print $2}'  |  xargs sudo kill -9"
 alias ram="ps aux | awk '{print $2, $4, $11}' | sort -k2rn | head -n 20"
-alias myip="curl http://ipecho.net/plain; echo"
+# alias myip="curl http://ipecho.net/plain; echo"
+alias myip="curl https://ipinfo.io"
 alias ls="eza --git --icons --group-directories-first --time-style=long-iso --group"
 alias myconfig='/usr/bin/git --git-dir=$HOME/.myconfig/ --work-tree=$HOME'
 alias -- -='cd -'
@@ -268,6 +276,7 @@ alias caps='/usr/bin/setxkbmap -option "ctrl:nocaps"'
 alias muteoff="brightnessctl -d 'platform::mute' set 0"
 # alias src="export $(cat .env | xargs)"
 alias vi=/usr/bin/nvim
+alias v=/usr/bin/nvim
 alias mpcloud="rclone mount pcloud:/ $HOME/pCloudDrive"
 alias run=./run
 alias connect="protonvpn-cli connect -f"
@@ -313,6 +322,8 @@ ba() {
 decode() {
     jq -R 'split(".") | select(length > 0) | .[0],.[1] | @base64d | fromjson' <<< "$1"
 }
+
+grok() { HERDR_AGENT=grok command grok "$@"; }
 
 #####################
 # DOCKER FUNC      #
@@ -521,7 +532,7 @@ export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 #export GOPATH=$GOPATH:$HOME/code
 
 # opencode
-export PATH=/home/mgajewskik/.opencode/bin:$PATH
+# export PATH=/home/mgajewskik/.opencode/bin:$PATH
 
 # Per-directory history support (works with mise)
 _histfile_current="$HISTFILE"
@@ -533,5 +544,12 @@ _sync_histfile() {
 }
 precmd_functions+=(_sync_histfile)
 
-# PAI alias
-alias pai='bun /home/mgajewskik/.claude/PAI/Tools/pai.ts'
+# >>> Codex installer >>>
+export PATH="/home/mgajewskik/.local/bin:$PATH"
+# <<< Codex installer <<<
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
